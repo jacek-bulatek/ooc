@@ -1,0 +1,45 @@
+[main|-controller:Controller;-spriteBatch:SpriteBatch;-elapsedTime:float|+create():void;+render():void;+dispose():void]
+
+[controller.Controller|-currentView:View;-model:Model|+Controller():Controller;+getView():View;-getCommand():Command]
+
+[view.View|-componentDrawables:Array\<Drawables\>;-basicView:FileHandle;+static resolution:Resolution;+mainCharacter:view.characters.MainCharacter|+View(FileHandle basicView):View;+display(SpriteBatch spriteBatch):void;+addComponentDrawable(Drawables drawable):void;+static setResolution(Resolution resolution):void;+dispose():void;-buildBasic(FileHandle file):void]
+
+[view.Resolution|+width;+height|+Resolution():Resolution;+Resolution(Resolution resolution):Resolution;+Resolution(int x int y):Resolution]
+
+[view.Drawables|#sprite:Sprite|+getSprite():Sprite]
+
+[view.characters.Character|#elapsedTime:float;#standingTexture:Texture;+standingRegion:TextureRegion;#movingFrames:Texture;#movingAnimationFrames:TextureRegion#displayedRegion:TextureRegion;+movingAnimations:Animation\<TextureRegion\>;#movingAnimation:Animation\<TextureRegion\>|+getPosition_X():float;+getPosition_Y():float;+setPosition_X(float x):void;+setPosition_Y(float y):void;+setElapsedTime(float elapsedTime):void;#setMovingAnimation(Animation\<TextureRegion\> movingAnimation):void;+setDisplayedRegion(TextureRegion displayedRegion):void]
+
+[view.characters.MainCharacter|+|+MainCharacter(int x int y):MainCharacter;/setMovingAnimation():void;/getSprite():Sprite]
+
+[model.Model|+mainCharacter:model.drawables.Character|+setCommand(Command command Character character):void]
+
+[model.commands.Command|+|+execute(Character character):void]
+
+[model.commands.MoveCommand|-EDirection:direction|+MoveCommand(EDirection direction):MoveCommand;/execute(Character character):void]
+
+[model.states.CharacterState|-direction:EDirection;-movingState:ECharacterMovingState|+CharacterState():CharacterState;+setMovingState(ECharacterMovingState movingState):void;+getMovingState():ECharacterMovingState;setMovingDirection(EDirection direction):void;getMovingDirection():EDirection]
+
+[model.drawables.Character|-position_X:float;-positiony:float;+characterState:CharacterState|+getPosition_X():float;+getPosition_Y():float;+setPosition_X(float x):void;+setPosition_Y(float y):void;+Character():Character;+performAction(CharacterAction characterAction):void]
+
+[model.actions.characterActions.CharacterAction|+|+perform(Character character):void]
+
+[model.actions.characterActions.MoveAction|-direction:EDirection|+setDirection(EDirection direction):void;+MoveAction(EDirection direction):MoveAction;/perform(Character character):void]
+
+[main]<>-[controller.Controller]
+[controller.Controller]<>-[view.View]
+[controller.Controller]<>-[model.Model]
+[controller.Controller]-setCommand>[model.Model]
+[view.View]<>-[view.Drawables]
+[view.View]<>-[view.Resolution]
+[view.View]<>-[view.characters.MainCharacter]
+[view.Drawables]^[view.characters.Character]
+[view.characters.Character]^[view.characters.MainCharacter]
+[model.Model]<>-[model.commands.Command]
+[model.Model]<>-[model.drawables.Character]
+[model.commands.Command]^[model.commands.MoveCommand]
+[model.commands.MoveCommand]->[model.actions.characterActions.MoveAction]
+[model.actions.characterActions.CharacterAction]^[model.actions.characterActions.MoveAction]
+[model.actions.characterActions.MoveAction]->[model.states.CharacterState]
+[model.drawables.Character]<>-[model.states.CharacterState]
+

@@ -2,7 +2,11 @@ package com.mygdx.game.controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.mygdx.game.model.commands.Command;
 import com.mygdx.game.model.Model;
+import com.mygdx.game.model.commands.MoveCommand;
+import com.mygdx.game.model.drawables.Character;
+import com.mygdx.game.model.enums.ECharacterMovingState;
 import com.mygdx.game.model.enums.EDirection;
 import com.mygdx.game.view.View;
 import com.mygdx.game.view.characters.MainCharacter;
@@ -14,81 +18,49 @@ import com.mygdx.game.view.characters.MainCharacter;
 public class Controller {
     private View currentView;
     private Model model;
-    private MainCharacter mainCharacter;
 
     public Controller()
     {
         model = new Model();
-        mainCharacter = new MainCharacter(0, 0);
         currentView = new View(null);
-        currentView.addComponentSprite(mainCharacter);
     }
     public View getView(float elapsedTime)
     {
-        mainCharacter.setElapsedTime(elapsedTime);
-        setDirection();
-        move(mainCharacter.state.isMoving());
+        model.setCommand(getCommand(), model.mainCharacter);
+        currentView.mainCharacter.setPosition_X(model.mainCharacter.getPosition_X());
+        currentView.mainCharacter.setPosition_Y(model.mainCharacter.getPosition_Y());
+        if(model.mainCharacter.characterState.getMovingState() == ECharacterMovingState.STANDS)
+            currentView.mainCharacter.setDisplayedRegion(currentView.mainCharacter.standingRegion);
+        else
+        {
+            currentView.mainCharacter.setMovingAnimation(currentView.mainCharacter.movingAnimations[model.mainCharacter.characterState.getMovingDirection().toInt()]);
+            currentView.mainCharacter.setDisplayedRegion(currentView.mainCharacter.getMovingAnimation().getKeyFrame(elapsedTime, true));
+            currentView.mainCharacter.setElapsedTime(elapsedTime);
+        }
         return currentView;
     }
 
-    private void setDirection()
+    private Command getCommand()
     {
         if(Gdx.input.isKeyPressed(Input.Keys.DOWN))
             if(Gdx.input.isKeyPressed(Input.Keys.LEFT))
-                mainCharacter.state.setState(EDirection.SW);
+                return new MoveCommand(EDirection.SW);
             else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-                mainCharacter.state.setState(EDirection.SE);
+                return new MoveCommand(EDirection.SE);
             else
-                mainCharacter.state.setState(EDirection.S);
+                return new MoveCommand(EDirection.S);
         else if(Gdx.input.isKeyPressed(Input.Keys.UP))
             if(Gdx.input.isKeyPressed(Input.Keys.LEFT))
-                mainCharacter.state.setState(EDirection.NW);
+                return new MoveCommand(EDirection.NW);
             else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-                mainCharacter.state.setState(EDirection.NE);
+                return new MoveCommand(EDirection.NE);
             else
-                mainCharacter.state.setState(EDirection.N);
+                return new MoveCommand(EDirection.N);
         else if(Gdx.input.isKeyPressed(Input.Keys.LEFT))
-            mainCharacter.state.setState(EDirection.W);
+            return new MoveCommand(EDirection.W);
         else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-            mainCharacter.state.setState(EDirection.E);
+            return new MoveCommand(EDirection.E);
         else
-            mainCharacter.state.setState(EDirection.NONE);
-        return;
-    }
-    private void move(EDirection direction)
-    {
-        switch (direction)
-        {
-            case N:
-                mainCharacter.setPosition_Y(mainCharacter.getPosition_Y() + 2);
-                return;
-            case S:
-                mainCharacter.setPosition_Y(mainCharacter.getPosition_Y() - 2);
-                return;
-            case W:
-                mainCharacter.setPosition_X(mainCharacter.getPosition_X() - 2);
-                return;
-            case E:
-                mainCharacter.setPosition_X(mainCharacter.getPosition_X() + 2);
-                return;
-            case SW:
-                mainCharacter.setPosition_X(mainCharacter.getPosition_X() - 1);
-                mainCharacter.setPosition_Y(mainCharacter.getPosition_Y() - 1);
-                return;
-            case SE:
-                mainCharacter.setPosition_X(mainCharacter.getPosition_X() + 1);
-                mainCharacter.setPosition_Y(mainCharacter.getPosition_Y() - 1);
-                return;
-            case NW:
-                mainCharacter.setPosition_X(mainCharacter.getPosition_X() - 1);
-                mainCharacter.setPosition_Y(mainCharacter.getPosition_Y() + 1);
-                return;
-            case NE:
-                mainCharacter.setPosition_X(mainCharacter.getPosition_X() + 1);
-                mainCharacter.setPosition_Y(mainCharacter.getPosition_Y() + 1);
-                return;
-            default:
-                return;
-        }
+            return new MoveCommand(EDirection.NONE);
     }
 }

@@ -1,9 +1,9 @@
 package com.mygdx.game.model.enums;
 
 public enum EDirection {
-    SW(0),
-    S(1),
-    SE(2),
+    SW(0),                  // logic behind those numbers
+    S(1),                   // is placement of frames in
+    SE(2),                  // main_character_moving_sheet.png
     W(3),
     E(4),
     NW(5),

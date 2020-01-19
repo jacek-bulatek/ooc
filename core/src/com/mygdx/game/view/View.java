@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
+import com.mygdx.game.view.characters.MainCharacter;
 
 import static java.sql.Types.NULL;
 
@@ -18,13 +19,16 @@ import static java.sql.Types.NULL;
 public class View implements Disposable {
     private Array<Drawables> componentDrawables;
     private FileHandle basicView;
+    public MainCharacter mainCharacter;
 
     public static Resolution  resolution = new Resolution();
 
     public View(FileHandle basicView)
     {
+        mainCharacter = new MainCharacter(0, 0);
         this.basicView = basicView;
         componentDrawables = new Array<Drawables>();
+        addComponentDrawable(mainCharacter);
         buildBasic(basicView);
     }
 
@@ -34,7 +38,7 @@ public class View implements Disposable {
             drawable.getSprite().draw(spriteBatch);
     }
 
-    public void addComponentSprite(Drawables drawable)
+    public void addComponentDrawable(Drawables drawable)
     {
         componentDrawables.add(drawable);
     }

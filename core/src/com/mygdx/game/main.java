@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.mygdx.game.controller.Controller;
 import com.mygdx.game.model.enums.EDirection;
 
-public class main extends ApplicationAdapter {
+public class Main extends ApplicationAdapter {
 	SpriteBatch batch;
 	float elapsedTime;
 	Controller controller;
@@ -20,6 +20,7 @@ public class main extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 		controller = new Controller();
+		elapsedTime = 0.0f;
 	}
 
 	@Override
