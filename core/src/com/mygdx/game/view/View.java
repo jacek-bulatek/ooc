@@ -32,10 +32,10 @@ public class View implements Disposable {
         buildBasic(basicView);
     }
 
-    public void display(SpriteBatch spriteBatch)
+    public void display(SpriteBatch spriteBatch, float elapsedTime)
     {
         for(Drawables drawable : componentDrawables)
-            drawable.getSprite().draw(spriteBatch);
+            drawable.getSprite(elapsedTime).draw(spriteBatch);
     }
 
     public void addComponentDrawable(Drawables drawable)

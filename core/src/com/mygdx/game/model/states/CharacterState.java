@@ -23,7 +23,7 @@ public class CharacterState {
     }
     public CharacterState()
     {
-        movingDirection = EDirection.NONE;
+        movingDirection = EDirection.S;
         movingState = ECharacterMovingState.STANDS;
     }
 }

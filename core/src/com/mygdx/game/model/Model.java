@@ -18,6 +18,7 @@ public class Model {
     public void setCommand(Command command, Character character)
     {
         // if (feasible)
-        command.execute(character);
+        if(command != null)
+            command.execute(character);
     }
 }

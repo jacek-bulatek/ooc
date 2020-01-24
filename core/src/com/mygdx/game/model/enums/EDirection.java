@@ -1,15 +1,14 @@
 package com.mygdx.game.model.enums;
 
 public enum EDirection {
-    SW(0),                  // logic behind those numbers
-    S(1),                   // is placement of frames in
-    SE(2),                  // main_character_moving_sheet.png
-    W(3),
-    E(4),
+    SW(4),                  // logic behind those numbers
+    S(0),                   // is placement of frames in
+    SE(6),                  // main_character_moving_sheet.png
+    W(1),
+    E(2),
     NW(5),
-    N(6),
-    NE(7),
-    NONE(8);
+    N(3),
+    NE(7);
 
     private final int index;
 

@@ -9,5 +9,5 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 public class Drawables {
     protected Sprite sprite;
 
-    public Sprite getSprite(){ return sprite; }
+    public Sprite getSprite(float elapsedTime){ return sprite; }
 }

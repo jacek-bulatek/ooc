@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.mygdx.game.controller.Controller;
 import com.mygdx.game.model.enums.EDirection;
 
-public class Main extends ApplicationAdapter {
+public class main extends ApplicationAdapter {
 	SpriteBatch batch;
 	float elapsedTime;
 	Controller controller;
@@ -30,7 +30,7 @@ public class Main extends ApplicationAdapter {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-		controller.getView(elapsedTime).display(batch);
+		controller.getView().display(batch, elapsedTime);
 		batch.end();
 	}
 	

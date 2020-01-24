@@ -24,43 +24,53 @@ public class Controller {
         model = new Model();
         currentView = new View(null);
     }
-    public View getView(float elapsedTime)
+    public View getView()
     {
         model.setCommand(getCommand(), model.mainCharacter);
         currentView.mainCharacter.setPosition_X(model.mainCharacter.getPosition_X());
         currentView.mainCharacter.setPosition_Y(model.mainCharacter.getPosition_Y());
-        if(model.mainCharacter.characterState.getMovingState() == ECharacterMovingState.STANDS)
-            currentView.mainCharacter.setDisplayedRegion(currentView.mainCharacter.standingRegion);
-        else
-        {
-            currentView.mainCharacter.setMovingAnimation(currentView.mainCharacter.movingAnimations[model.mainCharacter.characterState.getMovingDirection().toInt()]);
-            currentView.mainCharacter.setDisplayedRegion(currentView.mainCharacter.getMovingAnimation().getKeyFrame(elapsedTime, true));
-            currentView.mainCharacter.setElapsedTime(elapsedTime);
-        }
+        currentView.mainCharacter.setState(model.mainCharacter.characterState.getMovingState(),model.mainCharacter.characterState.getMovingDirection());
         return currentView;
     }
 
     private Command getCommand()
     {
-        if(Gdx.input.isKeyPressed(Input.Keys.DOWN))
-            if(Gdx.input.isKeyPressed(Input.Keys.LEFT))
-                return new MoveCommand(EDirection.SW);
-            else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-                return new MoveCommand(EDirection.SE);
+        MoveCommand moveCommand;
+        if(areArrowsPressed()) {
+            if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT))
+                moveCommand = new MoveCommand(ECharacterMovingState.RUNS);
             else
-                return new MoveCommand(EDirection.S);
-        else if(Gdx.input.isKeyPressed(Input.Keys.UP))
-            if(Gdx.input.isKeyPressed(Input.Keys.LEFT))
-                return new MoveCommand(EDirection.NW);
-            else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-                return new MoveCommand(EDirection.NE);
-            else
-                return new MoveCommand(EDirection.N);
-        else if(Gdx.input.isKeyPressed(Input.Keys.LEFT))
-            return new MoveCommand(EDirection.W);
-        else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-            return new MoveCommand(EDirection.E);
+                moveCommand = new MoveCommand(ECharacterMovingState.WALKS);
+
+            if (Gdx.input.isKeyPressed(Input.Keys.DOWN))
+                if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
+                    moveCommand.setDirection(EDirection.SW);
+                else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+                    moveCommand.setDirection(EDirection.SE);
+                else
+                    moveCommand.setDirection(EDirection.S);
+            else if (Gdx.input.isKeyPressed(Input.Keys.UP))
+                if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
+                    moveCommand.setDirection(EDirection.NW);
+                else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+                    moveCommand.setDirection(EDirection.NE);
+                else
+                    moveCommand.setDirection(EDirection.N);
+            else if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
+                moveCommand.setDirection(EDirection.W);
+            else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+                moveCommand.setDirection(EDirection.E);
+        }
         else
-            return new MoveCommand(EDirection.NONE);
+            moveCommand = new MoveCommand(ECharacterMovingState.STANDS);
+        return moveCommand;
+    }
+
+    boolean areArrowsPressed()
+    {
+        if(Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+            return true;
+        else
+            return false;
     }
 }

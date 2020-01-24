@@ -6,6 +6,6 @@ package com.mygdx.game.model.enums;
 
 public enum ECharacterMovingState {
     STANDS,
-    MOVES,
-    LAYS
+    WALKS,
+    RUNS
 }

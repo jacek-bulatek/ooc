@@ -11,20 +11,23 @@ import com.mygdx.game.model.drawables.Character;
 
 public class MoveCommand extends Command{
     EDirection direction;
-    public MoveCommand(EDirection direction)
+    ECharacterMovingState movingState;
+
+    public MoveCommand(ECharacterMovingState movingState)
     {
-        this.direction = direction;
+        this.movingState = movingState;
     }
+
+    public void setDirection(EDirection direction) {this.direction = direction;}
 
     @Override
     public void execute(Character character)
     {
-        if(direction == EDirection.NONE)
+        character.characterState.setMovingState(movingState);
+        if(movingState != ECharacterMovingState.STANDS)
         {
-            character.characterState.setMovingState(ECharacterMovingState.STANDS);
-            return;
+            MoveAction moveAction = new MoveAction(movingState, direction);
+            character.performAction(moveAction);
         }
-        MoveAction moveAction = new MoveAction(direction);
-        character.performAction(moveAction);
     }
 }
