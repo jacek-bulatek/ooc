@@ -27,39 +27,35 @@ public class MoveAction extends CharacterAction {
             case WALKS:
                 switch (direction) {
                     case N:
-                        character.setPosition_Y(character.getPosition_Y() + character.walkingVelocity*elapsedTime);
+                        character.setPosition(character.getPosition_X(), character.getPosition_Y() + character.walkingVelocity*elapsedTime);
                         character.characterState.setMovingDirection(EDirection.N);
                         return;
                     case S:
-                        character.setPosition_Y(character.getPosition_Y() - character.walkingVelocity*elapsedTime);
+                        character.setPosition(character.getPosition_X(), character.getPosition_Y() - character.walkingVelocity*elapsedTime);
                         character.characterState.setMovingDirection(EDirection.S);
                         return;
                     case W:
-                        character.setPosition_X(character.getPosition_X() - character.walkingVelocity*elapsedTime);
+                        character.setPosition(character.getPosition_X() - character.walkingVelocity*elapsedTime, character.getPosition_Y());
                         character.characterState.setMovingDirection(EDirection.W);
                         return;
                     case E:
-                        character.setPosition_X(character.getPosition_X() + character.walkingVelocity*elapsedTime);
+                        character.setPosition(character.getPosition_X() + character.walkingVelocity*elapsedTime, character.getPosition_Y());
                         character.characterState.setMovingDirection(EDirection.E);
                         return;
                     case SW:
-                        character.setPosition_X(character.getPosition_X() - character.walkingVelocity*elapsedTime/2);
-                        character.setPosition_Y(character.getPosition_Y() - character.walkingVelocity*elapsedTime/2);
+                        character.setPosition(character.getPosition_X() - character.walkingVelocity*elapsedTime/2, character.getPosition_Y() - character.walkingVelocity*elapsedTime/2);
                         character.characterState.setMovingDirection(EDirection.SW);
                         return;
                     case SE:
-                        character.setPosition_X(character.getPosition_X() + character.walkingVelocity*elapsedTime/2);
-                        character.setPosition_Y(character.getPosition_Y() - character.walkingVelocity*elapsedTime/2);
+                        character.setPosition(character.getPosition_X() + character.walkingVelocity*elapsedTime/2, character.getPosition_Y() - character.walkingVelocity*elapsedTime/2);
                         character.characterState.setMovingDirection(EDirection.SE);
                         return;
                     case NW:
-                        character.setPosition_X(character.getPosition_X() - character.walkingVelocity*elapsedTime/2);
-                        character.setPosition_Y(character.getPosition_Y() + character.walkingVelocity*elapsedTime/2);
+                        character.setPosition(character.getPosition_X() - character.walkingVelocity*elapsedTime/2, character.getPosition_Y() + character.walkingVelocity*elapsedTime/2);
                         character.characterState.setMovingDirection(EDirection.NW);
                         return;
                     case NE:
-                        character.setPosition_X(character.getPosition_X() + character.walkingVelocity*elapsedTime/2);
-                        character.setPosition_Y(character.getPosition_Y() + character.walkingVelocity*elapsedTime/2);
+                        character.setPosition(character.getPosition_X() + character.walkingVelocity*elapsedTime/2, character.getPosition_Y() + character.walkingVelocity*elapsedTime/2);
                         character.characterState.setMovingDirection(EDirection.NE);
                         return;
                     default:
@@ -68,39 +64,35 @@ public class MoveAction extends CharacterAction {
             case RUNS:
                 switch (direction) {
                     case N:
-                        character.setPosition_Y(character.getPosition_Y() + character.runningVelocity*elapsedTime);
+                        character.setPosition(character.getPosition_X(), character.getPosition_Y() + character.runningVelocity*elapsedTime);
                         character.characterState.setMovingDirection(EDirection.N);
                         return;
                     case S:
-                        character.setPosition_Y(character.getPosition_Y() - character.runningVelocity*elapsedTime);
+                        character.setPosition(character.getPosition_X(), character.getPosition_Y() - character.runningVelocity*elapsedTime);
                         character.characterState.setMovingDirection(EDirection.S);
                         return;
                     case W:
-                        character.setPosition_X(character.getPosition_X() - character.runningVelocity*elapsedTime);
+                        character.setPosition(character.getPosition_X() - character.runningVelocity*elapsedTime, character.getPosition_Y());
                         character.characterState.setMovingDirection(EDirection.W);
                         return;
                     case E:
-                        character.setPosition_X(character.getPosition_X() + character.runningVelocity*elapsedTime);
+                        character.setPosition(character.getPosition_X() + character.runningVelocity*elapsedTime, character.getPosition_Y());
                         character.characterState.setMovingDirection(EDirection.E);
                         return;
                     case SW:
-                        character.setPosition_X(character.getPosition_X() - character.runningVelocity*elapsedTime/2);
-                        character.setPosition_Y(character.getPosition_Y() - character.runningVelocity*elapsedTime/2);
+                        character.setPosition(character.getPosition_X() - character.runningVelocity*elapsedTime/2, character.getPosition_Y() - character.runningVelocity*elapsedTime/2);
                         character.characterState.setMovingDirection(EDirection.SW);
                         return;
                     case SE:
-                        character.setPosition_X(character.getPosition_X() + character.runningVelocity*elapsedTime/2);
-                        character.setPosition_Y(character.getPosition_Y() - character.runningVelocity*elapsedTime/2);
+                        character.setPosition(character.getPosition_X() + character.runningVelocity*elapsedTime/2, character.getPosition_Y() - character.runningVelocity*elapsedTime/2);
                         character.characterState.setMovingDirection(EDirection.SE);
                         return;
                     case NW:
-                        character.setPosition_X(character.getPosition_X() - character.runningVelocity*elapsedTime/2);
-                        character.setPosition_Y(character.getPosition_Y() + character.runningVelocity*elapsedTime/2);
+                        character.setPosition(character.getPosition_X() - character.runningVelocity*elapsedTime/2, character.getPosition_Y() + character.runningVelocity*elapsedTime/2);
                         character.characterState.setMovingDirection(EDirection.NW);
                         return;
                     case NE:
-                        character.setPosition_X(character.getPosition_X() + character.runningVelocity*elapsedTime/2);
-                        character.setPosition_Y(character.getPosition_Y() + character.runningVelocity*elapsedTime/2);
+                        character.setPosition(character.getPosition_X() + character.runningVelocity*elapsedTime/2, character.getPosition_Y() + character.runningVelocity*elapsedTime/2);
                         character.characterState.setMovingDirection(EDirection.NE);
                         return;
                     default:
