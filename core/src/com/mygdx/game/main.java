@@ -30,7 +30,7 @@ public class main extends ApplicationAdapter {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-		controller.getView().display(batch, elapsedTime);
+		controller.getView(elapsedTime).display(batch, elapsedTime);
 		batch.end();
 	}
 	

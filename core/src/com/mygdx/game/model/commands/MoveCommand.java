@@ -12,6 +12,9 @@ import com.mygdx.game.model.drawables.Character;
 public class MoveCommand extends Command{
     EDirection direction;
     ECharacterMovingState movingState;
+    float elapsedTime;
+
+    public void setElapsedTime(float elapsedTime){this.elapsedTime = elapsedTime;}
 
     public MoveCommand(ECharacterMovingState movingState)
     {
@@ -27,6 +30,7 @@ public class MoveCommand extends Command{
         if(movingState != ECharacterMovingState.STANDS)
         {
             MoveAction moveAction = new MoveAction(movingState, direction);
+            moveAction.setElapsedTime(elapsedTime);
             character.performAction(moveAction);
         }
     }
