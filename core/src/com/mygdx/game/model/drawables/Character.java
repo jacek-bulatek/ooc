@@ -12,6 +12,8 @@ import com.mygdx.game.model.states.CharacterState;
 public class Character {
     private float position_X;
     private float position_Y;
+    public float walkingVelocity;                   // in pixels per second
+    public float runningVelocity;
     public CharacterState characterState;
 
     public float getPosition_X(){return position_X;}
@@ -22,6 +24,8 @@ public class Character {
     public Character()
     {
         position_X = position_Y = 0;
+        walkingVelocity = 100f;
+        runningVelocity = 200f;
         characterState = new CharacterState();
     }
 
