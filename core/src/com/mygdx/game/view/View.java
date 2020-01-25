@@ -20,22 +20,30 @@ public class View implements Disposable {
     private Array<Drawables> componentDrawables;
     private FileHandle basicView;
     public MainCharacter mainCharacter;
+    float[] cameraPosition;
 
     public static Resolution  resolution = new Resolution();
 
     public View(FileHandle basicView)
     {
-        mainCharacter = new MainCharacter(0, 0);
+        cameraPosition = new float[] {0, 0};
+        mainCharacter = new MainCharacter(1280/2 - 50, 720/2);
         this.basicView = basicView;
         componentDrawables = new Array<Drawables>();
-        addComponentDrawable(mainCharacter);
         buildBasic(basicView);
     }
 
+    public void setCameraPosition(float[] cameraPosition) {this.cameraPosition = cameraPosition;}
+
     public void display(SpriteBatch spriteBatch, float elapsedTime)
     {
+        mainCharacter.getSprite(elapsedTime).draw(spriteBatch);
         for(Drawables drawable : componentDrawables)
-            drawable.getSprite(elapsedTime).draw(spriteBatch);
+        {
+            Sprite tmp = new Sprite(drawable.getSprite(elapsedTime));
+            tmp.translate(-cameraPosition[0], -cameraPosition[1]);
+            tmp.draw(spriteBatch);
+        }
     }
 
     public void addComponentDrawable(Drawables drawable)
