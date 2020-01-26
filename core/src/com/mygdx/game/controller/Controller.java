@@ -7,7 +7,6 @@ import com.mygdx.game.model.commands.Command;
 import com.mygdx.game.model.Model;
 import com.mygdx.game.model.commands.MoveCommand;
 import com.mygdx.game.model.drawables.Building;
-import com.mygdx.game.model.drawables.Character;
 import com.mygdx.game.model.enums.ECharacterMovingState;
 import com.mygdx.game.model.enums.EDirection;
 import com.mygdx.game.view.View;
@@ -35,8 +34,7 @@ public class Controller {
         lastElapsedTime = this.elapsedTime;
         this.elapsedTime = elapsedTime;
         model.setCommand(getCommand(), model.mainCharacter);
-        currentView.mainCharacter.setPosition_X(model.mainCharacter.getPosition_X());
-        currentView.mainCharacter.setPosition_Y(model.mainCharacter.getPosition_Y());
+        currentView.setCameraPosition(new float[] {model.mainCharacter.getPosition_X()-(1280f/2f - 50f), model.mainCharacter.getPosition_Y()-720f/2f});
         currentView.mainCharacter.setState(model.mainCharacter.characterState.getMovingState(),model.mainCharacter.characterState.getMovingDirection());
         return currentView;
     }
