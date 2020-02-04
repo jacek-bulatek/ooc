@@ -1,13 +1,7 @@
 package pl.noname.ooc.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import pl.noname.ooc.HeroInputProcessor;
 import pl.noname.ooc.OOC;
 import pl.noname.ooc.actors.play.Character;
