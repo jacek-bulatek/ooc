@@ -34,7 +34,7 @@ public class Loading extends AbstractScreen {
                 super.draw(batch, parentAlpha);
             }
         };
-        loadingBar.setSize(600f, 15f);-b #
+        loadingBar.setSize(600f, 15f);
         loadingBar.setPosition(OOC.WIDTH/2f, OOC.HEIGHT/2f, Align.center);
         addActor(loadingBar);
     }
