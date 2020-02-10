@@ -2,7 +2,7 @@ package pl.noname.ooc.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import pl.noname.ooc.HeroInputProcessor;
+import pl.noname.ooc.inputProcessors.HeroInputProcessor;
 import pl.noname.ooc.OOC;
 import pl.noname.ooc.actors.play.Character;
 import pl.noname.ooc.actors.play.World;
