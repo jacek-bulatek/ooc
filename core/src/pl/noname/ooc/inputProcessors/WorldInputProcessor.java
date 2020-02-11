@@ -1,10 +1,23 @@
 package pl.noname.ooc.inputProcessors;
 
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 
+import pl.noname.ooc.screens.Play;
+
 public class WorldInputProcessor implements InputProcessor {
+    Play screen;
+
+    public WorldInputProcessor(Play screen) {this.screen = screen;}
+
     @Override
-    public boolean keyDown(int keycode) {return false;}
+    public boolean keyDown(int keycode) {
+        if(keycode == Input.Keys.TAB)
+            screen.setFlag(Play.INVENTORY);
+        else if(keycode == Input.Keys.ESCAPE)
+            screen.setFlag(Play.MENU);
+        return false;
+    }
 
     @Override
     public boolean keyUp(int keycode) {return false;}

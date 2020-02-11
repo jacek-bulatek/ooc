@@ -62,7 +62,7 @@ HeroInputProcessor implements InputProcessor {
         }
         if(changed)
             Update();
-        return true;
+        return false;
     }
 
     @Override
@@ -88,7 +88,7 @@ HeroInputProcessor implements InputProcessor {
         }
         if(changed)
             Update();
-        return true;
+        return false;
     }
 
     @Override
