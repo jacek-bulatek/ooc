@@ -16,7 +16,8 @@ public enum  Assets {
     LOGO("logo.atlas", TextureAtlas.class),
     HERO_WALK("character_walking.png", Texture.class),
     HERO_RUN("character_running.png", Texture.class),
-    MAP("map/map.tmx",TiledMap.class);
+    MAP("map/map.tmx",TiledMap.class),
+    INVENTORY("inventory.png", Texture.class);
 
     private String filepath;
     Class type;

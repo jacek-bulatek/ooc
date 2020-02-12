@@ -3,27 +3,46 @@ package pl.noname.ooc.actors.play;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+
 import pl.noname.ooc.Assets;
+import pl.noname.ooc.screens.Play;
 
 
-public class World {
+public class World extends Actor {
     private TiledMap map;
     private TiledMapRenderer renderer;
     private OrthographicCamera camera;
     private final static int[] WALKABLE_TILES = {19, 18, 15, 14, 8, 7, 6, 4, 3, 2, 1};
-    public World() {
+    private Play screen;
+    public World(Play screen) {
+        this.screen = screen;
         map = Assets.MAP.get();
         renderer = new IsometricTiledMapRenderer(map);
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
         camera = new OrthographicCamera(w,h);
         camera.update();
+    }
+
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        super.draw(batch, parentAlpha);
+        Update(screen.getHero());
+        DrawDebug(screen.getGame().shapeRenderer);
+    }
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+        Update(screen.getHero());
     }
 
     public Vector2 PositionToCell(Vector2 pos) {
