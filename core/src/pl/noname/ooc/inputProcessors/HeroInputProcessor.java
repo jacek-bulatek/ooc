@@ -4,8 +4,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import pl.noname.ooc.actors.play.Character;
 
-public class
-HeroInputProcessor implements InputProcessor {
+public class HeroInputProcessor implements InputProcessor {
     final private Character hero;
     private boolean up = false, down = false, left = false, right = false;
     private boolean changed = false;

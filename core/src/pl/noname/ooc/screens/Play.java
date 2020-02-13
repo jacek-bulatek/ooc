@@ -68,7 +68,7 @@ public class Play extends AbstractScreen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        if(inventoryFlag || menuFlag) {
+        if(inventoryFlag) {
             Gdx.input.setInputProcessor(menuInputProcessor);
             inventory.act(delta);
         }
