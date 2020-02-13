@@ -1,8 +1,7 @@
-package pl.noname.ooc;
+package pl.noname.ooc.inputProcessors;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.utils.ArrayMap;
 import pl.noname.ooc.actors.play.Character;
 
 public class HeroInputProcessor implements InputProcessor {
@@ -43,52 +42,58 @@ public class HeroInputProcessor implements InputProcessor {
     public boolean keyDown(int keycode) {
         changed = false;
         switch (keycode) {
-            case Input.Keys.UP: case Input.Keys.W:
+            case Input.Keys.UP:
                 up = true;
                 changed = true;
                 break;
-            case Input.Keys.DOWN: case Input.Keys.S:
+            case Input.Keys.DOWN:
                 down = true;
                 changed = true;
                 break;
-            case Input.Keys.LEFT: case Input.Keys.A:
+            case Input.Keys.LEFT:
                 left = true;
                 changed = true;
                 break;
-            case Input.Keys.RIGHT: case Input.Keys.D:
+            case Input.Keys.RIGHT:
                 right = true;
                 changed = true;
                 break;
         }
         if(changed)
+        {
             Update();
-        return true;
+            return true;
+        }
+        return false;
     }
 
     @Override
     public boolean keyUp(int keycode) {
         changed = false;
         switch (keycode) {
-            case Input.Keys.UP: case Input.Keys.W:
+            case Input.Keys.UP:
                 up = false;
                 changed = true;
                 break;
-            case Input.Keys.DOWN: case Input.Keys.S:
+            case Input.Keys.DOWN:
                 down = false;
                 changed = true;
                 break;
-            case Input.Keys.LEFT: case Input.Keys.A:
+            case Input.Keys.LEFT:
                 left = false;
                 changed = true;
                 break;
-            case Input.Keys.RIGHT: case Input.Keys.D:
+            case Input.Keys.RIGHT:
                 right = false;
                 changed = true;
                 break;
         }
         if(changed)
+        {
             Update();
-        return true;
+            return true;
+        }
+        return false;
     }
 
     @Override

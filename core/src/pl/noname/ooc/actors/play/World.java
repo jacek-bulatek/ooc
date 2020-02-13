@@ -3,27 +3,48 @@ package pl.noname.ooc.actors.play;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+
 import pl.noname.ooc.Assets;
+import pl.noname.ooc.screens.Play;
 
 
-public class World {
+public class World extends Actor {
     private TiledMap map;
     private TiledMapRenderer renderer;
     private OrthographicCamera camera;
     private final static int[] WALKABLE_TILES = {19, 18, 15, 14, 8, 7, 6, 4, 3, 2, 1};
-    public World() {
+    private Play screen;
+    public World(Play screen) {
+        this.screen = screen;
         map = Assets.MAP.get();
         renderer = new IsometricTiledMapRenderer(map);
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
         camera = new OrthographicCamera(w,h);
         camera.update();
+    }
+
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        super.draw(batch, parentAlpha);
+        batch.end();
+        renderer.setView(camera);
+        renderer.render();
+        batch.begin();
+    }
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+        Update(screen.getHero());
     }
 
     public Vector2 PositionToCell(Vector2 pos) {
@@ -62,8 +83,6 @@ public class World {
         camera.position.x = heroPos.x;
         camera.position.y = heroPos.y;
         camera.update();
-        renderer.setView(camera);
-        renderer.render();
     }
 
     static private Vector2 c2i(Vector2 c) {
@@ -94,7 +113,11 @@ public class World {
         sr.line(p3, p4);
         sr.line(p4, p1);
     }
-
+/*
+ * Func: DrawDebug
+ * 
+ * Highlights tile that hero is currently on
+ * 
     public void DrawDebug(ShapeRenderer sr) {
         sr.setProjectionMatrix(camera.combined);
         sr.begin(ShapeRenderer.ShapeType.Filled);
@@ -106,4 +129,5 @@ public class World {
         DebugTile((int)Math.floor(tn.x),(int)Math.floor(tn.y), sr);
         sr.end();
     }
+*/
 }

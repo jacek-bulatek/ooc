@@ -56,13 +56,13 @@ public class Menu extends AbstractScreen {
         logoActor.setPosition(OOC.WIDTH/2f+300f, OOC.HEIGHT/2f+300f, Align.center);
         background = new Sprite((Texture) Assets.MENU_BG.get());
         Actor actor = Utility.actorFromSprite(background);
+        menuActor.addButton("Continue");
         menuActor.addButton("New game", new Runnable() {
             @Override
             public void run() {
                 game.switchScreen(OOC.Screens.PLAY);
             }
         });
-        menuActor.addButton("Continue");
         menuActor.addButton("Options");
         menuActor.addButton("Exit", new Runnable() {
             @Override
