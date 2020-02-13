@@ -1,1 +1,3 @@
-# Order Of Chaos - Model View Control approach
+## Order Of Chaos
+
+# NOTE: Before coding ALWAYS consult design with jacek-bulatek or mbulatek
