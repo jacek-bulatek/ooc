@@ -9,10 +9,10 @@ import pl.noname.ooc.screens.Play;
  * Created by Jacek on 2020-02-11.
  */
 
-public class MenuInputProcessor implements InputProcessor{
+public class InventoryInputProcessor implements InputProcessor{
     Play screen;
 
-    public MenuInputProcessor(Play screen){this.screen = screen;}
+    public InventoryInputProcessor(Play screen){this.screen = screen;}
 
     @Override
     public boolean keyDown(int keycode) {

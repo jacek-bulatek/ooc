@@ -1,7 +1,7 @@
 package pl.noname.ooc.actors.play;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -11,8 +11,11 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 
 import pl.noname.ooc.Assets;
+import pl.noname.ooc.inputProcessors.HeroInputProcessor;
+import pl.noname.ooc.inputProcessors.WorldInputProcessor;
 import pl.noname.ooc.screens.Play;
 
 
@@ -22,8 +25,22 @@ public class World extends Actor {
     private OrthographicCamera camera;
     private final static int[] WALKABLE_TILES = {19, 18, 15, 14, 8, 7, 6, 4, 3, 2, 1};
     private Play screen;
+    private Character hero;
+    private WorldInputProcessor worldInputProcessor;
+    private HeroInputProcessor heroInputProcessor;
+    private InputMultiplexer inputProcessor = new InputMultiplexer();
+    private Group onMapObjects = new Group();
+    
     public World(Play screen) {
         this.screen = screen;
+        worldInputProcessor = new WorldInputProcessor(screen);
+        hero = new Character();
+        hero.setPosition(44*64,47);
+        hero.setWorld(this);
+        onMapObjects.addActor(hero);
+        heroInputProcessor = new HeroInputProcessor(hero);
+        inputProcessor.addProcessor(worldInputProcessor);
+        inputProcessor.addProcessor(heroInputProcessor);
         map = Assets.MAP.get();
         renderer = new IsometricTiledMapRenderer(map);
         float w = Gdx.graphics.getWidth();
@@ -32,6 +49,10 @@ public class World extends Actor {
         camera.update();
     }
 
+    public InputMultiplexer getInputProcessor() {return inputProcessor;}
+    
+    public Character getHero() {return hero;}
+    
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
@@ -39,12 +60,14 @@ public class World extends Actor {
         renderer.setView(camera);
         renderer.render();
         batch.begin();
+        onMapObjects.draw(batch, parentAlpha);
     }
 
     @Override
     public void act(float delta) {
         super.act(delta);
-        Update(screen.getHero());
+        onMapObjects.act(delta);
+        Update();
     }
 
     public Vector2 PositionToCell(Vector2 pos) {
@@ -78,7 +101,7 @@ public class World extends Actor {
         return camera;
     }
 
-    public void Update(Character hero) {
+    public void Update() {
         Vector2 heroPos = hero.getStandPosition();
         camera.position.x = heroPos.x;
         camera.position.y = heroPos.y;
