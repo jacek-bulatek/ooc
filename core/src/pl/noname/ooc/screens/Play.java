@@ -1,45 +1,33 @@
 package pl.noname.ooc.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Group;
 
 import pl.noname.ooc.actors.play.InventoryActor;
-import pl.noname.ooc.inputProcessors.HeroInputProcessor;
 import pl.noname.ooc.OOC;
 import pl.noname.ooc.actors.play.Character;
 import pl.noname.ooc.actors.play.World;
-import pl.noname.ooc.inputProcessors.MenuInputProcessor;
-import pl.noname.ooc.inputProcessors.WorldInputProcessor;
 
 public class Play extends AbstractScreen {
     public static final int MENU = 1;
     public static final int INVENTORY = 2;
     boolean menuFlag, inventoryFlag;
 
-    Character hero = new Character();
-    HeroInputProcessor heroInputProcessor = new HeroInputProcessor(hero);
-    WorldInputProcessor worldInputProcessor = new WorldInputProcessor(this);
-    InputMultiplexer inputMultiplexer = new InputMultiplexer();
-    MenuInputProcessor menuInputProcessor = new MenuInputProcessor(this);
-    World world = new World(this);
-    Group worldGroup = new Group();
-    InventoryActor inventory = new InventoryActor(this, hero);
+    World world;
+    InventoryActor inventory;
 
     public Play(final OOC game) {
         super(game);
         menuFlag = false;
         inventoryFlag = false;
-        inputMultiplexer.addProcessor(heroInputProcessor);
-        inputMultiplexer.addProcessor(worldInputProcessor);
+        world = new World(this);
+        inventory = new InventoryActor(this, world.getHero());
         inventory.setVisible(false);
     }
 
     public OOC getGame(){return game;}
 
-    public Character getHero() {return hero;}
+    public Character getHero() {return world.getHero();}
 
     public void setFlag(int flag)
     {
@@ -58,7 +46,7 @@ public class Play extends AbstractScreen {
         menuFlag = false;
         inventoryFlag = false;
         inventory.setVisible(false);
-        Gdx.input.setInputProcessor(inputMultiplexer);
+        Gdx.input.setInputProcessor(world.getInputProcessor());
         return;
     }
 
@@ -72,14 +60,14 @@ public class Play extends AbstractScreen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         if(inventoryFlag) {
-            Gdx.input.setInputProcessor(menuInputProcessor);
+            Gdx.input.setInputProcessor(inventory.getInputProcessor());
             inventory.act(delta);
         }
         else if(menuFlag) {
-            Gdx.input.setInputProcessor(menuInputProcessor);
+            Gdx.input.setInputProcessor(inventory.getInputProcessor());
         }
         else {
-            worldGroup.act(delta);
+            world.act(delta);
         }
         super.draw();
     }
@@ -102,13 +90,8 @@ public class Play extends AbstractScreen {
     @Override
     public void show() {
         super.show();
-        Gdx.input.setInputProcessor(inputMultiplexer);
-        // TODO: Change literals to constants
-        hero.setPosition(44*64,47);
-        hero.setWorld(world);
-        worldGroup.addActor(world);
-        worldGroup.addActor(hero);
-        addActor(worldGroup);
+        Gdx.input.setInputProcessor(world.getInputProcessor());
+        addActor(world);
         addActor(inventory);
         getViewport().setCamera(world.getCamera());
     }
