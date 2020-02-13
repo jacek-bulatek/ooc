@@ -35,8 +35,10 @@ public class World extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        Update(screen.getHero());
-        DrawDebug(screen.getGame().shapeRenderer);
+        batch.end();
+        renderer.setView(camera);
+        renderer.render();
+        batch.begin();
     }
 
     @Override
@@ -81,8 +83,6 @@ public class World extends Actor {
         camera.position.x = heroPos.x;
         camera.position.y = heroPos.y;
         camera.update();
-        renderer.setView(camera);
-        renderer.render();
     }
 
     static private Vector2 c2i(Vector2 c) {
@@ -113,7 +113,11 @@ public class World extends Actor {
         sr.line(p3, p4);
         sr.line(p4, p1);
     }
-
+/*
+ * Func: DrawDebug
+ * 
+ * Highlights tile that hero is currently on
+ * 
     public void DrawDebug(ShapeRenderer sr) {
         sr.setProjectionMatrix(camera.combined);
         sr.begin(ShapeRenderer.ShapeType.Filled);
@@ -125,4 +129,5 @@ public class World extends Actor {
         DebugTile((int)Math.floor(tn.x),(int)Math.floor(tn.y), sr);
         sr.end();
     }
+*/
 }

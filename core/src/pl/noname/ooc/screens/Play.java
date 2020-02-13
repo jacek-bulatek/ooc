@@ -3,6 +3,7 @@ package pl.noname.ooc.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 
 import pl.noname.ooc.actors.play.InventoryActor;
@@ -25,7 +26,7 @@ public class Play extends AbstractScreen {
     MenuInputProcessor menuInputProcessor = new MenuInputProcessor(this);
     World world = new World(this);
     Group worldGroup = new Group();
-    InventoryActor inventory = new InventoryActor();
+    InventoryActor inventory = new InventoryActor(this, hero);
 
     public Play(final OOC game) {
         super(game);
@@ -33,6 +34,7 @@ public class Play extends AbstractScreen {
         inventoryFlag = false;
         inputMultiplexer.addProcessor(heroInputProcessor);
         inputMultiplexer.addProcessor(worldInputProcessor);
+        inventory.setVisible(false);
     }
 
     public OOC getGame(){return game;}
@@ -44,6 +46,7 @@ public class Play extends AbstractScreen {
         if(flag == MENU)
             menuFlag = true;
         else if(flag == INVENTORY) {
+        	getViewport().setCamera(this.getCamera());
             inventory.setVisible(true);
             inventoryFlag = true;
         }
@@ -78,8 +81,6 @@ public class Play extends AbstractScreen {
         else {
             worldGroup.act(delta);
         }
-
-        //super.act();
         super.draw();
     }
 
