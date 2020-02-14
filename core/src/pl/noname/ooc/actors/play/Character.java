@@ -74,14 +74,16 @@ public class Character extends Actor {
         stateTime += delta;
         if(state == State.WALK || state == State.RUN) {
             moveTime += delta;
-
+            world.clearBlocked(getStandPosition());
             if(moveTime > 2f) {
                 state = State.RUN;
             }
             float dx = this.direction.dx*state.velocity*delta;
             float dy = this.direction.dy*state.velocity*delta;
-            if(world.isWalkable(getStandPosition().add(dx,dy)))
+            if(world.isWalkable(getStandPosition().add(dx,dy))) {
                 moveBy(dx, dy);
+                world.setBlocked(getStandPosition());
+            }
         } else {
             moveTime = 0.0f;
         }
@@ -89,6 +91,7 @@ public class Character extends Actor {
 
     public void setWorld(World world) {
         this.world = world;
+        world.setBlocked(getStandPosition());
     }
 
     public void setState(State state) {

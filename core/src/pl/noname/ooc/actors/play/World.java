@@ -1,21 +1,26 @@
 package pl.noname.ooc.actors.play;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 
 import pl.noname.ooc.Assets;
-import pl.noname.ooc.inputProcessors.WorldInputProcessor;
 import pl.noname.ooc.inputProcessors.WorldInputProcessor;
 import pl.noname.ooc.screens.Play;
 
@@ -25,19 +30,25 @@ public class World extends Actor {
     private TiledMapRenderer renderer;
     private OrthographicCamera camera;
     private final static int[] WALKABLE_TILES = {19, 18, 15, 14, 8, 7, 6, 4, 3, 2, 1};
-    private Play screen;
     private Character hero;
+    private Character hero2;
     private WorldInputProcessor inputProcessor;
     private Group onMapObjects = new Group();
+    private List blockedTiles;
     
     public World(Play screen) {
-        this.screen = screen;
+    	blockedTiles = new ArrayList<>();
+        map = Assets.MAP.get();
+        setupMapObjectsLayer();
         hero = new Character();
         hero.setPosition(44*64,47);
         hero.setWorld(this);
+        hero2 = new Character();
+        hero2.setPosition(47*64,47);
+        hero2.setWorld(this);
         onMapObjects.addActor(hero);
+        onMapObjects.addActor(hero2);
         inputProcessor = new WorldInputProcessor(hero, screen);
-        map = Assets.MAP.get();
         renderer = new IsometricTiledMapRenderer(map);
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
@@ -78,8 +89,12 @@ public class World extends Actor {
         Vector2 isoPos = PositionToCell(pos);
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(0);
         TiledMapTileLayer.Cell cell = layer.getCell(99-(int)isoPos.y, (int)isoPos.x);
-
+        TiledMapTileLayer layer2 = (TiledMapTileLayer) map.getLayers().get(1);
+        TiledMapTileLayer.Cell cell2 = layer2.getCell(99-(int)isoPos.y, (int)isoPos.x);
+        
         if(cell != null) {
+            if(isBlocked(cell2.getTile()))
+            	return false;
             int tile_id = cell.getTile().getId();
             boolean flag = false;
             for(int id : WALKABLE_TILES) {
@@ -93,6 +108,25 @@ public class World extends Actor {
         return false;
     }
 
+    public void setBlocked(Vector2 pos) {
+    	Vector2 isoPos = PositionToCell(pos);
+        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(1);
+        TiledMapTileLayer.Cell cell = layer.getCell(99-(int)isoPos.y, (int)isoPos.x);
+        blockedTiles.add(cell.getTile());
+    	
+    }
+    
+    public void clearBlocked(Vector2 pos) {
+    	Vector2 isoPos = PositionToCell(pos);
+        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(1);
+        TiledMapTileLayer.Cell cell = layer.getCell(99-(int)isoPos.y, (int)isoPos.x);
+        blockedTiles.remove(cell.getTile());
+    }
+    
+    public boolean isBlocked(TiledMapTile tile) {
+    	return blockedTiles.contains(tile);
+    }
+    
     public OrthographicCamera getCamera() {
         return camera;
     }
@@ -131,6 +165,21 @@ public class World extends Actor {
         sr.line(p2, p3);
         sr.line(p3, p4);
         sr.line(p4, p1);
+    }
+    
+    private void setupMapObjectsLayer() {
+    	TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(1);
+    	TiledMapTileSet tileSet = new TiledMapTileSet();
+    	int tileId = 0;
+    	for(int row = 0; row < 100; row++) {
+    		for(int col = 0; col < 100; col++) {
+    			TiledMapTile tile = new StaticTiledMapTile(new TextureRegion());
+    			tile.setId(tileId++);
+    			TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
+    			cell.setTile(tile);
+    			layer.setCell(col, row, cell);
+    		}
+    	}
     }
 /*
  * Func: DrawDebug
