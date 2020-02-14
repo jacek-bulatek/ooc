@@ -2,6 +2,7 @@ package pl.noname.ooc.actors.play;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -14,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 
 import pl.noname.ooc.Assets;
-import pl.noname.ooc.inputProcessors.HeroInputProcessor;
+import pl.noname.ooc.inputProcessors.WorldInputProcessor;
 import pl.noname.ooc.inputProcessors.WorldInputProcessor;
 import pl.noname.ooc.screens.Play;
 
@@ -26,21 +27,16 @@ public class World extends Actor {
     private final static int[] WALKABLE_TILES = {19, 18, 15, 14, 8, 7, 6, 4, 3, 2, 1};
     private Play screen;
     private Character hero;
-    private WorldInputProcessor worldInputProcessor;
-    private HeroInputProcessor heroInputProcessor;
-    private InputMultiplexer inputProcessor = new InputMultiplexer();
+    private WorldInputProcessor inputProcessor;
     private Group onMapObjects = new Group();
     
     public World(Play screen) {
         this.screen = screen;
-        worldInputProcessor = new WorldInputProcessor(screen);
         hero = new Character();
         hero.setPosition(44*64,47);
         hero.setWorld(this);
         onMapObjects.addActor(hero);
-        heroInputProcessor = new HeroInputProcessor(hero);
-        inputProcessor.addProcessor(worldInputProcessor);
-        inputProcessor.addProcessor(heroInputProcessor);
+        inputProcessor = new WorldInputProcessor(hero, screen);
         map = Assets.MAP.get();
         renderer = new IsometricTiledMapRenderer(map);
         float w = Gdx.graphics.getWidth();
@@ -49,7 +45,7 @@ public class World extends Actor {
         camera.update();
     }
 
-    public InputMultiplexer getInputProcessor() {return inputProcessor;}
+    public InputProcessor getInputProcessor() {return inputProcessor;}
     
     public Character getHero() {return hero;}
     
