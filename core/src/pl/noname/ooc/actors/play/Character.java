@@ -82,8 +82,8 @@ public class Character extends Actor {
             float dy = this.direction.dy*state.velocity*delta;
             if(world.isWalkable(getStandPosition().add(dx,dy))) {
                 moveBy(dx, dy);
-                world.setBlocked(getStandPosition());
             }
+            world.setBlocked(getStandPosition());
         } else {
             moveTime = 0.0f;
         }
