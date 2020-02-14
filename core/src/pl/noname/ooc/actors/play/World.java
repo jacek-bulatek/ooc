@@ -46,8 +46,6 @@ public class World extends Actor {
         hero2 = new Character();
         hero2.setPosition(47*64,47);
         hero2.setWorld(this);
-        setBlocked(hero.getStandPosition());
-        setBlocked(hero2.getStandPosition());
         onMapObjects.addActor(hero);
         onMapObjects.addActor(hero2);
         inputProcessor = new WorldInputProcessor(hero, screen);

@@ -91,6 +91,7 @@ public class Character extends Actor {
 
     public void setWorld(World world) {
         this.world = world;
+        world.setBlocked(getStandPosition());
     }
 
     public void setState(State state) {
