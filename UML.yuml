@@ -5,7 +5,6 @@
 [actors.menu.MenuActor]
 [actors.play.Character]
 [actors.play.World]
-[inputProcessors.HeroInputProcessor]
 [inputProcessors.WorldInputProcessor]
 [inputProcessors.InventoryInputProcessor]
 [screens.AbstractScreen]
@@ -32,19 +31,14 @@
 [screens.Play]<>-[actors.play.Inventory]
 [screens.Play]<>-[actors.play.World]
 [screens.Play]-User input>[inputProcessors.InventoryInputProcessor]
-[screens.Play]-User input>[World.InputMultiplexer]
+[screens.Play]-User input>[inputProcessors.WorldInputProcessor]
 [screens.Play]<clearFlags()-[inputProcessors.InventoryInputProcessor]
 [screens.Play]<setFlag()-[inputProcessors.WorldInputProcessor]
 
 [actors.play.World]<>-[World.Group]
-[actors.play.World]<>-[World.InputMultiplexer]
+[actors.play.World]<>-[inputprocessors.WorldInputProcessor]
 
 [World.Group]<>-[actors.play.Character]
-
-[World.InputMultiplexer]<>-[inputProcessors.HeroInputProcessor]
-[World.InputMultiplexer]<>-[inputProcessors.WorldInputProcessor]
-[World.InputMultiplexer]-User input>[inputProcessors.WorldInputProcessor]
-[World.InputMultiplexer]-User input>[inputProcessors.HeroInputProcessor]
 
 [actors.play.Inventory]<>-[inputProcessors.InventoryInputProcessor]
 
@@ -56,4 +50,4 @@
 [screens.AbstractScreen]^[screens.Splash]
 [screens.AbstractScreen]^[screens.Loading]
 
-[inputProcessors.HeroInputProcessor]-setMovement()>[actors.play.Character]
+[inputProcessors.WorldInputProcessor]-setMovement()>[actors.play.Character]
