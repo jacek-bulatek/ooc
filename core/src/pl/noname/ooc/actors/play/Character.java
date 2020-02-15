@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import pl.noname.ooc.Assets;
 
-public class Character extends Actor {
+public class Character extends Actor implements WorldObject{
     public enum State {
         STAY(0f),
         WALK(100f),
@@ -73,19 +73,19 @@ public class Character extends Actor {
         super.act(delta);
         this.delta += delta;
         if(state == State.WALK || state == State.RUN) {
-            world.clearBlocked(getStandPosition());
+            world.removeObjectFromCell(getStandPosition(), this);
             float dx = this.direction.dx*state.velocity*delta;
             float dy = this.direction.dy*state.velocity*delta;
             if(world.isWalkable(getStandPosition().add(dx,dy))) {
                 moveBy(dx, dy);
             }
-            world.setBlocked(getStandPosition());
+            world.addObjectToCell(getStandPosition(), this);
         }
     }
 
     public void setWorld(World world) {
         this.world = world;
-        world.setBlocked(getStandPosition());
+        world.addObjectToCell(getStandPosition(), this);
     }
 
     public void setState(State state) {
@@ -117,4 +117,15 @@ public class Character extends Actor {
     public Vector2 getStandPosition() {
         return new Vector2(getX()+getWidth()/2f, getY()+20f);
     }
+
+	@Override
+	public boolean collides() {
+		return true;
+	}
+
+	@Override
+	public boolean interacts() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

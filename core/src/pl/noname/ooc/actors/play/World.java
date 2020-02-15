@@ -1,7 +1,9 @@
 package pl.noname.ooc.actors.play;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
@@ -28,13 +30,13 @@ public class World extends Actor {
     private Character hero2;
     private WorldInputProcessor inputProcessor;
     private Group onMapObjects = new Group();
-    private List blockedTiles;
+    private Map<TiledMapTileLayer.Cell, List<WorldObject>> occupiedCells;
     
     public World(Play screen) {
-    	blockedTiles = new ArrayList<>();
+    	occupiedCells = new HashMap<TiledMapTileLayer.Cell, List<WorldObject>>();
         map = Assets.MAP.get();
         hero = new Character();
-        hero.setPosition(CellToPosition(40, 40).x, CellToPosition(40,50).y);
+        hero.setPosition(CellToPosition(40, 30).x, CellToPosition(40,30).y);
         hero.setWorld(this);
         hero2 = new Character();
         hero2.setPosition(CellToPosition(60, 20).x, CellToPosition(60,20).y);
@@ -86,35 +88,38 @@ public class World extends Actor {
 
     public boolean isWalkable(Vector2 pos) {
         Vector2 cellPos = PositionToCell(pos);
-        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(1);
-        TiledMapTileLayer.Cell cell = layer.getCell((int)cellPos.x, (int)cellPos.y);
+        TiledMapTileLayer layer0 = (TiledMapTileLayer) map.getLayers().get(0);
+        TiledMapTileLayer layer1 = (TiledMapTileLayer) map.getLayers().get(1);
+        TiledMapTileLayer.Cell cell0 = layer0.getCell((int)cellPos.x, (int)cellPos.y);
+        TiledMapTileLayer.Cell cell1 = layer1.getCell((int)cellPos.x, (int)cellPos.y);
         
-        if(cell != null) {
-            if(isBlocked(cell))
-            	return false;
-            else
-            	return true;
+        if(cell1 != null)
+        	return false;
+        else if(occupiedCells.containsKey(cell0)) {
+        	for(WorldObject worldObject : occupiedCells.get(cell0)) {
+        		if(worldObject.collides())
+        			return false;
+        	}
         }
-        return false;
+        return true;
     }
 
-    public void setBlocked(Vector2 pos) {
+    public void addObjectToCell(Vector2 pos, WorldObject worldObject) {
     	Vector2 cellPos = PositionToCell(pos);
-        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(1);
+        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(0);
         TiledMapTileLayer.Cell cell = layer.getCell((int)cellPos.x, (int)cellPos.y);
-        blockedTiles.add(cell);
+        occupiedCells.putIfAbsent(cell, new ArrayList<WorldObject>());
+        occupiedCells.get(cell).add(worldObject);
     	
     }
     
-    public void clearBlocked(Vector2 pos) {
+    public void removeObjectFromCell(Vector2 pos, WorldObject worldObject) {
     	Vector2 cellPos = PositionToCell(pos);
-        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(1);
+        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(0);
         TiledMapTileLayer.Cell cell = layer.getCell((int)cellPos.x, (int)cellPos.y);
-        blockedTiles.remove(cell);
-    }
-    
-    public boolean isBlocked(TiledMapTileLayer.Cell cell) {
-    	return blockedTiles.contains(cell) || cell.getTile().getId() != 100;
+        occupiedCells.get(cell).remove(worldObject);
+        if (occupiedCells.get(cell).size() == 0)
+        	occupiedCells.remove(cell);
     }
     
     public OrthographicCamera getCamera() {
