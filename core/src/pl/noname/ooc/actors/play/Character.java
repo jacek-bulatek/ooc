@@ -38,8 +38,6 @@ public class Character extends Actor {
     private final static float VELOCITY = 100f;
     private final static int DIRECTION_NUM = Direction.values().length;
     private final static int FRAME_NUM = 8;
-    private float stateTime = 0.0f;
-    private float moveTime = 0.0f;
     private final TextureRegion[][] walkFrame = new TextureRegion[DIRECTION_NUM][FRAME_NUM];
     private final TextureRegion[][] runFrame = new TextureRegion[DIRECTION_NUM][FRAME_NUM];
 
@@ -49,6 +47,8 @@ public class Character extends Actor {
     private Direction direction = Direction.N;
     private State state = State.STAY;
     private World world;
+    private float delta;
+    
     public Character() {
         Texture walk_texture = Assets.HERO_WALK.get();
         Texture run_texture = Assets.HERO_RUN.get();
@@ -71,21 +71,15 @@ public class Character extends Actor {
     @Override
     public void act(float delta) {
         super.act(delta);
-        stateTime += delta;
+        this.delta += delta;
         if(state == State.WALK || state == State.RUN) {
-            moveTime += delta;
             world.clearBlocked(getStandPosition());
-            if(moveTime > 2f) {
-                state = State.RUN;
-            }
             float dx = this.direction.dx*state.velocity*delta;
             float dy = this.direction.dy*state.velocity*delta;
             if(world.isWalkable(getStandPosition().add(dx,dy))) {
                 moveBy(dx, dy);
             }
             world.setBlocked(getStandPosition());
-        } else {
-            moveTime = 0.0f;
         }
     }
 
@@ -95,18 +89,17 @@ public class Character extends Actor {
     }
 
     public void setState(State state) {
-        if(state == State.STAY || (state == State.WALK && this.state == State.STAY))
-        this.state = state;
+        	this.state = state;
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
         if(state == State.WALK) {
-            TextureRegion currentFrame = walkAnimations[direction.ordinal()].getKeyFrame(stateTime, true);
+            TextureRegion currentFrame = walkAnimations[direction.ordinal()].getKeyFrame(delta, true);
             batch.draw(currentFrame, getX(), getY());
         } else if(state == State.RUN) {
-            TextureRegion currentFrame = runAnimations[direction.ordinal()].getKeyFrame(stateTime, true);
+            TextureRegion currentFrame = runAnimations[direction.ordinal()].getKeyFrame(delta, true);
             batch.draw(currentFrame, getX(), getY());
         } else {
             batch.draw(walkFrame[direction.ordinal()][0], getX(), getY());
@@ -115,7 +108,6 @@ public class Character extends Actor {
 
     public void setMovement(Direction direction) {
         this.direction = direction;
-        this.state = State.WALK;
     }
 
     public void stopMovement() {

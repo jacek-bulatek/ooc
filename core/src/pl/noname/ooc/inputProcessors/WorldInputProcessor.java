@@ -8,7 +8,7 @@ import pl.noname.ooc.screens.Play;
 public class WorldInputProcessor implements InputProcessor {
     final private Character hero;
     final private Play screen;
-    private boolean up = false, down = false, left = false, right = false;
+    private boolean up = false, down = false, left = false, right = false, shift = false;
     private boolean changed = false;
     public WorldInputProcessor(final Character hero, final Play screen) {
         this.hero = hero;
@@ -16,6 +16,10 @@ public class WorldInputProcessor implements InputProcessor {
     }
 
     private void Update() {
+    	if(shift)
+    		hero.setState(Character.State.RUN);
+    	else
+    		hero.setState(Character.State.WALK);
         if(up) {
             if(left) {
                 hero.setMovement(Character.Direction.NW);
@@ -61,6 +65,10 @@ public class WorldInputProcessor implements InputProcessor {
                 right = true;
                 changed = true;
                 break;
+            case Input.Keys.SHIFT_LEFT:
+            	shift = true;
+            	changed = true;
+            	break;
             case Input.Keys.TAB:
             	up = down = left = right = false;
             	changed = true;
@@ -100,6 +108,9 @@ public class WorldInputProcessor implements InputProcessor {
                 right = false;
                 changed = true;
                 break;
+            case Input.Keys.SHIFT_LEFT:
+            	shift = false;
+            	changed = true;
         }
         if(changed)
         {
