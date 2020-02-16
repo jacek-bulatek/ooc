@@ -38,6 +38,7 @@ public class Play extends AbstractScreen {
             inventory.setVisible(true);
             inventoryFlag = true;
         }
+        world.pause();
         return;
     }
 
@@ -47,6 +48,7 @@ public class Play extends AbstractScreen {
         inventoryFlag = false;
         inventory.setVisible(false);
         Gdx.input.setInputProcessor(world.getInputProcessor());
+        world.resume();
         return;
     }
 
