@@ -17,7 +17,8 @@ public enum  Assets {
     HERO_WALK("character_walking.png", Texture.class),
     HERO_RUN("character_running.png", Texture.class),
     MAP("map/CityMap.tmx",TiledMap.class),
-    INVENTORY("inventory.png", Texture.class),
+    INVENTORY_BG("inventory/inventory_bg.png", Texture.class),
+    INVENTORY_CELL("inventory/inventory_cell.png", Texture.class),
     ITEM("items/food_1.png", Texture.class),
     POPUP("pick-up.png", Texture.class);
 

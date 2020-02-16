@@ -79,6 +79,8 @@ public class WorldInputProcessor implements InputProcessor {
             	changed = true;
             	screen.setFlag(Play.MENU);
             	break;
+            case Input.Keys.D:
+            	hero.interactible.interact();
         }
         if(changed)
         {

@@ -1,8 +1,14 @@
 package pl.noname.ooc.inputProcessors;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.math.Vector2;
 
+import pl.noname.ooc.OOC;
+import pl.noname.ooc.actors.play.InventoryActor;
+import pl.noname.ooc.actors.play.InventoryCell;
+import pl.noname.ooc.actors.play.Item;
 import pl.noname.ooc.screens.Play;
 
 /**
@@ -11,8 +17,13 @@ import pl.noname.ooc.screens.Play;
 
 public class InventoryInputProcessor implements InputProcessor{
     Play screen;
+    InventoryActor inventory;
+    boolean isDragging = false;
 
-    public InventoryInputProcessor(Play screen){this.screen = screen;}
+    public InventoryInputProcessor(Play screen, InventoryActor inventory){
+    	this.screen = screen;
+    	this.inventory = inventory;
+    }
 
     @Override
     public boolean keyDown(int keycode) {
@@ -33,7 +44,18 @@ public class InventoryInputProcessor implements InputProcessor{
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return false;
+    	Vector2 pos = screen.screenToGamePos(screenX, screenY);
+    	InventoryCell cell = inventory.getCellFromPosition(pos.x, pos.y);
+        if(isDragging) {
+        	inventory.dropItemFromCell(pos);
+        	isDragging = false;
+        	return true;
+        }
+        else if(cell != null && !cell.isEmpty ) {
+	       	inventory.dragItemFromCell(cell);
+	       	isDragging = true;
+        }
+        return true;
     }
 
     @Override
@@ -42,8 +64,8 @@ public class InventoryInputProcessor implements InputProcessor{
     }
 
     @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
+    public boolean touchDragged(int screenX, int screenY, int pointer) {    	
+    	return false;
     }
 
     @Override

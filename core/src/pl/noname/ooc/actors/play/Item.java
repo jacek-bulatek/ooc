@@ -5,9 +5,9 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Group;
 
 import pl.noname.ooc.Assets;
+import pl.noname.ooc.screens.Play;
 
 public class Item extends Actor implements WorldObject{
     Texture texture = Assets.ITEM.get();
@@ -16,17 +16,22 @@ public class Item extends Actor implements WorldObject{
     boolean showInteraction = false;
     PopUp popUp;
     World world;
+    Play screen;
     
-	public Item(Vector2 pos, Group group) {
+	public Item(Vector2 pos) {
 		sprite = new Sprite(texture);
 		setPosition(pos.x, pos.y);
-		group.addActor(this);
 		popUp = new PopUp(pickTexture, getX(), getY());
 		popUp.setVisible(false);
 	}
 	
+	public float getWidth() {return texture.getWidth();}
+	
+	public float getHeight() {return texture.getHeight();}
+	
 	public void setWorld(World world) {
 		this.world = world;
+		world.getOnMapObjects().addActor(this);
 		world.addObjectToCell(new Vector2(getX(), getY()), this);
 	}
 	
@@ -51,20 +56,20 @@ public class Item extends Actor implements WorldObject{
 	}
 
 	@Override
-	public boolean collides() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean collides() {return false;}
+
+	@Override
+	public boolean interacts() {return true;}
+	
+	@Override
+	public void interact() {
+		world.removeObjectFromCell(new Vector2(getX(), getY()), this);
+		world.getOnMapObjects().removeActor(this);
+		world.getScreen().inventory.addItem(this);
+		world = null;
 	}
 
 	@Override
-	public boolean interacts() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	public void showInteraction() {
-		showInteraction = true;
-	}
+	public void showInteraction() {showInteraction = true;}
 
 }

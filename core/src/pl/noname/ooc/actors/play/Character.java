@@ -35,7 +35,6 @@ public class Character extends Actor implements WorldObject{
             this.dy = dy;
         }
     }
-    private final static float VELOCITY = 100f;
     private final static int DIRECTION_NUM = Direction.values().length;
     private final static int FRAME_NUM = 8;
     private final TextureRegion[][] walkFrame = new TextureRegion[DIRECTION_NUM][FRAME_NUM];
@@ -48,8 +47,9 @@ public class Character extends Actor implements WorldObject{
     private State state = State.STAY;
     private World world;
     private float delta;
-    private WorldObject interactible;
     private boolean isMainCharacter;
+    
+    public WorldObject interactible;
     
     public Character(boolean isMainCharacter) {
     	this.isMainCharacter = isMainCharacter;
@@ -124,19 +124,14 @@ public class Character extends Actor implements WorldObject{
     }
 
 	@Override
-	public boolean collides() {
-		return true;
-	}
+	public boolean collides() {return true;}
 
 	@Override
-	public boolean interacts() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	public boolean interacts() {return false;}
 
 	@Override
-	public void showInteraction() {
-		// TODO Auto-generated method stub
-		return;
-	}
+	public void showInteraction() {return;}
+	
+	@Override
+	public void interact() {return;}
 }

@@ -5,6 +5,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
@@ -60,6 +61,9 @@ public class OOC extends Game {
 		Gdx.app.debug("OOC", "Game starts");
 		Assets.SPLASH.load();
 		Assets.SPLASH.waitForFinish();
+		Pixmap pm = new Pixmap(Gdx.files.internal("cursor.png"));
+		Gdx.graphics.setCursor(Gdx.graphics.newCursor(pm, 0, 0));
+		pm.dispose();
 		shapeRenderer = new ShapeRenderer();
 		batch = new SpriteBatch();
 		camera = new OrthographicCamera();
