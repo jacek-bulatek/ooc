@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import pl.noname.ooc.Assets;
 
-public class Character extends Actor {
+public class Character extends Actor implements WorldObject{
     public enum State {
         STAY(0f),
         WALK(100f),
@@ -48,14 +48,17 @@ public class Character extends Actor {
     private State state = State.STAY;
     private World world;
     private float delta;
+    private WorldObject interactible;
+    private boolean isMainCharacter;
     
-    public Character() {
+    public Character(boolean isMainCharacter) {
+    	this.isMainCharacter = isMainCharacter;
+    	
         Texture walk_texture = Assets.HERO_WALK.get();
         Texture run_texture = Assets.HERO_RUN.get();
 
         final int frameWidth = walk_texture.getWidth()/FRAME_NUM;
         final int frameHeight = walk_texture.getHeight()/DIRECTION_NUM;
-
         for(int i=0; i<DIRECTION_NUM; ++i) {
             for (int j = 0; j < FRAME_NUM; ++j) {
                 walkFrame[i][j] = new TextureRegion(walk_texture, j * frameWidth, i * frameHeight, frameWidth, frameHeight);
@@ -72,20 +75,22 @@ public class Character extends Actor {
     public void act(float delta) {
         super.act(delta);
         this.delta += delta;
+        if(isMainCharacter)
+        	interactible = world.checkInteraction(getStandPosition(), direction);
         if(state == State.WALK || state == State.RUN) {
-            world.clearBlocked(getStandPosition());
+            world.removeObjectFromCell(getStandPosition(), this);
             float dx = this.direction.dx*state.velocity*delta;
             float dy = this.direction.dy*state.velocity*delta;
             if(world.isWalkable(getStandPosition().add(dx,dy))) {
                 moveBy(dx, dy);
             }
-            world.setBlocked(getStandPosition());
+            world.addObjectToCell(getStandPosition(), this);
         }
     }
 
     public void setWorld(World world) {
         this.world = world;
-        world.setBlocked(getStandPosition());
+        world.addObjectToCell(getStandPosition(), this);
     }
 
     public void setState(State state) {
@@ -117,4 +122,21 @@ public class Character extends Actor {
     public Vector2 getStandPosition() {
         return new Vector2(getX()+getWidth()/2f, getY()+20f);
     }
+
+	@Override
+	public boolean collides() {
+		return true;
+	}
+
+	@Override
+	public boolean interacts() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void showInteraction() {
+		// TODO Auto-generated method stub
+		return;
+	}
 }

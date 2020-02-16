@@ -17,7 +17,9 @@ public enum  Assets {
     HERO_WALK("character_walking.png", Texture.class),
     HERO_RUN("character_running.png", Texture.class),
     MAP("map/CityMap.tmx",TiledMap.class),
-    INVENTORY("inventory.png", Texture.class);
+    INVENTORY("inventory.png", Texture.class),
+    ITEM("items/food_1.png", Texture.class),
+    POPUP("pick-up.png", Texture.class);
 
     private String filepath;
     Class type;
