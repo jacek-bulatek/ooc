@@ -4,4 +4,5 @@ public interface WorldObject {
 	public boolean collides();
 	public boolean interacts();
 	public void showInteraction();
+	public void interact();
 }

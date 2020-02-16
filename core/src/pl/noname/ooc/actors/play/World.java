@@ -33,8 +33,10 @@ public class World extends Actor {
     private Group onMapObjects = new Group();
     private Map<TiledMapTileLayer.Cell, List<WorldObject>> occupiedCells;
     private boolean isPaused = false;
+    private Play screen;
     
     public World(Play screen) {
+    	this.screen = screen;
     	occupiedCells = new HashMap<TiledMapTileLayer.Cell, List<WorldObject>>();
         map = Assets.MAP.get();
         hero = new Character(true);
@@ -45,7 +47,7 @@ public class World extends Actor {
         hero2.setWorld(this);
         onMapObjects.addActor(hero);
         onMapObjects.addActor(hero2);
-        item = new Item(CellToPosition(60, 20), onMapObjects);
+        item = new Item(CellToPosition(60, 20));
         item.setWorld(this);
         inputProcessor = new WorldInputProcessor(hero, screen);
         renderer = new OrthogonalTiledMapRenderer(map);
@@ -56,8 +58,6 @@ public class World extends Actor {
     }
 
     public InputProcessor getInputProcessor() {return inputProcessor;}
-    
-    public Character getHero() {return hero;}
     
     @Override
     public void draw(Batch batch, float parentAlpha) {
@@ -108,6 +108,8 @@ public class World extends Actor {
         }
         return true;
     }
+    
+    public Play getScreen() {return screen;}
 
     public WorldObject checkInteraction(Vector2 pos, Character.Direction dir) {
     	Vector2 cellPos = PositionToCell(pos);
@@ -145,9 +147,7 @@ public class World extends Actor {
         	occupiedCells.remove(cell);
     }
     
-    public OrthographicCamera getCamera() {
-        return camera;
-    }
+    public OrthographicCamera getCamera() {return camera;}
 
     public void Update() {
         Vector2 heroPos = hero.getStandPosition();
@@ -156,11 +156,9 @@ public class World extends Actor {
         camera.update();
     }
     
-    public void pause() {
-    	isPaused = true;
-    }
+    public void pause() {isPaused = true;}
     
-    public void resume() {
-    	isPaused = false;
-    }
+    public void resume() {isPaused = false;}
+    
+    public Group getOnMapObjects() {return onMapObjects;}
 }

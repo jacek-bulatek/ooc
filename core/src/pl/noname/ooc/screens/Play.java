@@ -2,10 +2,11 @@ package pl.noname.ooc.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.math.Vector2;
 
 import pl.noname.ooc.actors.play.InventoryActor;
+import pl.noname.ooc.actors.play.Item;
 import pl.noname.ooc.OOC;
-import pl.noname.ooc.actors.play.Character;
 import pl.noname.ooc.actors.play.World;
 
 public class Play extends AbstractScreen {
@@ -14,20 +15,18 @@ public class Play extends AbstractScreen {
     boolean menuFlag, inventoryFlag;
 
     World world;
-    InventoryActor inventory;
+    public InventoryActor inventory;
 
     public Play(final OOC game) {
         super(game);
         menuFlag = false;
         inventoryFlag = false;
         world = new World(this);
-        inventory = new InventoryActor(this, world.getHero());
+        inventory = new InventoryActor(this);
         inventory.setVisible(false);
     }
 
     public OOC getGame(){return game;}
-
-    public Character getHero() {return world.getHero();}
 
     public void setFlag(int flag)
     {
@@ -48,8 +47,16 @@ public class Play extends AbstractScreen {
         inventoryFlag = false;
         inventory.setVisible(false);
         Gdx.input.setInputProcessor(world.getInputProcessor());
+        Gdx.input.setCursorCatched(true);
         world.resume();
         return;
+    }
+    
+    public Vector2 screenToGamePos(int screenX, int screenY) {
+    	Vector2 pos = new Vector2();
+    	pos.x = getViewport().getCamera().position.x - OOC.WIDTH/2 + screenX;
+    	pos.y = getViewport().getCamera().position.y + OOC.HEIGHT/2 - screenY;
+    	return pos;
     }
 
     @Override
@@ -63,10 +70,12 @@ public class Play extends AbstractScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         if(inventoryFlag) {
             Gdx.input.setInputProcessor(inventory.getInputProcessor());
+            Gdx.input.setCursorCatched(false);
             inventory.act(delta);
         }
         else if(menuFlag) {
             Gdx.input.setInputProcessor(inventory.getInputProcessor());
+            Gdx.input.setCursorCatched(false);
         }
         else {
             world.act(delta);
@@ -93,9 +102,9 @@ public class Play extends AbstractScreen {
     public void show() {
         super.show();
         Gdx.input.setInputProcessor(world.getInputProcessor());
+        Gdx.input.setCursorCatched(true);
         addActor(world);
         addActor(inventory);
         getViewport().setCamera(world.getCamera());
     }
-
 }
