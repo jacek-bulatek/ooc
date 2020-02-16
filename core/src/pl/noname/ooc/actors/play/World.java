@@ -28,6 +28,7 @@ public class World extends Actor {
     private OrthographicCamera camera;
     private Character hero;
     private Character hero2;
+    private Item item;
     private WorldInputProcessor inputProcessor;
     private Group onMapObjects = new Group();
     private Map<TiledMapTileLayer.Cell, List<WorldObject>> occupiedCells;
@@ -35,14 +36,16 @@ public class World extends Actor {
     public World(Play screen) {
     	occupiedCells = new HashMap<TiledMapTileLayer.Cell, List<WorldObject>>();
         map = Assets.MAP.get();
-        hero = new Character();
+        hero = new Character(true);
         hero.setPosition(CellToPosition(40, 30).x, CellToPosition(40,30).y);
         hero.setWorld(this);
-        hero2 = new Character();
+        hero2 = new Character(false);
         hero2.setPosition(CellToPosition(60, 20).x, CellToPosition(60,20).y);
         hero2.setWorld(this);
         onMapObjects.addActor(hero);
         onMapObjects.addActor(hero2);
+        item = new Item(CellToPosition(60, 20), onMapObjects);
+        item.setWorld(this);
         inputProcessor = new WorldInputProcessor(hero, screen);
         renderer = new OrthogonalTiledMapRenderer(map);
         float w = Gdx.graphics.getWidth();
@@ -104,6 +107,24 @@ public class World extends Actor {
         return true;
     }
 
+    public WorldObject checkInteraction(Vector2 pos, Character.Direction dir) {
+    	Vector2 cellPos = PositionToCell(pos);
+    	cellPos.x += Math.round(dir.dx);
+    	cellPos.y += Math.round(dir.dy);
+        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(0);
+        TiledMapTileLayer.Cell cell = layer.getCell((int)cellPos.x, (int)cellPos.y);
+        
+        if(occupiedCells.containsKey(cell)) {
+        	for(WorldObject worldObject : occupiedCells.get(cell)) {
+        		if(worldObject.interacts()) {
+        			worldObject.showInteraction();
+        			return worldObject;
+        		}
+        	}
+        }
+        return null;
+    }
+        
     public void addObjectToCell(Vector2 pos, WorldObject worldObject) {
     	Vector2 cellPos = PositionToCell(pos);
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(0);

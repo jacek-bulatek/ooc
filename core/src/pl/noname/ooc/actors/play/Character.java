@@ -48,14 +48,17 @@ public class Character extends Actor implements WorldObject{
     private State state = State.STAY;
     private World world;
     private float delta;
+    private WorldObject interactible;
+    private boolean isMainCharacter;
     
-    public Character() {
+    public Character(boolean isMainCharacter) {
+    	this.isMainCharacter = isMainCharacter;
+    	
         Texture walk_texture = Assets.HERO_WALK.get();
         Texture run_texture = Assets.HERO_RUN.get();
 
         final int frameWidth = walk_texture.getWidth()/FRAME_NUM;
         final int frameHeight = walk_texture.getHeight()/DIRECTION_NUM;
-
         for(int i=0; i<DIRECTION_NUM; ++i) {
             for (int j = 0; j < FRAME_NUM; ++j) {
                 walkFrame[i][j] = new TextureRegion(walk_texture, j * frameWidth, i * frameHeight, frameWidth, frameHeight);
@@ -72,6 +75,8 @@ public class Character extends Actor implements WorldObject{
     public void act(float delta) {
         super.act(delta);
         this.delta += delta;
+        if(isMainCharacter)
+        	interactible = world.checkInteraction(getStandPosition(), direction);
         if(state == State.WALK || state == State.RUN) {
             world.removeObjectFromCell(getStandPosition(), this);
             float dx = this.direction.dx*state.velocity*delta;
@@ -127,5 +132,11 @@ public class Character extends Actor implements WorldObject{
 	public boolean interacts() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void showInteraction() {
+		// TODO Auto-generated method stub
+		return;
 	}
 }

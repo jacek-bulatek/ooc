@@ -35,7 +35,6 @@ public class InventoryActor extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        screen.getViewport().apply();
         batch.setColor(1f,1f,1f, getColor().a);
         batch.draw(sprite, getX(), getY());
     }
