@@ -32,6 +32,7 @@ public class World extends Actor {
     private WorldInputProcessor inputProcessor;
     private Group onMapObjects = new Group();
     private Map<TiledMapTileLayer.Cell, List<WorldObject>> occupiedCells;
+    private boolean isPaused = false;
     
     public World(Play screen) {
     	occupiedCells = new HashMap<TiledMapTileLayer.Cell, List<WorldObject>>();
@@ -71,7 +72,8 @@ public class World extends Actor {
     @Override
     public void act(float delta) {
         super.act(delta);
-        onMapObjects.act(delta);
+        if(!isPaused)
+        	onMapObjects.act(delta);
         Update();
     }
 
@@ -96,7 +98,7 @@ public class World extends Actor {
         TiledMapTileLayer.Cell cell0 = layer0.getCell((int)cellPos.x, (int)cellPos.y);
         TiledMapTileLayer.Cell cell1 = layer1.getCell((int)cellPos.x, (int)cellPos.y);
         
-        if(cell1 != null)
+        if(cell1 != null || cell0 == null)
         	return false;
         else if(occupiedCells.containsKey(cell0)) {
         	for(WorldObject worldObject : occupiedCells.get(cell0)) {
@@ -152,5 +154,13 @@ public class World extends Actor {
         camera.position.x = heroPos.x;
         camera.position.y = heroPos.y;
         camera.update();
+    }
+    
+    public void pause() {
+    	isPaused = true;
+    }
+    
+    public void resume() {
+    	isPaused = false;
     }
 }
