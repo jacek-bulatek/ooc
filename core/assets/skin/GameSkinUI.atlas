@@ -1,0 +1,69 @@
+
+GameSkinUI.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+inventory_bg
+  rotate: false
+  xy: 1, 425
+  size: 768, 432
+  orig: 768, 432
+  offset: 0, 0
+  index: -1
+inventory_cell
+  rotate: false
+  xy: 1711, 1709
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+inventory_cell_highlighted
+  rotate: false
+  xy: 1203, 880
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+menu_bg
+  rotate: false
+  xy: 1203, 932
+  size: 432, 768
+  orig: 432, 768
+  offset: 0, 0
+  index: -1
+menu_button
+  rotate: false
+  xy: 771, 779
+  size: 216, 78
+  orig: 216, 78
+  offset: 0, 0
+  index: -1
+menu_button_highlighted
+  rotate: false
+  xy: 1, 268
+  size: 216, 78
+  orig: 216, 78
+  offset: 0, 0
+  index: -1
+popup_bg
+  rotate: false
+  xy: 1, 348
+  size: 300, 75
+  orig: 300, 75
+  offset: 0, 0
+  index: -1
+GameFont
+  rotate: false
+  xy: 1203, 1702
+  size: 506, 57
+  orig: 506, 57
+  offset: 0, 0
+  index: -1
+window_bg
+  rotate: false
+  xy: 1, 859
+  size: 1200, 900
+  orig: 1200, 900
+  offset: 0, 0
+  index: -1

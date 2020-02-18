@@ -1,0 +1,113 @@
+{
+com.badlogic.gdx.graphics.g2d.BitmapFont: {
+	GameFont: {
+		file: GameFont.fnt
+	}
+}
+com.badlogic.gdx.graphics.Color: {
+	MenuBackground: {
+		r: 0.21176471
+		g: 0.13725491
+		b: 0.14509805
+		a: 1
+	}
+	MenuHighlightedOrange: {
+		r: 1
+		g: 0.84313726
+		b: 0.4509804
+		a: 1
+	}
+	MenuOrange: {
+		r: 0.91764706
+		g: 0.5137255
+		b: 0.23529412
+		a: 1
+	}
+	PopupGreen: {
+		r: 0.23506671
+		g: 0.82
+		b: 0.25907457
+		a: 1
+	}
+	White: {
+		r: 1
+		g: 1
+		b: 1
+		a: 1
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
+	default: {
+		imageUp: inventory_cell
+		imageDown: inventory_cell
+		imageOver: inventory_cell_highlighted
+		imageChecked: inventory_cell_highlighted
+		imageDisabled: inventory_cell
+		up: inventory_cell
+		down: inventory_cell
+		over: inventory_cell_highlighted
+		focused: inventory_cell
+		checked: inventory_cell_highlighted
+		checkedOver: inventory_cell_highlighted
+		checkedFocused: inventory_cell
+		disabled: inventory_cell
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
+	default: {
+		font: GameFont
+		fontColor: PopupGreen
+		background: popup_bg
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
+	default: {
+		font: GameFont
+		fontColor: MenuOrange
+		downFontColor: MenuHighlightedOrange
+		overFontColor: MenuBackground
+		checkedFontColor: MenuBackground
+		checkedOverFontColor: MenuHighlightedOrange
+		disabledFontColor: MenuOrange
+		up: menu_button
+		down: menu_button
+		over: menu_button_highlighted
+		focused: menu_button
+		checked: menu_button_highlighted
+		checkedOver: menu_button
+		checkedFocused: menu_button
+		disabled: menu_button
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
+	default: {
+		label: default
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Tree$TreeStyle: {
+	default: {
+		plus: menu_bg
+		minus: menu_bg
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
+	default: {
+		background: menu_bg
+		titleFont: GameFont
+		titleFontColor: MenuBackground
+		stageBackground: menu_bg
+	}
+	Menu: {
+		background: menu_bg
+		titleFont: GameFont
+		titleFontColor: MenuBackground
+		stageBackground: window_bg
+	}
+	Inventory: {
+		background: inventory_bg
+		titleFont: GameFont
+		titleFontColor: MenuBackground
+		stageBackground: window_bg
+	}
+}
+}
