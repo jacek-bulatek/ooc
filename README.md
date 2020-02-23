@@ -10,4 +10,7 @@
 ### pass: OrderOfChaos
 ### on googledrive "Mastering LibGDX Game Development" book in pdf format can be found
 
+## Onenote:
+### https://1drv.ms/u/s!AtpYlQi326H8glHnws8tIZfTJnk-?e=X8uJdq
+
 ## NOTE: Before coding ALWAYS consult design with jacek-bulatek
