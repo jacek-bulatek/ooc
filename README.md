@@ -9,6 +9,7 @@
 ### mail: devmailooc@gmail.com
 ### pass: OrderOfChaos
 ### on googledrive "Mastering LibGDX Game Development" book in pdf format can be found
+### full code described in book: https://github.com/patrickhoey/BludBourne
 
 ## Onenote:
 ### https://1drv.ms/u/s!AtpYlQi326H8glHnws8tIZfTJnk-?e=X8uJdq
