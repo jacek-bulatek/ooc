@@ -14,4 +14,4 @@
 ## Onenote:
 ### https://1drv.ms/u/s!AtpYlQi326H8glHnws8tIZfTJnk-?e=X8uJdq
 
-## NOTE: Before coding ALWAYS consult design with jacek-bulatek
+## NOTE: Before coding ALWAYS consult design with jacek-bulatek (663-263-456)
