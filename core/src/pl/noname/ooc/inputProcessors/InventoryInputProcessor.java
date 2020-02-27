@@ -44,18 +44,7 @@ public class InventoryInputProcessor implements InputProcessor{
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-    	Vector2 pos = screen.screenToGamePos(screenX, screenY);
-    	InventoryCell cell = inventory.getCellFromPosition(pos.x, pos.y);
-        if(isDragging) {
-        	inventory.dropItemFromCell(pos);
-        	isDragging = false;
-        	return true;
-        }
-        else if(cell != null && !cell.isEmpty ) {
-	       	inventory.dragItemFromCell(cell);
-	       	isDragging = true;
-        }
-        return true;
+    	return false;
     }
 
     @Override

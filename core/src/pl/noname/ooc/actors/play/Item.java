@@ -64,8 +64,7 @@ public class Item extends Actor implements WorldObject{
 	@Override
 	public void interact() {
 		world.removeObjectFromCell(new Vector2(getX(), getY()), this);
-		world.getOnMapObjects().removeActor(this);
-		world.getScreen().inventory.addItem(this);
+		world.getScreen().itemFromWorldToInventory(this);
 		world = null;
 	}
 

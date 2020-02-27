@@ -1,28 +1,37 @@
 package pl.noname.ooc.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
+import pl.noname.ooc.actors.play.GameMenu;
 import pl.noname.ooc.actors.play.InventoryActor;
 import pl.noname.ooc.actors.play.Item;
+import pl.noname.ooc.Assets;
 import pl.noname.ooc.OOC;
 import pl.noname.ooc.actors.play.World;
 
 public class Play extends AbstractScreen {
     public static final int MENU = 1;
     public static final int INVENTORY = 2;
-    boolean menuFlag, inventoryFlag;
-
-    World world;
-    public InventoryActor inventory;
+    
+    private boolean menuFlag, inventoryFlag;
+    private World world;
+    private GameMenu menu;
+    private InventoryActor inventory;
+    private InputMultiplexer inputProcessor;
 
     public Play(final OOC game) {
         super(game);
+        inputProcessor = new InputMultiplexer();
         menuFlag = false;
         inventoryFlag = false;
         world = new World(this);
-        inventory = new InventoryActor(this);
+        menu = new GameMenu("", (Skin) Assets.UISKIN.get(), this);
+        menu.setVisible(false);
+        inventory = new InventoryActor("", (Skin) Assets.UISKIN.get(), this);
         inventory.setVisible(false);
     }
 
@@ -30,10 +39,17 @@ public class Play extends AbstractScreen {
 
     public void setFlag(int flag)
     {
-        if(flag == MENU)
+        if(flag == MENU) {
+        	inputProcessor.removeProcessor(world.getInputProcessor());
+        	inputProcessor.addProcessor(inventory.getInputProcessor());
+            Gdx.input.setInputProcessor(inputProcessor);
+        	menu.setVisible(true);
             menuFlag = true;
+        }
         else if(flag == INVENTORY) {
-        	getViewport().setCamera(this.getCamera());
+        	inputProcessor.removeProcessor(world.getInputProcessor());
+            inputProcessor.addProcessor(inventory.getInputProcessor());
+            Gdx.input.setInputProcessor(inputProcessor);
             inventory.setVisible(true);
             inventoryFlag = true;
         }
@@ -43,11 +59,19 @@ public class Play extends AbstractScreen {
 
     public void clearFlags()
     {
-        menuFlag = false;
-        inventoryFlag = false;
-        inventory.setVisible(false);
-        Gdx.input.setInputProcessor(world.getInputProcessor());
+    	if(menuFlag) {
+    		menuFlag = false;
+    		inputProcessor.removeProcessor(menu.getInputProcessor());
+    		menu.setVisible(false);
+    	}
+    	else if(inventoryFlag) {
+    		inventoryFlag = false;
+    		inputProcessor.removeProcessor(inventory.getInputProcessor());
+    		inventory.setVisible(false);
+    	}
         Gdx.input.setCursorCatched(true);
+        inputProcessor.addProcessor(world.getInputProcessor());
+        Gdx.input.setInputProcessor(inputProcessor);
         world.resume();
         return;
     }
@@ -58,10 +82,19 @@ public class Play extends AbstractScreen {
     	pos.y = getViewport().getCamera().position.y + OOC.HEIGHT/2 - screenY;
     	return pos;
     }
+    
+    public void itemFromWorldToInventory(Item item) {
+		world.getOnMapObjects().removeActor(item);
+		inventory.addItem(item);
+    }
+    
+    public void itemFromInventoryToItem(Item item) {
+    	
+    }
 
     @Override
     public void act() {
-        super.act();
+    	// this is not called for some reason
     }
 
     @Override
@@ -69,13 +102,12 @@ public class Play extends AbstractScreen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         if(inventoryFlag) {
-            Gdx.input.setInputProcessor(inventory.getInputProcessor());
             Gdx.input.setCursorCatched(false);
             inventory.act(delta);
         }
         else if(menuFlag) {
-            Gdx.input.setInputProcessor(inventory.getInputProcessor());
             Gdx.input.setCursorCatched(false);
+            menu.act(delta);
         }
         else {
             world.act(delta);
@@ -101,10 +133,13 @@ public class Play extends AbstractScreen {
     @Override
     public void show() {
         super.show();
-        Gdx.input.setInputProcessor(world.getInputProcessor());
+        inputProcessor.addProcessor(this);
+        inputProcessor.addProcessor(world.getInputProcessor());
+        Gdx.input.setInputProcessor(inputProcessor);
         Gdx.input.setCursorCatched(true);
         addActor(world);
         addActor(inventory);
+        addActor(menu);
         getViewport().setCamera(world.getCamera());
     }
 }

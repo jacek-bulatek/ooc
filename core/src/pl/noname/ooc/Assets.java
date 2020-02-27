@@ -1,6 +1,5 @@
 package pl.noname.ooc;
 
-import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.Texture;
@@ -11,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public enum  Assets {
     SPLASH("splash.png", Texture.class),
-    UISKIN("skin/uiskin.json", Skin.class),
+    UISKIN("skin/GameSkinUI.json", Skin.class),
     MENU_BG("menubg.png", Texture.class),
     LOGO("logo.atlas", TextureAtlas.class),
     HERO_WALK("character_walking.png", Texture.class),
@@ -19,6 +18,8 @@ public enum  Assets {
     MAP("map/CityMap.tmx",TiledMap.class),
     INVENTORY_BG("inventory/inventory_bg.png", Texture.class),
     INVENTORY_CELL("inventory/inventory_cell.png", Texture.class),
+    GAME_MENU_BG("menu/menu_bg.png", Texture.class),
+    MENU_BUTTON("menu/menu_button.png", Texture.class),
     ITEM("items/food_1.png", Texture.class),
     POPUP("pick-up.png", Texture.class);
 

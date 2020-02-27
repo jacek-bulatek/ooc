@@ -2,13 +2,14 @@ package pl.noname.ooc.actors.play;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.utils.Align;
 
 import pl.noname.ooc.Assets;
+import pl.noname.ooc.OOC;
 import pl.noname.ooc.inputProcessors.InventoryInputProcessor;
 import pl.noname.ooc.screens.Play;
 
@@ -16,43 +17,38 @@ import pl.noname.ooc.screens.Play;
  * Created by Jacek on 2020-02-12.
  */
 
-public class InventoryActor extends Actor {
-    Sprite sprite;
-    Play screen;
-    Texture texture = Assets.INVENTORY_BG.get();
+public class InventoryActor extends Window {
+    final Play screen;
     InventoryInputProcessor inputProcessor;
-    HorizontalGroup row = new HorizontalGroup();
     boolean isDragging = false;
     InventoryCell draggedItemCell;
     
-    public InventoryActor(Play screen){
+    public InventoryActor(String title, Skin skin, final Play screen){
+    	super(title, skin);
     	this.screen = screen;
+    	WindowStyle style = skin.get("Inventory", WindowStyle.class);
+    	setStyle(style);
+    	setWidth(OOC.WIDTH * 0.8f);
+    	setHeight(OOC.HEIGHT * 0.6f);
+    	align(Align.center);
+    	defaults().spaceBottom(10f);
+    	row();
+    	add(new InventoryCell(skin, this));
+    	add(new InventoryCell(skin, this));
+    	
     	inputProcessor = new InventoryInputProcessor(screen, this);
-        sprite = new Sprite(texture);
-
-        row.space(50f);
-        for(int i = 0; i < 10; i++)
-        	row.addActor(new InventoryCell());
     }
     
     public InventoryInputProcessor getInputProcessor() {return inputProcessor;}
     
     public void addItem(Item item) {
-    	for(int i = 0; i < row.getChildren().size; i++) {
-    		InventoryCell cell = (InventoryCell) row.getChild(i);
+    	for(int i = 0; i < getCells().size; i++) {
+    		InventoryCell cell = (InventoryCell) getCells().get(i).getActor();
     		if(cell.isEmpty) {
     			cell.addItem(item);
     			return;
     		}
     	}
-    }
-    
-    @Override
-    public void draw(Batch batch, float parentAlpha) {
-        super.draw(batch, parentAlpha);
-        batch.setColor(1f,1f,1f, getColor().a);
-        batch.draw(sprite, getX(), getY());
-        row.draw(batch, parentAlpha);
     }
 
     @Override
@@ -61,27 +57,12 @@ public class InventoryActor extends Actor {
         updatePosition();
         if(isDragging) {
         	Vector2 pos = screen.screenToGamePos(Gdx.input.getX(), Gdx.input.getY());
-        	draggedItemCell.getItem().setPosition(pos.x - row.getX(), pos.y - row.getY());
+        	draggedItemCell.getItem().setPosition(pos.x - defaults().getTable().getX(), pos.y- defaults().getTable().getY());
         }
     }
     
     public void updatePosition() {
-        setPosition(screen.getViewport().getCamera().position.x - texture.getWidth()/2f, screen.getViewport().getCamera().position.y - texture.getHeight()/2f);
-        row.setPosition(getX() + 134, getY() + 50);
-    }
-    
-    public InventoryCell getCellFromPosition(float x, float y) {
-    	for(int i = 0; i < row.getChildren().size; i++) {
-    		InventoryCell cell = (InventoryCell) row.getChild(i);
-	    	float minx = cell.getX() + row.getX();
-	    	float miny = cell.getY() + row.getY();
-	    	float maxx = minx + cell.getTextureWidth();
-	    	float maxy = miny + cell.getTextureHeight();
-	    	if(minx < x && x < maxx && miny < y && y < maxy) {
-	    		return cell;
-	    	}
-    	}
-    	return null;
+        setPosition(screen.getViewport().getCamera().position.x - getWidth()/2f, screen.getViewport().getCamera().position.y - getHeight()/2f);
     }
     
     public void dragItemFromCell(InventoryCell cell) {
@@ -89,9 +70,8 @@ public class InventoryActor extends Actor {
     	draggedItemCell = cell;
     }
     
-    public void dropItemFromCell(Vector2 pos) {
+    public void dropItemToCell(InventoryCell cell) {
     	isDragging = false;
-    	InventoryCell cell = getCellFromPosition(pos.x, pos.y);
     	if(cell == null || !cell.isEmpty) {
     		draggedItemCell.placeItem();
     		draggedItemCell = null;
