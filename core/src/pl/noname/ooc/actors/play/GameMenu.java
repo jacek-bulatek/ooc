@@ -1,6 +1,5 @@
 package pl.noname.ooc.actors.play;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
@@ -41,11 +40,6 @@ public class GameMenu extends Window{
     }
     
     public MenuInputProcessor getInputProcessor() {return inputProcessor;}
-    
-    @Override
-    public void draw(Batch batch, float parentAlpha) {
-        super.draw(batch, parentAlpha);
-    }
 
     @Override
     public void act(float delta) {

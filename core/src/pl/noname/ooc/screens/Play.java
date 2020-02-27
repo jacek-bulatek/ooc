@@ -31,7 +31,7 @@ public class Play extends AbstractScreen {
         world = new World(this);
         menu = new GameMenu("", (Skin) Assets.UISKIN.get(), this);
         menu.setVisible(false);
-        inventory = new InventoryActor(this);
+        inventory = new InventoryActor("", (Skin) Assets.UISKIN.get(), this);
         inventory.setVisible(false);
     }
 
