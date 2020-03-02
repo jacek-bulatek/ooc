@@ -7,21 +7,21 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import pl.noname.ooc.Assets;
-import pl.noname.ooc.screens.Play;
+import pl.noname.ooc.screens.MainGameScreen;
 
-public class Item extends Actor implements WorldObject{
+public class InventoryItem extends Actor implements WorldObject{
     Texture texture = Assets.ITEM.get();
     Texture pickTexture = Assets.POPUP.get();
     Sprite sprite;
     boolean showInteraction = false;
-    PopUp popUp;
+    InventoryPopUp popUp;
     World world;
-    Play screen;
+    MainGameScreen screen;
     
-	public Item(Vector2 pos) {
+	public InventoryItem(Vector2 pos) {
 		sprite = new Sprite(texture);
 		setPosition(pos.x, pos.y);
-		popUp = new PopUp(pickTexture, getX(), getY());
+		popUp = new InventoryPopUp(pickTexture, getX(), getY());
 		popUp.setVisible(false);
 	}
 	

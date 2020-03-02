@@ -15,7 +15,7 @@ import pl.noname.ooc.Utility;
 import pl.noname.ooc.actors.menu.LogoActor;
 import pl.noname.ooc.actors.menu.MenuActor;
 
-public class Menu extends AbstractScreen {
+public class MainMenuGameScreen extends GameScreen {
 
     MenuActor menuActor;
     LogoActor logoActor;
@@ -49,7 +49,7 @@ public class Menu extends AbstractScreen {
         super.dispose();
     }
 
-    public Menu(final OOC game) {
+    public MainMenuGameScreen(final OOC game) {
         super(game);
         menuActor = new MenuActor((Skin) Assets.UISKIN.get());
         logoActor = new LogoActor();

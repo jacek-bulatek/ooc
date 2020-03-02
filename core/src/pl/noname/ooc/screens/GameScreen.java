@@ -10,11 +10,11 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import pl.noname.ooc.OOC;
 
-public abstract class AbstractScreen extends Stage implements Screen {
+public abstract class GameScreen extends Stage implements Screen {
 
     final OOC game;
 
-    public AbstractScreen(final OOC game) {
+    public GameScreen(final OOC game) {
         super(game.viewport, game.batch);
         this.game = game;
     }

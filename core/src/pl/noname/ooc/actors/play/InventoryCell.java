@@ -14,7 +14,7 @@ import pl.noname.ooc.Assets;
 
 public class InventoryCell extends ImageButton {
 	private final InventoryActor inventory;
-	private Item item;
+	private InventoryItem item;
 	public boolean isEmpty = true;
 	
 	public InventoryCell(Skin skin, final InventoryActor inventory) {
@@ -27,13 +27,13 @@ public class InventoryCell extends ImageButton {
 					inventory.dropItemToCell((InventoryCell) actor);
 				}
 				else {
-				inventory.dragItemFromCell((InventoryCell) actor);
+					inventory.dragItemFromCell((InventoryCell) actor);
 				}
 			}
 		});
 	}
 	
-	public void addItem(Item item) {
+	public void addItem(InventoryItem item) {
 		this.item = item;
 		placeItem();
 		isEmpty = false;
@@ -52,7 +52,7 @@ public class InventoryCell extends ImageButton {
 		return vector;
 	}
 	
-	public Item getItem() {return item;}
+	public InventoryItem getItem() {return item;}
 	
 	public void removeItem() {
 		item = null;

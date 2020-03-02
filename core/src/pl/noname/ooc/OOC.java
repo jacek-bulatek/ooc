@@ -21,22 +21,22 @@ public class OOC extends Game {
 		LOADING,
 		PLAY;
 
-		AbstractScreen scr = null;
-		public AbstractScreen get(final OOC game) {
+		GameScreen scr = null;
+		public GameScreen get(final OOC game) {
 			if(this.scr == null) {
 				Gdx.app.debug("OOC", "Creating screen " + this.toString());
 				switch (this) {
 					case SPLASH:
-						this.scr = new Splash(game);
+						this.scr = new SplashGameScreen(game);
 						break;
 					case LOADING:
-						this.scr = new Loading(game);
+						this.scr = new LoadingGameScreen(game);
 						break;
 					case MENU:
-						this.scr = new Menu(game);
+						this.scr = new MainMenuGameScreen(game);
 						break;
 					case PLAY:
-						this.scr = new Play(game);
+						this.scr = new MainGameScreen(game);
 						break;
 				}
 			}

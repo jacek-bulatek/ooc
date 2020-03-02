@@ -8,19 +8,19 @@ import com.badlogic.gdx.math.Vector2;
 import pl.noname.ooc.OOC;
 import pl.noname.ooc.actors.play.InventoryActor;
 import pl.noname.ooc.actors.play.InventoryCell;
-import pl.noname.ooc.actors.play.Item;
-import pl.noname.ooc.screens.Play;
+import pl.noname.ooc.actors.play.InventoryItem;
+import pl.noname.ooc.screens.MainGameScreen;
 
 /**
  * Created by Jacek on 2020-02-11.
  */
 
 public class InventoryInputProcessor implements InputProcessor{
-    Play screen;
+    MainGameScreen screen;
     InventoryActor inventory;
     boolean isDragging = false;
 
-    public InventoryInputProcessor(Play screen, InventoryActor inventory){
+    public InventoryInputProcessor(MainGameScreen screen, InventoryActor inventory){
     	this.screen = screen;
     	this.inventory = inventory;
     }
