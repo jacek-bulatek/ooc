@@ -19,35 +19,35 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 
 import pl.noname.ooc.Assets;
 import pl.noname.ooc.inputProcessors.WorldInputProcessor;
-import pl.noname.ooc.screens.Play;
+import pl.noname.ooc.screens.MainGameScreen;
 
 
 public class World extends Actor {
     private TiledMap map;
     private TiledMapRenderer renderer;
     private OrthographicCamera camera;
-    private Character hero;
-    private Character hero2;
-    private Item item;
+    private Entity hero;
+    private Entity hero2;
+    private InventoryItem item;
     private WorldInputProcessor inputProcessor;
     private Group onMapObjects = new Group();
     private Map<TiledMapTileLayer.Cell, List<WorldObject>> occupiedCells;
     private boolean isPaused = false;
-    private Play screen;
+    private MainGameScreen screen;
     
-    public World(Play screen) {
+    public World(MainGameScreen screen) {
     	this.screen = screen;
     	occupiedCells = new HashMap<TiledMapTileLayer.Cell, List<WorldObject>>();
         map = Assets.MAP.get();
-        hero = new Character(true);
+        hero = new Entity(true);
         hero.setPosition(CellToPosition(40, 30).x, CellToPosition(40,30).y);
         hero.setWorld(this);
-        hero2 = new Character(false);
+        hero2 = new Entity(false);
         hero2.setPosition(CellToPosition(60, 20).x, CellToPosition(60,20).y);
         hero2.setWorld(this);
         onMapObjects.addActor(hero);
         onMapObjects.addActor(hero2);
-        item = new Item(CellToPosition(60, 20));
+        item = new InventoryItem(CellToPosition(60, 20));
         item.setWorld(this);
         inputProcessor = new WorldInputProcessor(hero, screen);
         renderer = new OrthogonalTiledMapRenderer(map);
@@ -109,9 +109,9 @@ public class World extends Actor {
         return true;
     }
     
-    public Play getScreen() {return screen;}
+    public MainGameScreen getScreen() {return screen;}
 
-    public WorldObject checkInteraction(Vector2 pos, Character.Direction dir) {
+    public WorldObject checkInteraction(Vector2 pos, Entity.Direction dir) {
     	Vector2 cellPos = PositionToCell(pos);
     	cellPos.x += Math.round(dir.dx);
     	cellPos.y += Math.round(dir.dy);

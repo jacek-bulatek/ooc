@@ -5,10 +5,10 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class PopUp extends Actor {
+public class InventoryPopUp extends Actor {
 	Sprite sprite;
 	
-	public PopUp(Texture texture, float x, float y) {
+	public InventoryPopUp(Texture texture, float x, float y) {
 		sprite = new Sprite(texture);
 		setPosition(x-texture.getWidth()/2f, y+20);
 	}

@@ -9,12 +9,12 @@ import pl.noname.ooc.Assets;
 import pl.noname.ooc.OOC;
 
 
-public class Loading extends AbstractScreen {
+public class LoadingGameScreen extends GameScreen {
 
     Actor loadingBar;
     float progress = 0.0f;
     boolean start = false;
-    public Loading(final OOC game) {
+    public LoadingGameScreen(final OOC game) {
         super(game);
         loadingBar = new Actor() {
             @Override

@@ -11,19 +11,19 @@ import com.badlogic.gdx.utils.Align;
 import pl.noname.ooc.Assets;
 import pl.noname.ooc.OOC;
 import pl.noname.ooc.inputProcessors.InventoryInputProcessor;
-import pl.noname.ooc.screens.Play;
+import pl.noname.ooc.screens.MainGameScreen;
 
 /**
  * Created by Jacek on 2020-02-12.
  */
 
 public class InventoryActor extends Window {
-    final Play screen;
+    final MainGameScreen screen;
     InventoryInputProcessor inputProcessor;
     boolean isDragging = false;
     InventoryCell draggedItemCell;
     
-    public InventoryActor(String title, Skin skin, final Play screen){
+    public InventoryActor(String title, Skin skin, final MainGameScreen screen){
     	super(title, skin);
     	this.screen = screen;
     	WindowStyle style = skin.get("Inventory", WindowStyle.class);
@@ -41,7 +41,7 @@ public class InventoryActor extends Window {
     
     public InventoryInputProcessor getInputProcessor() {return inputProcessor;}
     
-    public void addItem(Item item) {
+    public void addItem(InventoryItem item) {
     	for(int i = 0; i < getCells().size; i++) {
     		InventoryCell cell = (InventoryCell) getCells().get(i).getActor();
     		if(cell.isEmpty) {

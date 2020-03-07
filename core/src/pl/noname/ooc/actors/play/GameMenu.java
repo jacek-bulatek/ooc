@@ -7,13 +7,13 @@ import com.badlogic.gdx.utils.Align;
 
 import pl.noname.ooc.OOC;
 import pl.noname.ooc.inputProcessors.MenuInputProcessor;
-import pl.noname.ooc.screens.Play;
+import pl.noname.ooc.screens.MainGameScreen;
 
 public class GameMenu extends Window{
-    final Play screen;
+    final MainGameScreen screen;
     MenuInputProcessor inputProcessor;
     
-    public GameMenu(String title, Skin skin, final Play screen){
+    public GameMenu(String title, Skin skin, final MainGameScreen screen){
     	super(title, skin);
     	this.screen = screen;
     	WindowStyle style = skin.get("Menu", WindowStyle.class);

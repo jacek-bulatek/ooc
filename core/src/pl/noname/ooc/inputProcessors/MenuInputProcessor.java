@@ -4,12 +4,12 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 
 import pl.noname.ooc.actors.play.GameMenu;
-import pl.noname.ooc.screens.Play;
+import pl.noname.ooc.screens.MainGameScreen;
 
 public class MenuInputProcessor implements InputProcessor{
-	Play screen;
+	MainGameScreen screen;
 	
-	public MenuInputProcessor(Play screen, GameMenu menu) {
+	public MenuInputProcessor(MainGameScreen screen, GameMenu menu) {
 		this.screen = screen;
 	}
 

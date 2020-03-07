@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import pl.noname.ooc.Assets;
 
-public class Character extends Actor implements WorldObject{
+public class Entity extends Actor implements WorldObject{
     public enum State {
         STAY(0f),
         WALK(100f),
@@ -51,7 +51,7 @@ public class Character extends Actor implements WorldObject{
     
     public WorldObject interactible;
     
-    public Character(boolean isMainCharacter) {
+    public Entity(boolean isMainCharacter) {
     	this.isMainCharacter = isMainCharacter;
     	
         Texture walk_texture = Assets.HERO_WALK.get();

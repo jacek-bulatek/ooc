@@ -8,12 +8,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import pl.noname.ooc.actors.play.GameMenu;
 import pl.noname.ooc.actors.play.InventoryActor;
-import pl.noname.ooc.actors.play.Item;
+import pl.noname.ooc.actors.play.InventoryItem;
 import pl.noname.ooc.Assets;
 import pl.noname.ooc.OOC;
 import pl.noname.ooc.actors.play.World;
 
-public class Play extends AbstractScreen {
+public class MainGameScreen extends GameScreen {
     public static final int MENU = 1;
     public static final int INVENTORY = 2;
     
@@ -23,7 +23,7 @@ public class Play extends AbstractScreen {
     private InventoryActor inventory;
     private InputMultiplexer inputProcessor;
 
-    public Play(final OOC game) {
+    public MainGameScreen(final OOC game) {
         super(game);
         inputProcessor = new InputMultiplexer();
         menuFlag = false;
@@ -83,12 +83,12 @@ public class Play extends AbstractScreen {
     	return pos;
     }
     
-    public void itemFromWorldToInventory(Item item) {
+    public void itemFromWorldToInventory(InventoryItem item) {
 		world.getOnMapObjects().removeActor(item);
 		inventory.addItem(item);
     }
     
-    public void itemFromInventoryToItem(Item item) {
+    public void itemFromInventoryToItem(InventoryItem item) {
     	
     }
 

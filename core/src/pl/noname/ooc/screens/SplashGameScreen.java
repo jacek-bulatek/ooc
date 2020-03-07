@@ -18,11 +18,11 @@ import pl.noname.ooc.Assets;
 import pl.noname.ooc.OOC;
 
 
-public class Splash extends AbstractScreen {
+public class SplashGameScreen extends GameScreen {
     private Actor actor;
     private Sprite splashImage;
 
-    public Splash(final OOC game) {
+    public SplashGameScreen(final OOC game) {
         super(game);
         splashImage = new Sprite(Assets.SPLASH.<Texture>get());
 
