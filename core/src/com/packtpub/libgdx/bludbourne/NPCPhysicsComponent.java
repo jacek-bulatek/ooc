@@ -9,7 +9,6 @@ public class NPCPhysicsComponent extends PhysicsComponent {
 
     public NPCPhysicsComponent(){
         _boundingBoxLocation = BoundingBoxLocation.CENTER;
-        initBoundingBox(0.4f, 0.15f);
     }
 
     @Override
@@ -18,19 +17,24 @@ public class NPCPhysicsComponent extends PhysicsComponent {
 
     @Override
     public void receiveMessage(String message) {
-        //Gdx.app.debug(TAG, "Got message " + message);
         String[] string = message.split(Component.MESSAGE_TOKEN);
 
         if( string.length == 0 ) return;
 
         //Specifically for messages with 1 object payload
         if( string.length == 2 ) {
-            if (string[0].equalsIgnoreCase(MESSAGE.INIT_START_POSITION.toString())) {
+            if(string[0].equalsIgnoreCase(MESSAGE.INIT_START_POSITION.toString())) {
                 _currentEntityPosition = _json.fromJson(Vector2.class, string[1]);
                 _nextEntityPosition.set(_currentEntityPosition.x, _currentEntityPosition.y);
-            } else if (string[0].equalsIgnoreCase(MESSAGE.CURRENT_STATE.toString())) {
+            }
+            else if(string[0].equalsIgnoreCase(MESSAGE.INIT_BOUNDING_BOX.toString())){
+                Vector2 size = _json.fromJson(Vector2.class, string[1]);
+                initBoundingBox(0.4f, 0.15f, size.x, size.y);
+            }
+            else if(string[0].equalsIgnoreCase(MESSAGE.CURRENT_STATE.toString())) {
                 _state = _json.fromJson(Entity.State.class, string[1]);
-            } else if (string[0].equalsIgnoreCase(MESSAGE.CURRENT_DIRECTION.toString())) {
+            }
+            else if(string[0].equalsIgnoreCase(MESSAGE.CURRENT_DIRECTION.toString())) {
                 _currentDirection = _json.fromJson(Entity.Direction.class, string[1]);
             }
         }
@@ -48,7 +52,7 @@ public class NPCPhysicsComponent extends PhysicsComponent {
 
         if (    !isCollisionWithMapLayer(entity, mapMgr) &&
                 !isCollisionWithMapEntities(entity, mapMgr) &&
-                _state == Entity.State.WALKING){
+                _state == Entity.State.RUNNING){
             setNextPositionToCurrent(entity);
         } else {
             updateBoundingBoxPosition(_currentEntityPosition);

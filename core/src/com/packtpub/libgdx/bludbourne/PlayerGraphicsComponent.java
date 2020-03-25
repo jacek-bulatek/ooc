@@ -49,9 +49,9 @@ public class PlayerGraphicsComponent extends GraphicsComponent {
                     Animation<TextureRegion> animation = null;
 
                     if( textureNames.size == 1) {
-                        animation = loadAnimation(textureNames.get(0), points, frameDuration);
+                        animation = loadAnimation(textureNames.get(0), points, frameDuration, entityConfig.getWidth(), entityConfig.getHeight());
                     }else if( textureNames.size == 2){
-                        animation = loadAnimation(textureNames.get(0), textureNames.get(1), points, frameDuration);
+                        animation = loadAnimation(textureNames.get(0), textureNames.get(1), points, frameDuration, entityConfig.getWidth(), entityConfig.getHeight());
                     }
 
                     _animations.put(animationType, animation);

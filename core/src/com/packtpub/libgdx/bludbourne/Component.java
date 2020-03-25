@@ -16,6 +16,7 @@ public interface Component {
         INIT_DIRECTION,
         INIT_STATE,
         INIT_SELECT_ENTITY,
+        INIT_BOUNDING_BOX,
         ENTITY_SELECTED,
         ENTITY_DESELECTED
     }

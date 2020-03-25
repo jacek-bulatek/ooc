@@ -1,7 +1,7 @@
 {
 entityID : TOWN_BLACKSMITH
 state : IMMOBILE
-direction : DOWN
+direction : S
 conversationConfigPath : "conversations/conversation003.json"
 questConfigPath : ""
 currentQuestID : ""

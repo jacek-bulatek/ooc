@@ -63,11 +63,13 @@ public class NPCGraphicsComponent extends GraphicsComponent {
                     Entity.AnimationType animationType = animationConfig.getAnimationType();
                     float frameDuration = animationConfig.getFrameDuration();
                     Animation<TextureRegion> animation = null;
+                    int frameWidth = entityConfig.getWidth();
+                    int frameHeight = entityConfig.getHeight();
 
                     if( textureNames.size == 1) {
-                        animation = loadAnimation(textureNames.get(0), points, frameDuration);
+                        animation = loadAnimation(textureNames.get(0), points, frameDuration, frameWidth, frameHeight);
                     }else if( textureNames.size == 2){
-                        animation = loadAnimation(textureNames.get(0), textureNames.get(1), points, frameDuration);
+                        animation = loadAnimation(textureNames.get(0), textureNames.get(1), points, frameDuration, frameWidth, frameHeight);
                     }
 
                     _animations.put(animationType, animation);

@@ -11,13 +11,15 @@ public class EntityConfig {
     private Array<AnimationConfig> animationConfig;
     private Array<ItemTypeID> inventory;
     private Entity.State state = Entity.State.IDLE;
-    private Entity.Direction direction = Entity.Direction.DOWN;
+    private Entity.Direction direction = Entity.Direction.S;
     private String entityID;
     private String conversationConfigPath;
     private String questConfigPath;
     private String currentQuestID;
     private String itemTypeID;
     private ObjectMap<String, String> entityProperties;
+    private int width = 16;
+    private int height = 16;
 
     public static enum EntityProperties{
         ENTITY_HEALTH_POINTS,
@@ -92,9 +94,11 @@ public class EntityConfig {
         return questConfigPath;
     }
 
-    public void setQuestConfigPath(String questConfigPath) {
-        this.questConfigPath = questConfigPath;
-    }
+    public void setQuestConfigPath(String questConfigPath) {this.questConfigPath = questConfigPath;}
+
+    public int getWidth() {return width;}
+
+    public int getHeight() {return height;}
 
     public String getConversationConfigPath() {
         return conversationConfigPath;
@@ -156,9 +160,7 @@ public class EntityConfig {
             gridPoints = new Array<GridPoint2>();
         }
 
-        public float getFrameDuration() {
-            return frameDuration;
-        }
+        public float getFrameDuration() {return frameDuration;}
 
         public void setFrameDuration(float frameDuration) {
             this.frameDuration = frameDuration;
