@@ -20,31 +20,24 @@ public class Entity {
 	private static final String TAG = Entity.class.getSimpleName();
 
 	public static enum Direction {
-		UP,
-		RIGHT,
-		DOWN,
-		LEFT;
+		N,
+		E,
+		S,
+		W,
+		NW,
+		NE,
+		SW,
+		SE;
+
 
 		static public Direction getRandomNext() {
 			return Direction.values()[MathUtils.random(Direction.values().length - 1)];
-		}
-
-		public Direction getOpposite() {
-			if( this == LEFT){
-				return RIGHT;
-			}else if( this == RIGHT){
-				return LEFT;
-			}else if( this == UP){
-				return DOWN;
-			}else{
-				return UP;
-			}
 		}
 	}
 
 	public static enum State {
 		IDLE,
-		WALKING,
+		RUNNING,
 
 		IMMOBILE;//This should always be last
 
@@ -55,16 +48,30 @@ public class Entity {
 	}
 
 	public static enum AnimationType {
-		WALK_LEFT,
-		WALK_RIGHT,
-		WALK_UP,
-		WALK_DOWN,
+		MOVE_W,
+		MOVE_E,
+		MOVE_N,
+		MOVE_S,
+		MOVE_NE,
+		MOVE_NW,
+		MOVE_SE,
+		MOVE_SW,
+
+		IDLE_W,
+		IDLE_E,
+		IDLE_N,
+		IDLE_S,
+		IDLE_NE,
+		IDLE_NW,
+		IDLE_SE,
+		IDLE_SW,
+
+		// keep simple idle for other purposes
 		IDLE,
+
 		IMMOBILE
 	}
-
-	public static final int FRAME_WIDTH = 16;
-	public static final int FRAME_HEIGHT = 16;
+	
 	private static final int MAX_COMPONENTS = 5;
 
 	private Json _json;
@@ -222,6 +229,7 @@ public class Entity {
 
 		entity.sendMessage(Component.MESSAGE.LOAD_ANIMATIONS, json.toJson(entity.getEntityConfig()));
 		entity.sendMessage(Component.MESSAGE.INIT_START_POSITION, json.toJson(position));
+		entity.sendMessage(Component.MESSAGE.INIT_BOUNDING_BOX, json.toJson(new Vector2(entityConfig.getWidth(), entityConfig.getHeight())));
 		entity.sendMessage(Component.MESSAGE.INIT_STATE, json.toJson(entity.getEntityConfig().getState()));
 		entity.sendMessage(Component.MESSAGE.INIT_DIRECTION, json.toJson(entity.getEntityConfig().getDirection()));
 
@@ -237,6 +245,7 @@ public class Entity {
 			entity.setEntityConfig(config);
 			entity.sendMessage(Component.MESSAGE.LOAD_ANIMATIONS, json.toJson(entity.getEntityConfig()));
 			entity.sendMessage(Component.MESSAGE.INIT_START_POSITION, json.toJson(new Vector2(0,0)));
+			entity.sendMessage(Component.MESSAGE.INIT_BOUNDING_BOX, json.toJson(new Vector2(config.getWidth(), config.getHeight())));
 			entity.sendMessage(Component.MESSAGE.INIT_STATE, json.toJson(entity.getEntityConfig().getState()));
 			entity.sendMessage(Component.MESSAGE.INIT_DIRECTION, json.toJson(entity.getEntityConfig().getDirection()));
 

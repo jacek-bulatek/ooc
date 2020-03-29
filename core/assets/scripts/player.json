@@ -1,7 +1,9 @@
 {
 entityID : PLAYER
 state : IDLE
-direction : DOWN
+direction : S
+width: 96
+height: 96
 conversationConfigPath : ""
 questConfigPath : ""
 currentQuestID : ""
@@ -49,69 +51,193 @@ inventory : [
 ]
 animationConfig: [
 	{
-		frameDuration: 0.25
-		animationType: IDLE
+		frameDuration: 1
+		animationType: IDLE_NE
 		texturePaths: [
-			sprites/characters/Warrior.png
+			sprites/characters/hero_idle96.png
 		]
 		gridPoints: [
 			{
 				x: 0
 				y: 0
 			}
-			
 			{
 				x: 0
 				y: 1
 			}
-			{
-			    x: 0
-				y: 2
-			}
-			{
-			    x: 0
-				y: 3
-			}
 		]
 	}
 	{
-		frameDuration: 0.25
-		animationType: WALK_DOWN
+		frameDuration: 1
+		animationType: IDLE_SW
 		texturePaths: [
-			sprites/characters/Warrior.png
-		]
-		gridPoints: [
-			{
-				x: 0
-				y: 0
-			}
-			
-			{
-				x: 0
-				y: 1
-			}
-			{
-			    x: 0
-				y: 2
-			}
-			{
-			    x: 0
-				y: 3
-			}
-		]
-	}
-	{
-	    frameDuration: 0.25
-		animationType: WALK_LEFT
-		texturePaths: [
-			sprites/characters/Warrior.png
+			sprites/characters/hero_idle96.png
 		]
 		gridPoints: [
 			{
 				x: 1
 				y: 0
 			}
-			
+			{
+				x: 1
+				y: 1
+			}
+		]
+	}
+	{
+		frameDuration: 1
+		animationType: IDLE_N
+		texturePaths: [
+			sprites/characters/hero_idle96.png
+		]
+		gridPoints: [
+			{
+				x: 2
+				y: 0
+			}
+			{
+				x: 2
+				y: 1
+			}
+		]
+	}
+	{
+		frameDuration: 1
+		animationType: IDLE_S
+		texturePaths: [
+			sprites/characters/hero_idle96.png
+		]
+		gridPoints: [
+			{
+				x: 3
+				y: 0
+			}
+			{
+				x: 3
+				y: 1
+			}
+		]
+	}
+	{
+		frameDuration: 1
+		animationType: IDLE_E
+		texturePaths: [
+			sprites/characters/hero_idle96.png
+		]
+		gridPoints: [
+			{
+				x: 4
+				y: 0
+			}
+			{
+				x: 4
+				y: 1
+			}
+		]
+	}
+	{
+		frameDuration: 1
+		animationType: IDLE_W
+		texturePaths: [
+			sprites/characters/hero_idle96.png
+		]
+		gridPoints: [
+			{
+				x: 5
+				y: 0
+			}
+			{
+				x: 5
+				y: 1
+			}
+		]
+	}
+	{
+		frameDuration: 1
+		animationType: IDLE_NW
+		texturePaths: [
+			sprites/characters/hero_idle96.png
+		]
+		gridPoints: [
+			{
+				x: 6
+				y: 0
+			}
+			{
+				x: 6
+				y: 1
+			}
+		]
+	}
+	{
+		frameDuration: 1
+		animationType: IDLE_SE
+		texturePaths: [
+			sprites/characters/hero_idle96.png
+		]
+		gridPoints: [
+			{
+				x: 7
+				y: 0
+			}
+			{
+				x: 7
+				y: 1
+			}
+		]
+	}
+	{
+		frameDuration: 0.125
+		animationType: MOVE_NE
+		texturePaths: [
+			sprites/characters/hero_run96.png
+		]
+		gridPoints: [
+			{
+				x: 0
+				y: 0
+			}
+			{
+				x: 0
+				y: 1
+			}
+			{
+			    x: 0
+				y: 2
+			}
+			{
+			    x: 0
+				y: 3
+			}
+			{
+				x: 0
+				y: 4
+			}
+			{
+				x: 0
+				y: 5
+			}
+			{
+				x: 0
+				y: 6
+			}
+			{
+				x: 0
+				y: 7
+			}
+		]
+	}
+	{
+		frameDuration: 0.125
+		animationType: MOVE_SW
+		texturePaths: [
+			sprites/characters/hero_run96.png
+		]
+		gridPoints: [
+			{
+				x: 1
+				y: 0
+			}
 			{
 				x: 1
 				y: 1
@@ -124,20 +250,35 @@ animationConfig: [
 			    x: 1
 				y: 3
 			}
+			{
+				x: 1
+				y: 4
+			}
+			{
+				x: 1
+				y: 5
+			}
+			{
+				x: 1
+				y: 6
+			}
+			{
+				x: 1
+				y: 7
+			}
 		]
 	}
 	{
-	    frameDuration: 0.25
-		animationType: WALK_RIGHT
+		frameDuration: 0.125
+		animationType: MOVE_N
 		texturePaths: [
-			sprites/characters/Warrior.png
+			sprites/characters/hero_run96.png
 		]
 		gridPoints: [
 			{
 				x: 2
 				y: 0
 			}
-			
 			{
 				x: 2
 				y: 1
@@ -150,20 +291,35 @@ animationConfig: [
 			    x: 2
 				y: 3
 			}
+			{
+				x: 2
+				y: 4
+			}
+			{
+				x: 2
+				y: 5
+			}
+			{
+				x: 2
+				y: 6
+			}
+			{
+				x: 2
+				y: 7
+			}
 		]
 	}
 	{
-	    frameDuration: 0.25
-		animationType: WALK_UP
+		frameDuration: 0.125
+		animationType: MOVE_S
 		texturePaths: [
-			sprites/characters/Warrior.png
+			sprites/characters/hero_run96.png
 		]
 		gridPoints: [
 			{
 				x: 3
 				y: 0
 			}
-			
 			{
 				x: 3
 				y: 1
@@ -176,7 +332,187 @@ animationConfig: [
 			    x: 3
 				y: 3
 			}
+			{
+				x: 3
+				y: 4
+			}
+			{
+				x: 3
+				y: 5
+			}
+			{
+				x: 3
+				y: 6
+			}
+			{
+				x: 3
+				y: 7
+			}
 		]
-	}	
+	}
+		{
+		frameDuration: 0.125
+		animationType: MOVE_E
+		texturePaths: [
+			sprites/characters/hero_run96.png
+		]
+		gridPoints: [
+			{
+				x: 4
+				y: 0
+			}
+			{
+				x: 4
+				y: 1
+			}
+			{
+			    x: 4
+				y: 2
+			}
+			{
+			    x: 4
+				y: 3
+			}
+			{
+				x: 4
+				y: 4
+			}
+			{
+				x: 4
+				y: 5
+			}
+			{
+				x: 4
+				y: 6
+			}
+			{
+				x: 4
+				y: 7
+			}
+		]
+	}
+		{
+		frameDuration: 0.125
+		animationType: MOVE_W
+		texturePaths: [
+			sprites/characters/hero_run96.png
+		]
+		gridPoints: [
+			{
+				x: 5
+				y: 0
+			}
+			{
+				x: 5
+				y: 1
+			}
+			{
+			    x: 5
+				y: 2
+			}
+			{
+			    x: 5
+				y: 3
+			}
+			{
+				x: 5
+				y: 4
+			}
+			{
+				x: 5
+				y: 5
+			}
+			{
+				x: 5
+				y: 6
+			}
+			{
+				x: 5
+				y: 7
+			}
+		]
+	}
+		{
+		frameDuration: 0.125
+		animationType: MOVE_NW
+		texturePaths: [
+			sprites/characters/hero_run96.png
+		]
+		gridPoints: [
+			{
+				x: 6
+				y: 0
+			}
+			{
+				x: 6
+				y: 1
+			}
+			{
+			    x: 6
+				y: 2
+			}
+			{
+			    x: 6
+				y: 3
+			}
+			{
+				x: 6
+				y: 4
+			}
+			{
+				x: 6
+				y: 5
+			}
+			{
+				x: 6
+				y: 6
+			}
+			{
+				x: 6
+				y: 7
+			}
+		]
+	}
+		{
+		frameDuration: 0.125
+		animationType: MOVE_SE
+		texturePaths: [
+			sprites/characters/hero_run96.png
+		]
+		gridPoints: [
+			{
+				x: 7
+				y: 0
+			}
+			{
+				x: 7
+				y: 1
+			}
+			{
+			    x: 7
+				y: 2
+			}
+			{
+			    x: 7
+				y: 3
+			}
+			{
+				x: 7
+				y: 4
+			}
+			{
+				x: 7
+				y: 5
+			}
+			{
+				x: 7
+				y: 6
+			}
+			{
+				x: 7
+				y: 7
+			}
+		]
+	}
 ]
 }	

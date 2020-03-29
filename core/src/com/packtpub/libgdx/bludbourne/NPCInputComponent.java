@@ -11,7 +11,7 @@ public class NPCInputComponent extends InputComponent {
 
     NPCInputComponent(){
         _currentDirection = Entity.Direction.getRandomNext();
-        _currentState = Entity.State.WALKING;
+        _currentState = Entity.State.RUNNING;
     }
 
     @Override
@@ -72,21 +72,21 @@ public class NPCInputComponent extends InputComponent {
         }
 
         switch( _currentDirection ) {
-            case LEFT:
-                entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.WALKING));
-                entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.LEFT));
+            case W:
+                entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.RUNNING));
+                entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.W));
                 break;
-            case RIGHT:
-                entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.WALKING));
-                entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.RIGHT));
+            case E:
+                entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.RUNNING));
+                entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.E));
                 break;
-            case UP:
-                entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.WALKING));
-                entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.UP));
+            case N:
+                entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.RUNNING));
+                entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.N));
                 break;
-            case DOWN:
-                entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.WALKING));
-                entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.DOWN));
+            case S:
+                entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.RUNNING));
+                entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.S));
                 break;
         }
     }

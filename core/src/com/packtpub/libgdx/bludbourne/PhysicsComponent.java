@@ -21,6 +21,7 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
     protected Entity.Direction _currentDirection;
     protected Json _json;
     protected Vector2 _velocity;
+    protected Vector2 _entitySize;
 
     protected Array<Entity> _tempEntities;
 
@@ -44,6 +45,7 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
         this._tempEntities = new Array<Entity>();
         _boundingBoxLocation = BoundingBoxLocation.BOTTOM_LEFT;
         _selectionRay = new Ray(new Vector3(), new Vector3());
+        this._entitySize = new Vector2(0,0);
     }
 
     protected boolean isCollisionWithMapEntities(Entity entity, MapManager mapMgr){
@@ -128,17 +130,33 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
         _velocity.scl(deltaTime);
 
         switch (_currentDirection) {
-            case LEFT :
+            case W:
                 testX -=  _velocity.x;
                 break;
-            case RIGHT :
+            case E:
                 testX += _velocity.x;
                 break;
-            case UP :
+            case N:
                 testY += _velocity.y;
                 break;
-            case DOWN :
+            case S:
                 testY -= _velocity.y;
+                break;
+            case NE:
+                testX += 0.7f * _velocity.x;
+                testY += 0.7f * _velocity.y;
+                break;
+            case NW:
+                testX -= 0.7f * _velocity.x;
+                testY += 0.7f * _velocity.y;
+                break;
+            case SE:
+                testX += 0.7f * _velocity.x;
+                testY -= 0.7f * _velocity.y;
+                break;
+            case SW:
+                testX -= 0.7f * _velocity.x;
+                testY -= 0.7f * _velocity.y;
                 break;
             default:
                 break;
@@ -151,27 +169,27 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
         _velocity.scl(1 / deltaTime);
     }
 
-    protected void initBoundingBox(float percentageWidthReduced, float percentageHeightReduced){
+    protected void initBoundingBox(float percentageWidthReduced, float percentageHeightReduced, float entityWidth, float entityHeight){
         //Update the current bounding box
         float width;
         float height;
 
-        float origWidth =  Entity.FRAME_WIDTH;
-        float origHeight = Entity.FRAME_HEIGHT;
+        _entitySize.x =  entityWidth;
+        _entitySize.y = entityHeight;
 
         float widthReductionAmount = 1.0f - percentageWidthReduced; //.8f for 20% (1 - .20)
         float heightReductionAmount = 1.0f - percentageHeightReduced; //.8f for 20% (1 - .20)
 
         if( widthReductionAmount > 0 && widthReductionAmount < 1){
-            width = Entity.FRAME_WIDTH * widthReductionAmount;
+            width = _entitySize.x * widthReductionAmount;
         }else{
-            width = Entity.FRAME_WIDTH;
+            width = _entitySize.x;
         }
 
         if( heightReductionAmount > 0 && heightReductionAmount < 1){
-            height = Entity.FRAME_HEIGHT * heightReductionAmount;
+            height = _entitySize.y * heightReductionAmount;
         }else{
-            height = Entity.FRAME_HEIGHT;
+            height = _entitySize.y;
         }
 
         if( width == 0 || height == 0){
@@ -198,10 +216,10 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
                 _boundingBox.set(minX, minY, width, height);
                 break;
             case BOTTOM_CENTER:
-                _boundingBox.setCenter(minX + origWidth/2, minY + origHeight/4);
+                _boundingBox.setCenter(minX + _entitySize.x/2, minY + _entitySize.y/4);
                 break;
             case CENTER:
-                _boundingBox.setCenter(minX + origWidth/2, minY + origHeight/2);
+                _boundingBox.setCenter(minX + _entitySize.x/2, minY + _entitySize.y/2);
                 break;
         }
 
@@ -226,10 +244,10 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
                 _boundingBox.set(minX, minY, _boundingBox.getWidth(), _boundingBox.getHeight());
                 break;
             case BOTTOM_CENTER:
-                _boundingBox.setCenter(minX + Entity.FRAME_WIDTH/2, minY + Entity.FRAME_HEIGHT/4);
+                _boundingBox.setCenter(minX + _entitySize.x/2, minY + _entitySize.y/4);
                 break;
             case CENTER:
-                _boundingBox.setCenter(minX + Entity.FRAME_WIDTH/2, minY + Entity.FRAME_HEIGHT/2);
+                _boundingBox.setCenter(minX + _entitySize.x/2, minY + _entitySize.y/2);
                 break;
         }
 

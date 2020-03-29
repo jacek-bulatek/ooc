@@ -22,7 +22,7 @@ import java.util.Hashtable;
 public abstract class Map implements AudioSubject{
     private static final String TAG = Map.class.getSimpleName();
 
-    public final static float UNIT_SCALE  = 1/16f;
+    public final static float UNIT_SCALE  = 1/32f;
 
     private Array<AudioObserver> _observers;
 

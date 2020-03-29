@@ -2,7 +2,7 @@
 {
 entityID : FIRE
 state : IMMOBILE
-direction : DOWN
+direction : S
 conversationConfigPath : ""
 questConfigPath : ""
 currentQuestID : ""

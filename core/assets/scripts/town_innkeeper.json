@@ -1,7 +1,7 @@
 {
 entityID : TOWN_INNKEEPER
 state : IMMOBILE
-direction : DOWN
+direction : S
 conversationConfigPath : ""
 questConfigPath : ""
 currentQuestID : ""

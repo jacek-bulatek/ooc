@@ -39,25 +39,51 @@ public class PlayerInputComponent extends InputComponent {
 		if(keys.get(Keys.PAUSE)) {
 			MainGameScreen.setGameState(MainGameScreen.GameState.PAUSED);
 			pauseReleased();
-		}else if( keys.get(Keys.LEFT)){
-			entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.WALKING));
-			entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.LEFT));
-		}else if( keys.get(Keys.RIGHT)){
-			entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.WALKING));
-			entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.RIGHT));
-		}else if( keys.get(Keys.UP)){
-			entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.WALKING));
-			entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.UP));
-		}else if(keys.get(Keys.DOWN)){
-			entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.WALKING));
-			entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.DOWN));
-		}else if(keys.get(Keys.QUIT)) {
+		}
+		else if(keys.get(Keys.UP)) {
+            if (keys.get(Keys.LEFT)) {
+                entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.RUNNING));
+                entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.NW));
+            }
+            else if (keys.get(Keys.RIGHT)) {
+                entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.RUNNING));
+                entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.NE));
+            }
+            else {
+                entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.RUNNING));
+                entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.N));
+            }
+        }
+        else if(keys.get(Keys.DOWN)){
+            if(keys.get(Keys.RIGHT)){
+                entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.RUNNING));
+                entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.SE));
+            }
+            else if (keys.get(Keys.LEFT)){
+                entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.RUNNING));
+                entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.SW));
+            }
+            else {
+                entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.RUNNING));
+                entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.S));
+            }
+        }
+        else if(keys.get(Keys.RIGHT)){
+			entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.RUNNING));
+			entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.E));
+		}
+        else if(keys.get(Keys.LEFT)){
+            entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.RUNNING));
+            entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.W));
+        }
+		else if(keys.get(Keys.QUIT)) {
 			quitReleased();
 			Gdx.app.exit();
-		}else{
+		}
+		else{
 			entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.IDLE));
 			if( _currentDirection == null ){
-				entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.DOWN));
+				entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.S));
 			}
 		}
 
@@ -71,16 +97,16 @@ public class PlayerInputComponent extends InputComponent {
 
 	@Override
 	public boolean keyDown(int keycode) {
-		if( keycode == Input.Keys.LEFT || keycode == Input.Keys.A){
+		if( keycode == Input.Keys.LEFT){
 			this.leftPressed();
 		}
-		if( keycode == Input.Keys.RIGHT || keycode == Input.Keys.D){
+		if( keycode == Input.Keys.RIGHT){
 			this.rightPressed();
 		}
-		if( keycode == Input.Keys.UP || keycode == Input.Keys.W){
+		if( keycode == Input.Keys.UP){
 			this.upPressed();
 		}
-		if( keycode == Input.Keys.DOWN || keycode == Input.Keys.S){
+		if( keycode == Input.Keys.DOWN){
 			this.downPressed();
 		}
 		if( keycode == Input.Keys.Q){

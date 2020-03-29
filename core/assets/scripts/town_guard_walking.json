@@ -1,7 +1,7 @@
 {
 entityID : TOWN_GUARD
 state : IDLE
-direction : DOWN
+direction : S
 conversationConfigPath : "conversations/conversation002.json"
 questConfigPath : ""
 currentQuestID : ""
@@ -35,7 +35,7 @@ animationConfig: [
 	}
 	{
 	    frameDuration: 0.25
-		animationType: WALK_DOWN
+		animationType: MOVE_S
 		texturePaths: [
 			sprites/characters/Paladin.png
 		]
@@ -61,7 +61,7 @@ animationConfig: [
 	}
 	{
 		frameDuration: 0.25
-		animationType: WALK_LEFT
+		animationType: MOVE_W
 		texturePaths: [
 			sprites/characters/Paladin.png
 		]
@@ -87,7 +87,7 @@ animationConfig: [
 	}
 	{
 		frameDuration: 0.25
-		animationType: WALK_RIGHT
+		animationType: MOVE_E
 		texturePaths: [
 			sprites/characters/Paladin.png
 		]
@@ -113,7 +113,7 @@ animationConfig: [
 	}
 	{
 		frameDuration: 0.25
-		animationType: WALK_UP
+		animationType: MOVE_N
 		texturePaths: [
 			sprites/characters/Paladin.png
 		]
