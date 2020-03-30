@@ -13,21 +13,25 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
+
 
 public final class Utility {
 	public static final AssetManager _assetManager = new AssetManager();
 	private static final String TAG = Utility.class.getSimpleName();
 	private static InternalFileHandleResolver _filePathResolver =  new InternalFileHandleResolver();
 
-	private final static String STATUSUI_TEXTURE_ATLAS_PATH = "skins/statusui.atlas";
-	private final static String STATUSUI_SKIN_PATH = "skins/statusui.json";
-	private final static String ITEMS_TEXTURE_ATLAS_PATH = "skins/items.atlas";
-	private final static String ITEMS_SKIN_PATH = "skins/items.json";
+	public static TextureAtlas STATUSUI_TEXTUREATLAS = new TextureAtlas("skins/statusui.atlas");
+	public static Skin STATUSUI_SKIN = new Skin(Gdx.files.internal("skins/statusui.json"), STATUSUI_TEXTUREATLAS);
 
-	public static TextureAtlas STATUSUI_TEXTUREATLAS = new TextureAtlas(STATUSUI_TEXTURE_ATLAS_PATH);
-	public static TextureAtlas ITEMS_TEXTUREATLAS = new TextureAtlas(ITEMS_TEXTURE_ATLAS_PATH);
-	public static Skin STATUSUI_SKIN = new Skin(Gdx.files.internal(STATUSUI_SKIN_PATH), STATUSUI_TEXTUREATLAS);
+	public static TextureAtlas ITEMS_TEXTUREATLAS = new TextureAtlas("skins/items.atlas");
+
+	public static TextureAtlas GAME_TEXTUREATLAS = new TextureAtlas("skins/GameSkinUI.atlas");
+	public static Skin GAME_SKIN = new Skin(Gdx.files.internal("skins/GameSkinUI.json"), GAME_TEXTUREATLAS);
+
+
+	public static TextureAtlas LOGO_TEXTUREATLAS = new TextureAtlas("menu/logo.atlas");
+	public static Texture MAINMENU_BACKGROUND = new Texture("menu/menubg.png");
+	public static Texture SPLASH = new Texture("menu/splash.png");
 
 	public static void unloadAsset(String assetFilenamePath){
 	// once the asset manager is done loading

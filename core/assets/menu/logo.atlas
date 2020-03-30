@@ -1,0 +1,27 @@
+
+logo.png
+size: 1024,128
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+chaos
+  rotate: false
+  xy: 2, 2
+  size: 500, 101
+  orig: 500, 101
+  offset: 0, 0
+  index: -1
+of
+  rotate: false
+  xy: 815, 60
+  size: 68, 43
+  orig: 68, 43
+  offset: 0, 0
+  index: -1
+order
+  rotate: false
+  xy: 504, 43
+  size: 309, 60
+  orig: 309, 60
+  offset: 0, 0
+  index: -1

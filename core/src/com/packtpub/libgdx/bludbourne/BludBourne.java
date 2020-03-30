@@ -3,17 +3,15 @@ package com.packtpub.libgdx.bludbourne;
 import com.badlogic.gdx.Game;
 
 import com.badlogic.gdx.Screen;
-import com.packtpub.libgdx.bludbourne.screens.CreditScreen;
-import com.packtpub.libgdx.bludbourne.screens.CutSceneScreen;
-import com.packtpub.libgdx.bludbourne.screens.GameOverScreen;
-import com.packtpub.libgdx.bludbourne.screens.LoadGameScreen;
-import com.packtpub.libgdx.bludbourne.screens.MainGameScreen;
-import com.packtpub.libgdx.bludbourne.screens.MainMenuScreen;
-import com.packtpub.libgdx.bludbourne.screens.NewGameScreen;
+import com.packtpub.libgdx.bludbourne.screens.*;
 
 
 public class BludBourne extends Game {
 
+	public final static int WIDTH = 1280;
+	public final static int HEIGHT = 720;
+
+	private static SplashScreen _splashScreen;
 	private static MainGameScreen _mainGameScreen;
 	private static MainMenuScreen _mainMenuScreen;
 	private static LoadGameScreen _loadGameScreen;
@@ -23,6 +21,7 @@ public class BludBourne extends Game {
 	private static CreditScreen _creditScreen;
 
 	public static enum ScreenType{
+		Splash,
 		MainMenu,
 		MainGame,
 		LoadGame,
@@ -34,6 +33,8 @@ public class BludBourne extends Game {
 
 	public Screen getScreenType(ScreenType screenType){
 		switch(screenType){
+			case Splash:
+				return _splashScreen;
 			case MainMenu:
 				return _mainMenuScreen;
 			case MainGame:
@@ -56,6 +57,7 @@ public class BludBourne extends Game {
 
 	@Override
 	public void create(){
+		_splashScreen = new SplashScreen(this);
 		_mainGameScreen = new MainGameScreen(this);
 		_mainMenuScreen = new MainMenuScreen(this);
 		_loadGameScreen = new LoadGameScreen(this);
@@ -63,7 +65,7 @@ public class BludBourne extends Game {
 		_gameOverScreen = new GameOverScreen(this);
 		_cutSceneScreen = new CutSceneScreen(this);
 		_creditScreen = new CreditScreen(this);
-		setScreen(_mainMenuScreen);
+		setScreen(_splashScreen);
 	}
 
 	@Override
