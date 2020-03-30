@@ -39,29 +39,43 @@ public abstract class GraphicsComponent extends ComponentSubject implements Comp
         //Look into the appropriate variable when changing position
         switch (_currentDirection) {
             case S:
-                if (_currentState == Entity.State.RUNNING) {
+                if(_currentState == Entity.State.Q) {
+                    Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.Q_S);
+                    if( animation == null ) return;
+                    _currentFrame = animation.getKeyFrame(_frameTime);
+                }
+                else if(_currentState == Entity.State.RUNNING) {
                     Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.MOVE_S);
                     if( animation == null ) return;
                     _currentFrame = animation.getKeyFrame(_frameTime);
-                } else if(_currentState == Entity.State.IDLE) {
-					Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.MOVE_S);
-                    if( animation == null ) return;
-                    _currentFrame = animation.getKeyFrames()[0];
-                } else if(_currentState == Entity.State.IMMOBILE) {
+                }
+                else if(_currentState == Entity.State.IDLE) {
+					Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.IDLE_S);
+                    if( animation == null )
+                        animation = _animations.get(Entity.AnimationType.IDLE);
+                    _currentFrame = animation.getKeyFrame(_frameTime);
+                }
+                else if(_currentState == Entity.State.IMMOBILE) {
 					Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.IMMOBILE);
                     if( animation == null ) return;
                     _currentFrame = animation.getKeyFrame(_frameTime);
                 }
                 break;
             case W:
-                if (_currentState == Entity.State.RUNNING) {
+                if(_currentState == Entity.State.Q) {
+                    Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.Q_W);
+                    if( animation == null ) return;
+                    _currentFrame = animation.getKeyFrame(_frameTime);
+                }
+                else if (_currentState == Entity.State.RUNNING) {
 					Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.MOVE_W);
                     if( animation == null ) return;
                     _currentFrame = animation.getKeyFrame(_frameTime);
                 } else if(_currentState == Entity.State.IDLE) {
-					Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.MOVE_W);
-                    if( animation == null ) return;
-                    _currentFrame = animation.getKeyFrames()[0];
+					Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.IDLE_W);
+                    if( animation == null )
+                        animation = _animations.get(Entity.AnimationType.IDLE);
+                    _currentFrame = animation.getKeyFrame(_frameTime);
                 } else if(_currentState == Entity.State.IMMOBILE) {
 					Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.IMMOBILE);
                     if( animation == null ) return;
@@ -69,14 +83,20 @@ public abstract class GraphicsComponent extends ComponentSubject implements Comp
                 }
                 break;
             case N:
-                if (_currentState == Entity.State.RUNNING) {
+                if(_currentState == Entity.State.Q) {
+                    Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.Q_N);
+                    if( animation == null ) return;
+                    _currentFrame = animation.getKeyFrame(_frameTime);
+                }
+                else if (_currentState == Entity.State.RUNNING) {
 					Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.MOVE_N);
                     if( animation == null ) return;
                     _currentFrame = animation.getKeyFrame(_frameTime);
                 } else if(_currentState == Entity.State.IDLE) {
-					Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.MOVE_N);
-                    if( animation == null ) return;
-                    _currentFrame = animation.getKeyFrames()[0];
+					Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.IDLE_N);
+                    if( animation == null )
+                        animation = _animations.get(Entity.AnimationType.IDLE);
+                    _currentFrame = animation.getKeyFrame(_frameTime);
                 } else if(_currentState == Entity.State.IMMOBILE) {
 					Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.IMMOBILE);
                     if( animation == null ) return;
@@ -84,14 +104,20 @@ public abstract class GraphicsComponent extends ComponentSubject implements Comp
                 }
                 break;
             case E:
-                if (_currentState == Entity.State.RUNNING) {
+                if(_currentState == Entity.State.Q) {
+                    Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.Q_E);
+                    if( animation == null ) return;
+                    _currentFrame = animation.getKeyFrame(_frameTime);
+                }
+                else if (_currentState == Entity.State.RUNNING) {
                     Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.MOVE_E);
                     if( animation == null ) return;
                     _currentFrame = animation.getKeyFrame(_frameTime);
                 } else if(_currentState == Entity.State.IDLE) {
-                    Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.MOVE_E);
-                    if( animation == null ) return;
-                    _currentFrame = animation.getKeyFrames()[0];
+					Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.IDLE_E);
+                    if( animation == null )
+                        animation = _animations.get(Entity.AnimationType.IDLE);
+                    _currentFrame = animation.getKeyFrame(_frameTime);
                 } else if(_currentState == Entity.State.IMMOBILE) {
                     Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.IMMOBILE);
                     if( animation == null ) return;
@@ -99,14 +125,20 @@ public abstract class GraphicsComponent extends ComponentSubject implements Comp
                 }
                 break;
             case NE:
-                if (_currentState == Entity.State.RUNNING) {
+                if(_currentState == Entity.State.Q) {
+                    Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.Q_NE);
+                    if( animation == null ) return;
+                    _currentFrame = animation.getKeyFrame(_frameTime);
+                }
+                else if (_currentState == Entity.State.RUNNING) {
                     Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.MOVE_NE);
                     if( animation == null ) return;
                     _currentFrame = animation.getKeyFrame(_frameTime);
                 } else if(_currentState == Entity.State.IDLE) {
-                    Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.MOVE_NE);
-                    if( animation == null ) return;
-                    _currentFrame = animation.getKeyFrames()[0];
+					Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.IDLE_NE);
+                    if( animation == null )
+                        animation = _animations.get(Entity.AnimationType.IDLE);
+                    _currentFrame = animation.getKeyFrame(_frameTime);
                 } else if(_currentState == Entity.State.IMMOBILE) {
                     Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.IMMOBILE);
                     if( animation == null ) return;
@@ -114,14 +146,20 @@ public abstract class GraphicsComponent extends ComponentSubject implements Comp
                 }
                 break;
             case SE:
-                if (_currentState == Entity.State.RUNNING) {
+                if(_currentState == Entity.State.Q) {
+                    Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.Q_SE);
+                    if( animation == null ) return;
+                    _currentFrame = animation.getKeyFrame(_frameTime);
+                }
+                else if (_currentState == Entity.State.RUNNING) {
                     Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.MOVE_SE);
                     if( animation == null ) return;
                     _currentFrame = animation.getKeyFrame(_frameTime);
                 } else if(_currentState == Entity.State.IDLE) {
-                    Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.MOVE_SE);
-                    if( animation == null ) return;
-                    _currentFrame = animation.getKeyFrames()[0];
+					Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.IDLE_SE);
+                    if( animation == null )
+                        animation = _animations.get(Entity.AnimationType.IDLE);
+                    _currentFrame = animation.getKeyFrame(_frameTime);
                 } else if(_currentState == Entity.State.IMMOBILE) {
                     Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.IMMOBILE);
                     if( animation == null ) return;
@@ -129,14 +167,20 @@ public abstract class GraphicsComponent extends ComponentSubject implements Comp
                 }
                 break;
             case NW:
-                if (_currentState == Entity.State.RUNNING) {
+                if(_currentState == Entity.State.Q) {
+                    Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.Q_NW);
+                    if( animation == null ) return;
+                    _currentFrame = animation.getKeyFrame(_frameTime);
+                }
+                else if (_currentState == Entity.State.RUNNING) {
                     Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.MOVE_NW);
                     if( animation == null ) return;
                     _currentFrame = animation.getKeyFrame(_frameTime);
                 } else if(_currentState == Entity.State.IDLE) {
-                    Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.MOVE_NW);
-                    if( animation == null ) return;
-                    _currentFrame = animation.getKeyFrames()[0];
+					Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.IDLE_NW);
+                    if( animation == null )
+                        animation = _animations.get(Entity.AnimationType.IDLE);
+                    _currentFrame = animation.getKeyFrame(_frameTime);
                 } else if(_currentState == Entity.State.IMMOBILE) {
                     Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.IMMOBILE);
                     if( animation == null ) return;
@@ -144,14 +188,20 @@ public abstract class GraphicsComponent extends ComponentSubject implements Comp
                 }
                 break;
             case SW:
-                if (_currentState == Entity.State.RUNNING) {
+                if(_currentState == Entity.State.Q) {
+                    Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.Q_SW);
+                    if( animation == null ) return;
+                    _currentFrame = animation.getKeyFrame(_frameTime);
+                }
+                else if (_currentState == Entity.State.RUNNING) {
                     Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.MOVE_SW);
                     if( animation == null ) return;
                     _currentFrame = animation.getKeyFrame(_frameTime);
                 } else if(_currentState == Entity.State.IDLE) {
-                    Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.MOVE_SW);
-                    if( animation == null ) return;
-                    _currentFrame = animation.getKeyFrames()[0];
+					Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.IDLE_SW);
+                    if( animation == null )
+                        animation = _animations.get(Entity.AnimationType.IDLE);
+                    _currentFrame = animation.getKeyFrame(_frameTime);
                 } else if(_currentState == Entity.State.IMMOBILE) {
                     Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.IMMOBILE);
                     if( animation == null ) return;
