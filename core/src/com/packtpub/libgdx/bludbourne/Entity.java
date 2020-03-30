@@ -38,6 +38,7 @@ public class Entity {
 	public static enum State {
 		IDLE,
 		RUNNING,
+		Q,
 
 		IMMOBILE;//This should always be last
 
@@ -56,6 +57,15 @@ public class Entity {
 		MOVE_NW,
 		MOVE_SE,
 		MOVE_SW,
+
+		Q_W,
+		Q_E,
+		Q_N,
+		Q_S,
+		Q_NE,
+		Q_NW,
+		Q_SE,
+		Q_SW,
 
 		IDLE_W,
 		IDLE_E,
@@ -78,6 +88,8 @@ public class Entity {
 	private EntityConfig _entityConfig;
 	private Array<Component> _components;
 	private InputComponent _inputComponent;
+	private Timer _animationTimer = new Timer(0);
+	private Timer[] _cooldownTimer = new Timer[3];
 	private GraphicsComponent _graphicsComponent;
 	private PhysicsComponent _physicsComponent;
 

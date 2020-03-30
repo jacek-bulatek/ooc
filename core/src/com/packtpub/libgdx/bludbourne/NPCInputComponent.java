@@ -47,9 +47,6 @@ public class NPCInputComponent extends InputComponent {
 
     @Override
     public void update(Entity entity, float delta){
-        if(keys.get(Keys.QUIT)) {
-            Gdx.app.exit();
-        }
 
         //If IMMOBILE, don't update anything
         if( _currentState == Entity.State.IMMOBILE ) {
@@ -94,7 +91,7 @@ public class NPCInputComponent extends InputComponent {
     @Override
     public boolean keyDown(int keycode) {
         if( keycode == Input.Keys.Q){
-            keys.put(Keys.QUIT, true);
+            keys.put(Keys.Q, true);
         }
         return false;
     }

@@ -8,6 +8,7 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.*;
 
 public class PlayerPhysicsComponent extends PhysicsComponent {
     private static final String TAG = PlayerPhysicsComponent.class.getSimpleName();
@@ -18,11 +19,13 @@ public class PlayerPhysicsComponent extends PhysicsComponent {
     private String _previousDiscovery;
     private String _previousEnemySpawn;
 
+
+
+
     public PlayerPhysicsComponent(){
         _boundingBoxLocation = BoundingBoxLocation.BOTTOM_CENTER;
         _previousDiscovery = "";
         _previousEnemySpawn = "0";
-
         _mouseSelectCoordinates = new Vector3(0,0,0);
     }
 
@@ -45,11 +48,14 @@ public class PlayerPhysicsComponent extends PhysicsComponent {
                 _previousDiscovery = "";
                 _previousEnemySpawn = "0";
                 notify(_previousEnemySpawn, ComponentObserver.ComponentEvent.ENEMY_SPAWN_LOCATION_CHANGED);
-            } else if (string[0].equalsIgnoreCase(MESSAGE.CURRENT_STATE.toString())) {
+            }
+            else if (string[0].equalsIgnoreCase(MESSAGE.CURRENT_STATE.toString())) {
                 _state = _json.fromJson(Entity.State.class, string[1]);
-            } else if (string[0].equalsIgnoreCase(MESSAGE.CURRENT_DIRECTION.toString())) {
+            }
+            else if (string[0].equalsIgnoreCase(MESSAGE.CURRENT_DIRECTION.toString())) {
                 _currentDirection = _json.fromJson(Entity.Direction.class, string[1]);
-            } else if (string[0].equalsIgnoreCase(MESSAGE.INIT_SELECT_ENTITY.toString())) {
+            }
+            else if (string[0].equalsIgnoreCase(MESSAGE.INIT_SELECT_ENTITY.toString())) {
                 _mouseSelectCoordinates = _json.fromJson(Vector3.class, string[1]);
                 _isMouseSelectEnabled = true;
             }

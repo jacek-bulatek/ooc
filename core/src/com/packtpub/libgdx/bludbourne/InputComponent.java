@@ -2,6 +2,7 @@ package com.packtpub.libgdx.bludbourne;
 
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.utils.Json;
+import com.packtpub.libgdx.bludbourne.Component.MESSAGE;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,9 +12,11 @@ public abstract class InputComponent extends ComponentSubject implements Compone
     protected Entity.Direction _currentDirection = null;
     protected Entity.State _currentState = null;
     protected Json _json;
+    protected Timer _animationTimer = new Timer(0);
+    protected Timer[] _cooldownTimers = {new Timer(0), new Timer(0), new Timer(0), new Timer(0)};
 
     protected enum Keys {
-        LEFT, RIGHT, UP, DOWN, QUIT, PAUSE
+        LEFT, RIGHT, UP, DOWN, Q, W, E, R
     }
 
     protected enum Mouse {
@@ -29,8 +32,10 @@ public abstract class InputComponent extends ComponentSubject implements Compone
         keys.put(Keys.RIGHT, false);
         keys.put(Keys.UP, false);
         keys.put(Keys.DOWN, false);
-        keys.put(Keys.QUIT, false);
-        keys.put(Keys.PAUSE, false);
+        keys.put(Keys.Q, false);
+        keys.put(Keys.W, false);
+        keys.put(Keys.E, false);
+        keys.put(Keys.R, false);
     };
 
     static {
@@ -43,5 +48,29 @@ public abstract class InputComponent extends ComponentSubject implements Compone
     }
 
     public abstract void update(Entity entity, float delta);
+    
+    protected boolean sendStateUpdate(Entity.State state, Entity entity){
+    	if(_animationTimer._isGoing) 
+    		return false;
+    	else if(state == Entity.State.Q) {
+    		if(_cooldownTimers[0]._isGoing) {
+    			entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.IDLE));
+    			return false;
+    		}
+    		else {
+    			_cooldownTimers[0].setTime(entity.getEntityConfig().getCooldownQ());
+    			_cooldownTimers[0].start();
+    			_animationTimer.setTime(0.5f);
+    			_animationTimer.start();
+    			entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.Q));
+    			return true;
+    		}
+    	}
+    	else {
+    		entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(state));
+    		return true;
+    	}
+    	
+    }
 
 }

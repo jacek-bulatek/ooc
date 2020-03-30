@@ -20,6 +20,10 @@ public class EntityConfig {
     private ObjectMap<String, String> entityProperties;
     private int width = 16;
     private int height = 16;
+    private float cooldownQ = 2;
+    private float cooldownW = 2;
+    private float cooldownE = 2;
+    private float cooldownR = 2;
 
     public static enum EntityProperties{
         ENTITY_HEALTH_POINTS,
@@ -45,6 +49,12 @@ public class EntityConfig {
         questConfigPath = config.getQuestConfigPath();
         currentQuestID = config.getCurrentQuestID();
         itemTypeID = config.getItemTypeID();
+        width = config.getWidth();
+        height = config.getHeight();
+        cooldownQ = config.getCooldownQ();
+        cooldownW = config.getCooldownW();
+        cooldownE = config.getCooldownE();
+        cooldownR = config.getCooldownR();
 
         animationConfig = new Array<AnimationConfig>();
         animationConfig.addAll(config.getAnimationConfig());
@@ -99,6 +109,14 @@ public class EntityConfig {
     public int getWidth() {return width;}
 
     public int getHeight() {return height;}
+    
+    public float getCooldownQ() {return cooldownQ;}
+    
+    public float getCooldownW() {return cooldownW;}
+    
+    public float getCooldownE() {return cooldownE;}
+    
+    public float getCooldownR() {return cooldownR;}
 
     public String getConversationConfigPath() {
         return conversationConfigPath;

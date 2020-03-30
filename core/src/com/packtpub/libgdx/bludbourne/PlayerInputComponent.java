@@ -36,52 +36,56 @@ public class PlayerInputComponent extends InputComponent {
 	@Override
 	public void update(Entity entity, float delta){
 		//Keyboard input
-		if(keys.get(Keys.PAUSE)) {
-			MainGameScreen.setGameState(MainGameScreen.GameState.PAUSED);
-			pauseReleased();
+		if(keys.get(Keys.Q)) {
+			sendStateUpdate(Entity.State.Q, entity);
+		}
+		else if(keys.get(Keys.W)) {
+			sendStateUpdate(Entity.State.Q, entity);
+		}
+		else if(keys.get(Keys.E)) {
+			sendStateUpdate(Entity.State.Q, entity);
+		}
+		else if(keys.get(Keys.R)) {
+			sendStateUpdate(Entity.State.Q, entity);
 		}
 		else if(keys.get(Keys.UP)) {
             if (keys.get(Keys.LEFT)) {
-                entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.RUNNING));
-                entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.NW));
+            	if(sendStateUpdate(Entity.State.RUNNING, entity))
+            		entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.NW));
             }
             else if (keys.get(Keys.RIGHT)) {
-                entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.RUNNING));
-                entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.NE));
+            	if(sendStateUpdate(Entity.State.RUNNING, entity))
+            		entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.NE));
             }
             else {
-                entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.RUNNING));
-                entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.N));
+            	if(sendStateUpdate(Entity.State.RUNNING, entity))
+            		entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.N));
             }
         }
         else if(keys.get(Keys.DOWN)){
             if(keys.get(Keys.RIGHT)){
-                entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.RUNNING));
-                entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.SE));
+            	if(sendStateUpdate(Entity.State.RUNNING, entity))
+            		entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.SE));
             }
             else if (keys.get(Keys.LEFT)){
-                entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.RUNNING));
-                entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.SW));
+            	if(sendStateUpdate(Entity.State.RUNNING, entity))
+    				entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.SW));
             }
             else {
-                entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.RUNNING));
-                entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.S));
+            	if(sendStateUpdate(Entity.State.RUNNING, entity))
+            		entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.S));
             }
         }
         else if(keys.get(Keys.RIGHT)){
-			entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.RUNNING));
-			entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.E));
+        	if(sendStateUpdate(Entity.State.RUNNING, entity))
+        		entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.E));
 		}
         else if(keys.get(Keys.LEFT)){
-            entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.RUNNING));
-            entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.W));
+        	if(sendStateUpdate(Entity.State.RUNNING, entity))
+        		entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.W));
         }
-		else if(keys.get(Keys.QUIT)) {
-			quitReleased();
-			Gdx.app.exit();
-		}
 		else{
-			entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.IDLE));
+			sendStateUpdate(Entity.State.IDLE, entity);
 			if( _currentDirection == null ){
 				entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.S));
 			}
@@ -92,6 +96,12 @@ public class PlayerInputComponent extends InputComponent {
 			//Gdx.app.debug(TAG, "Mouse LEFT click at : (" + _lastMouseCoordinates.x + "," + _lastMouseCoordinates.y + ")" );
 			entity.sendMessage(MESSAGE.INIT_SELECT_ENTITY, _json.toJson(_lastMouseCoordinates));
 			mouseButtons.put(Mouse.SELECT, false);
+		}
+		
+		// Update timers
+		_animationTimer.update(delta);
+		for(Timer timer : _cooldownTimers) {
+			timer.update(delta);
 		}
 	}
 
@@ -110,10 +120,16 @@ public class PlayerInputComponent extends InputComponent {
 			this.downPressed();
 		}
 		if( keycode == Input.Keys.Q){
-			this.quitPressed();
+			this.qPressed();
 		}
-		if( keycode == Input.Keys.P ){
-			this.pausePressed();
+		if( keycode == Input.Keys.W ){
+			this.wPressed();
+		}
+		if( keycode == Input.Keys.E ){
+			this.eReleased();
+		}
+		if( keycode == Input.Keys.R ){
+			this.rReleased();
 		}
 
 		return true;
@@ -134,10 +150,16 @@ public class PlayerInputComponent extends InputComponent {
 			this.downReleased();
 		}
 		if( keycode == Input.Keys.Q){
-			this.quitReleased();
+			this.qReleased();
 		}
-		if( keycode == Input.Keys.P ){
-			this.pauseReleased();
+		if( keycode == Input.Keys.W ){
+			this.wReleased();
+		}
+		if( keycode == Input.Keys.E ){
+			this.eReleased();
+		}
+		if( keycode == Input.Keys.R ){
+			this.rReleased();
 		}
 		return true;
 	}
@@ -208,14 +230,19 @@ public class PlayerInputComponent extends InputComponent {
 	public void downPressed(){
 		keys.put(Keys.DOWN, true);
 	}
-	public void quitPressed(){
-		keys.put(Keys.QUIT, true);
+
+	public void qPressed(){
+		keys.put(Keys.Q, true);
 	}
 
-	public void pausePressed() {
-		keys.put(Keys.PAUSE, true);
+	public void wPressed() {
+		keys.put(Keys.W, true);
 	}
-	
+
+	public void ePressed() { keys.put(Keys.E, true); }
+
+	public void RPressed() { keys.put(Keys.R, true); }
+
 	public void setClickedMouseCoordinates(int x,int y){
 		_lastMouseCoordinates.set(x, y, 0);
 	}
@@ -246,12 +273,22 @@ public class PlayerInputComponent extends InputComponent {
 		keys.put(Keys.DOWN, false);
 	}
 	
-	public void quitReleased(){
-		keys.put(Keys.QUIT, false);
+	public void qReleased(){
+		keys.put(Keys.Q, false);
 	}
 
-	public void pauseReleased() { keys.put(Keys.PAUSE, false);}
-	
+	public void wReleased(){
+		keys.put(Keys.W, false);
+	}
+
+	public void eReleased(){
+		keys.put(Keys.E, false);
+	}
+
+	public void rReleased(){
+		keys.put(Keys.R, false);
+	}
+
 	public void selectMouseButtonReleased(int x, int y){
 		mouseButtons.put(Mouse.SELECT, false);
 	}
@@ -265,6 +302,9 @@ public class PlayerInputComponent extends InputComponent {
 		keys.put(Keys.RIGHT, false);
 		keys.put(Keys.UP, false);
 		keys.put(Keys.DOWN, false);
-		keys.put(Keys.QUIT, false);
+		keys.put(Keys.Q, false);
+		keys.put(Keys.W, false);
+		keys.put(Keys.E, false);
+		keys.put(Keys.R, false);
 	}
 }

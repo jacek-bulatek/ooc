@@ -2,8 +2,8 @@
 entityID : PLAYER
 state : IDLE
 direction : S
-width: 96
-height: 96
+width: 192
+height: 192
 conversationConfigPath : ""
 questConfigPath : ""
 currentQuestID : ""
@@ -54,7 +54,7 @@ animationConfig: [
 		frameDuration: 1
 		animationType: IDLE_NE
 		texturePaths: [
-			sprites/characters/hero_idle96.png
+			sprites/characters/hero_idle.png
 		]
 		gridPoints: [
 			{
@@ -71,7 +71,7 @@ animationConfig: [
 		frameDuration: 1
 		animationType: IDLE_SW
 		texturePaths: [
-			sprites/characters/hero_idle96.png
+			sprites/characters/hero_idle.png
 		]
 		gridPoints: [
 			{
@@ -88,7 +88,7 @@ animationConfig: [
 		frameDuration: 1
 		animationType: IDLE_N
 		texturePaths: [
-			sprites/characters/hero_idle96.png
+			sprites/characters/hero_idle.png
 		]
 		gridPoints: [
 			{
@@ -105,7 +105,7 @@ animationConfig: [
 		frameDuration: 1
 		animationType: IDLE_S
 		texturePaths: [
-			sprites/characters/hero_idle96.png
+			sprites/characters/hero_idle.png
 		]
 		gridPoints: [
 			{
@@ -122,7 +122,7 @@ animationConfig: [
 		frameDuration: 1
 		animationType: IDLE_E
 		texturePaths: [
-			sprites/characters/hero_idle96.png
+			sprites/characters/hero_idle.png
 		]
 		gridPoints: [
 			{
@@ -139,7 +139,7 @@ animationConfig: [
 		frameDuration: 1
 		animationType: IDLE_W
 		texturePaths: [
-			sprites/characters/hero_idle96.png
+			sprites/characters/hero_idle.png
 		]
 		gridPoints: [
 			{
@@ -156,7 +156,7 @@ animationConfig: [
 		frameDuration: 1
 		animationType: IDLE_NW
 		texturePaths: [
-			sprites/characters/hero_idle96.png
+			sprites/characters/hero_idle.png
 		]
 		gridPoints: [
 			{
@@ -173,7 +173,7 @@ animationConfig: [
 		frameDuration: 1
 		animationType: IDLE_SE
 		texturePaths: [
-			sprites/characters/hero_idle96.png
+			sprites/characters/hero_idle.png
 		]
 		gridPoints: [
 			{
@@ -190,7 +190,7 @@ animationConfig: [
 		frameDuration: 0.125
 		animationType: MOVE_NE
 		texturePaths: [
-			sprites/characters/hero_run96.png
+			sprites/characters/hero_run.png
 		]
 		gridPoints: [
 			{
@@ -231,7 +231,7 @@ animationConfig: [
 		frameDuration: 0.125
 		animationType: MOVE_SW
 		texturePaths: [
-			sprites/characters/hero_run96.png
+			sprites/characters/hero_run.png
 		]
 		gridPoints: [
 			{
@@ -272,7 +272,7 @@ animationConfig: [
 		frameDuration: 0.125
 		animationType: MOVE_N
 		texturePaths: [
-			sprites/characters/hero_run96.png
+			sprites/characters/hero_run.png
 		]
 		gridPoints: [
 			{
@@ -313,7 +313,7 @@ animationConfig: [
 		frameDuration: 0.125
 		animationType: MOVE_S
 		texturePaths: [
-			sprites/characters/hero_run96.png
+			sprites/characters/hero_run.png
 		]
 		gridPoints: [
 			{
@@ -354,7 +354,7 @@ animationConfig: [
 		frameDuration: 0.125
 		animationType: MOVE_E
 		texturePaths: [
-			sprites/characters/hero_run96.png
+			sprites/characters/hero_run.png
 		]
 		gridPoints: [
 			{
@@ -395,7 +395,7 @@ animationConfig: [
 		frameDuration: 0.125
 		animationType: MOVE_W
 		texturePaths: [
-			sprites/characters/hero_run96.png
+			sprites/characters/hero_run.png
 		]
 		gridPoints: [
 			{
@@ -436,7 +436,7 @@ animationConfig: [
 		frameDuration: 0.125
 		animationType: MOVE_NW
 		texturePaths: [
-			sprites/characters/hero_run96.png
+			sprites/characters/hero_run.png
 		]
 		gridPoints: [
 			{
@@ -477,7 +477,7 @@ animationConfig: [
 		frameDuration: 0.125
 		animationType: MOVE_SE
 		texturePaths: [
-			sprites/characters/hero_run96.png
+			sprites/characters/hero_run.png
 		]
 		gridPoints: [
 			{
@@ -511,6 +511,270 @@ animationConfig: [
 			{
 				x: 7
 				y: 7
+			}
+		]
+	}
+	{
+		frameDuration: 0.1
+		animationType: Q_NE
+		texturePaths: [
+			sprites/characters/hero_Q.png
+		]
+		gridPoints: [
+			{
+				x: 0
+				y: 0
+			}
+			{
+				x: 0
+				y: 1
+			}
+			{
+			    x: 0
+				y: 2
+			}
+			{
+			    x: 0
+				y: 3
+			}
+			{
+				x: 0
+				y: 4
+			}
+			{
+				x: 0
+				y: 5
+			}
+		]
+	}
+	{
+		frameDuration: 0.1
+		animationType: Q_SW
+		texturePaths: [
+			sprites/characters/hero_Q.png
+		]
+		gridPoints: [
+			{
+				x: 1
+				y: 0
+			}
+			{
+				x: 1
+				y: 1
+			}
+			{
+			    x: 1
+				y: 2
+			}
+			{
+			    x: 1
+				y: 3
+			}
+			{
+				x: 1
+				y: 4
+			}
+			{
+				x: 1
+				y: 5
+			}
+		]
+	}
+	{
+		frameDuration: 0.1
+		animationType: Q_N
+		texturePaths: [
+			sprites/characters/hero_Q.png
+		]
+		gridPoints: [
+			{
+				x: 2
+				y: 0
+			}
+			{
+				x: 2
+				y: 1
+			}
+			{
+			    x: 2
+				y: 2
+			}
+			{
+			    x: 2
+				y: 3
+			}
+			{
+				x: 2
+				y: 4
+			}
+			{
+				x: 2
+				y: 5
+			}
+		]
+	}
+	{
+		frameDuration: 0.1
+		animationType: Q_S
+		texturePaths: [
+			sprites/characters/hero_Q.png
+		]
+		gridPoints: [
+			{
+				x: 3
+				y: 0
+			}
+			{
+				x: 3
+				y: 1
+			}
+			{
+			    x: 3
+				y: 2
+			}
+			{
+			    x: 3
+				y: 3
+			}
+			{
+				x: 3
+				y: 4
+			}
+			{
+				x: 3
+				y: 5
+			}
+		]
+	}
+	{
+		frameDuration: 0.1
+		animationType: Q_E
+		texturePaths: [
+			sprites/characters/hero_Q.png
+		]
+		gridPoints: [
+			{
+				x: 4
+				y: 0
+			}
+			{
+				x: 4
+				y: 1
+			}
+			{
+			    x: 4
+				y: 2
+			}
+			{
+			    x: 4
+				y: 3
+			}
+			{
+				x: 4
+				y: 4
+			}
+			{
+				x: 4
+				y: 5
+			}
+		]
+	}
+	{
+		frameDuration: 0.1
+		animationType: Q_W
+		texturePaths: [
+			sprites/characters/hero_Q.png
+		]
+		gridPoints: [
+			{
+				x: 5
+				y: 0
+			}
+			{
+				x: 5
+				y: 1
+			}
+			{
+			    x: 5
+				y: 2
+			}
+			{
+			    x: 5
+				y: 3
+			}
+			{
+				x: 5
+				y: 4
+			}
+			{
+				x: 5
+				y: 5
+			}
+		]
+	}
+	{
+		frameDuration: 0.1
+		animationType: Q_NW
+		texturePaths: [
+			sprites/characters/hero_Q.png
+		]
+		gridPoints: [
+			{
+				x: 0
+				y: 0
+			}
+			{
+				x: 0
+				y: 1
+			}
+			{
+			    x: 0
+				y: 2
+			}
+			{
+			    x: 0
+				y: 3
+			}
+			{
+				x: 0
+				y: 4
+			}
+			{
+				x: 0
+				y: 5
+			}
+		]
+	}
+	{
+		frameDuration: 0.1
+		animationType: Q_SE
+		texturePaths: [
+			sprites/characters/hero_Q.png
+		]
+		gridPoints: [
+			{
+				x: 0
+				y: 0
+			}
+			{
+				x: 0
+				y: 1
+			}
+			{
+			    x: 0
+				y: 2
+			}
+			{
+			    x: 0
+				y: 3
+			}
+			{
+				x: 0
+				y: 4
+			}
+			{
+				x: 0
+				y: 5
 			}
 		]
 	}
