@@ -178,21 +178,6 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _battleUI.getCurrentState().addObserver(this);
         this.addObserver(AudioManager.getInstance());
 
-        //Listeners
-        ImageButton inventoryButton = _statusUI.getInventoryButton();
-        inventoryButton.addListener(new ClickListener() {
-            public void clicked(InputEvent event, float x, float y) {
-                _inventoryUI.setVisible(_inventoryUI.isVisible() ? false : true);
-            }
-        });
-
-        ImageButton questButton = _statusUI.getQuestButton();
-        questButton.addListener(new ClickListener() {
-            public void clicked(InputEvent event, float x, float y) {
-                _questUI.setVisible(_questUI.isVisible() ? false : true);
-            }
-        });
-
         _conversationUI.getCloseButton().addListener(new ClickListener() {
                                                          @Override
                                                          public void clicked(InputEvent event, float x, float y) {
@@ -688,7 +673,20 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         }
     }
 
+    public void showInventory(){
+        _inventoryUI.setVisible(true);
+    }
 
+    public void showMenu(){
+        _inventoryUI.setVisible(true);
+    }
 
+    public void showJournal(){
+        _questUI.setVisible(true);
+    }
 
+    public void clearUIs(){
+        _inventoryUI.setVisible(false);
+        _questUI.setVisible(false);
+    }
 }

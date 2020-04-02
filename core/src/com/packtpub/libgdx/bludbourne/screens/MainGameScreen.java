@@ -2,11 +2,8 @@ package com.packtpub.libgdx.bludbourne.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapImageLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -20,7 +17,6 @@ import com.packtpub.libgdx.bludbourne.EntityFactory;
 import com.packtpub.libgdx.bludbourne.Map;
 import com.packtpub.libgdx.bludbourne.UI.PlayerHUD;
 import com.packtpub.libgdx.bludbourne.audio.AudioManager;
-import com.packtpub.libgdx.bludbourne.audio.AudioObserver;
 import com.packtpub.libgdx.bludbourne.profile.ProfileManager;
 import com.packtpub.libgdx.bludbourne.Component;
 
@@ -41,10 +37,14 @@ public class MainGameScreen extends GameScreen {
 		SAVING,
 		LOADING,
 		RUNNING,
+		INVENTORY,
+		MENU,
+		JOURNAL,
 		PAUSED,
 		GAME_OVER
 	}
 	private static GameState _gameState;
+	private GameState _lastGameState = GameState.RUNNING;
 
 	protected OrthogonalTiledMapRenderer _mapRenderer = null;
 	protected MapManager _mapMgr;
@@ -118,11 +118,32 @@ public class MainGameScreen extends GameScreen {
 			_game.setScreen(_game.getScreenType(BludBourne.ScreenType.GameOver));
 		}
 
-		if( _gameState == GameState.PAUSED ){
+		if(stateChanged()){
+			switch(_gameState){
+				case INVENTORY:
+					_playerHUD.clearUIs();
+					_playerHUD.showInventory();
+					break;
+				case MENU:
+					_playerHUD.clearUIs();
+					_playerHUD.showMenu();
+					break;
+				case JOURNAL:
+					_playerHUD.clearUIs();
+					_playerHUD.showJournal();
+					break;
+				default:
+					_playerHUD.clearUIs();
+					break;
+			}
+		}
+
+		if( _gameState != GameState.RUNNING){
 			_player.updateInput(delta);
 			_playerHUD.render(delta);
 			return;
 		}
+
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -230,6 +251,8 @@ public class MainGameScreen extends GameScreen {
 		MapFactory.clearCache();
 	}
 
+	private boolean stateChanged(){return _lastGameState == _gameState ? false : true;}
+
 	public static void setGameState(GameState gameState){
 		switch(gameState){
 			case RUNNING:
@@ -243,10 +266,35 @@ public class MainGameScreen extends GameScreen {
 				ProfileManager.getInstance().saveProfile();
 				_gameState = GameState.PAUSED;
 				break;
+			case INVENTORY:
+				if(_gameState == GameState.INVENTORY){
+					_gameState = GameState.RUNNING;
+				}
+				else if(_gameState == GameState.RUNNING){
+					_gameState = GameState.INVENTORY;
+				}
+				break;
+			case MENU:
+				if(_gameState == GameState.MENU){
+					_gameState = GameState.RUNNING;
+				}
+				else if(_gameState == GameState.RUNNING){
+					_gameState = GameState.MENU;
+				}
+				break;
+			case JOURNAL:
+				if( _gameState == GameState.JOURNAL ){
+					_gameState = GameState.RUNNING;
+				}
+				else if( _gameState == GameState.RUNNING ){
+					_gameState = GameState.JOURNAL;
+				}
+				break;
 			case PAUSED:
 				if( _gameState == GameState.PAUSED ){
 					_gameState = GameState.RUNNING;
-				}else if( _gameState == GameState.RUNNING ){
+				}
+				else if( _gameState == GameState.RUNNING ){
 					_gameState = GameState.PAUSED;
 				}
 				break;

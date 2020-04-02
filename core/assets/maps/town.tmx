@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="13" nextobjectid="12">
+<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="13" nextobjectid="13">
  <tileset firstgid="1" source="test.tsx"/>
- <tileset firstgid="901" source="anim.tsx"/>
  <layer id="1" name="Background_Layer" width="20" height="20">
   <data encoding="csv">
 63,63,63,63,63,63,33,63,35,68,68,61,63,63,63,33,63,63,63,63,
@@ -84,8 +83,9 @@
   <object id="8" x="32" y="160" width="128" height="192"/>
   <object id="9" x="0" y="352" width="192" height="96"/>
  </objectgroup>
- <objectgroup id="6" name="MAP_SPAWNS_LAYER" visible="0">
+ <objectgroup id="6" name="MAP_SPAWNS_LAYER">
   <object id="1" name="PLAYER_START" x="336.923" y="592.308"/>
+  <object id="12" name="NPC_START" x="334.679" y="273.491"/>
  </objectgroup>
  <objectgroup id="7" name="MAP_PORTAL_LAYER" visible="0"/>
  <objectgroup id="8" name="PARTICLE_EFFECT_SPAWN_LAYER" visible="0"/>
