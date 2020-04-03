@@ -2,6 +2,7 @@ package com.packtpub.libgdx.bludbourne.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMapImageLayer;
@@ -53,7 +54,8 @@ public class MainGameScreen extends GameScreen {
 
 	private Json _json;
 	private BludBourne _game;
-	private InputMultiplexer _multiplexer;
+	private InputProcessor _HUDInputProcessor;
+	private InputProcessor _playerInputProcessor;
 
 	private Entity _player;
 	private PlayerHUD _playerHUD;
@@ -81,10 +83,9 @@ public class MainGameScreen extends GameScreen {
 
 		_playerHUD = new PlayerHUD(_hudCamera, _player, _mapMgr);
 
-		_multiplexer = new InputMultiplexer();
-		_multiplexer.addProcessor(_playerHUD.getStage());
-		_multiplexer.addProcessor(_player.getInputProcessor());
-		Gdx.input.setInputProcessor(_multiplexer);
+		_HUDInputProcessor = _playerHUD.getInputProcessor();
+		_playerInputProcessor = _player.getInputProcessor();
+		Gdx.input.setInputProcessor(_playerInputProcessor);
 
 		//Gdx.app.debug(TAG, "UnitScale value is: " + _mapRenderer.getUnitScale());
 	}
@@ -95,7 +96,7 @@ public class MainGameScreen extends GameScreen {
 		ProfileManager.getInstance().addObserver(_playerHUD);
 
 		setGameState(GameState.LOADING);
-		Gdx.input.setInputProcessor(_multiplexer);
+		Gdx.input.setInputProcessor(_playerInputProcessor);
 
 
 		if( _mapRenderer == null ){
@@ -123,19 +124,24 @@ public class MainGameScreen extends GameScreen {
 				case INVENTORY:
 					_playerHUD.clearUIs();
 					_playerHUD.showInventory();
+					Gdx.input.setInputProcessor(_HUDInputProcessor);
 					break;
 				case MENU:
 					_playerHUD.clearUIs();
 					_playerHUD.showMenu();
+					Gdx.input.setInputProcessor(_HUDInputProcessor);
 					break;
 				case JOURNAL:
 					_playerHUD.clearUIs();
 					_playerHUD.showJournal();
+					Gdx.input.setInputProcessor(_HUDInputProcessor);
 					break;
 				default:
 					_playerHUD.clearUIs();
+					Gdx.input.setInputProcessor(_playerInputProcessor);
 					break;
 			}
+			_lastGameState = _gameState;
 		}
 
 		if( _gameState != GameState.RUNNING){
@@ -267,36 +273,16 @@ public class MainGameScreen extends GameScreen {
 				_gameState = GameState.PAUSED;
 				break;
 			case INVENTORY:
-				if(_gameState == GameState.INVENTORY){
-					_gameState = GameState.RUNNING;
-				}
-				else if(_gameState == GameState.RUNNING){
-					_gameState = GameState.INVENTORY;
-				}
+				_gameState = GameState.INVENTORY;
 				break;
 			case MENU:
-				if(_gameState == GameState.MENU){
-					_gameState = GameState.RUNNING;
-				}
-				else if(_gameState == GameState.RUNNING){
-					_gameState = GameState.MENU;
-				}
+				_gameState = GameState.MENU;
 				break;
 			case JOURNAL:
-				if( _gameState == GameState.JOURNAL ){
-					_gameState = GameState.RUNNING;
-				}
-				else if( _gameState == GameState.RUNNING ){
-					_gameState = GameState.JOURNAL;
-				}
+				_gameState = GameState.JOURNAL;
 				break;
 			case PAUSED:
-				if( _gameState == GameState.PAUSED ){
-					_gameState = GameState.RUNNING;
-				}
-				else if( _gameState == GameState.RUNNING ){
-					_gameState = GameState.PAUSED;
-				}
+				_gameState = GameState.PAUSED;
 				break;
 			case GAME_OVER:
 				_gameState = GameState.GAME_OVER;

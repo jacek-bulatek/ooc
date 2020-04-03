@@ -46,7 +46,7 @@ public abstract class InputComponent extends ComponentSubject implements Compone
         mouseButtons.put(Mouse.DOACTION, false);
     };
 
-    InputComponent(){
+        InputComponent(){
         _json = new Json();
     }
 

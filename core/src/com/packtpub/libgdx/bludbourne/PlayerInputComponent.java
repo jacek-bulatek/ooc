@@ -38,15 +38,18 @@ public class PlayerInputComponent extends InputComponent {
 		//Keyboard input
 		if(keys.get(Keys.ESC)){
             MainGameScreen.setGameState(MainGameScreen.GameState.MENU);
+			clear();
             // _animationTimer.stop(); need to do something like that
             return;
         }
         else if(keys.get(Keys.TAB)){
             MainGameScreen.setGameState(MainGameScreen.GameState.INVENTORY);
+            clear();
             return;
         }
         else if(keys.get(Keys.JOURNAL)){
             MainGameScreen.setGameState(MainGameScreen.GameState.JOURNAL);
+            clear();
             return;
         }
         if(keys.get(Keys.Q)) {
@@ -355,5 +358,8 @@ public class PlayerInputComponent extends InputComponent {
 		keys.put(Keys.W, false);
 		keys.put(Keys.E, false);
 		keys.put(Keys.R, false);
+		keys.put(Keys.TAB, false);
+		keys.put(Keys.ESC, false);
+		keys.put(Keys.JOURNAL, false);
 	}
 }
