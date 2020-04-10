@@ -1,5 +1,7 @@
 package com.packtpub.libgdx.bludbourne.UI;
 
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector2;
@@ -51,6 +53,8 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
     private StoreInventoryUI _storeInventoryUI;
     private QuestUI _questUI;
     private BattleUI _battleUI;
+    private InputMultiplexer _inputMultiplexer;
+    private UIInputComponent _UIInputComponent;
 
     private Dialog _messageBoxUI;
     private Json _json;
@@ -71,6 +75,11 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _viewport = new ScreenViewport(_camera);
         _stage = new Stage(_viewport);
         //_stage.setDebugAll(true);
+        _inputMultiplexer = new InputMultiplexer();
+        _UIInputComponent = new UIInputComponent(null);
+        _inputMultiplexer.addProcessor(_stage);
+        _inputMultiplexer.addProcessor(_UIInputComponent);
+
 
         _observers = new Array<AudioObserver>();
         _transitionActor = new ScreenTransitionActor();
@@ -177,21 +186,6 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         _inventoryUI.addObserver(this);
         _battleUI.getCurrentState().addObserver(this);
         this.addObserver(AudioManager.getInstance());
-
-        //Listeners
-        ImageButton inventoryButton = _statusUI.getInventoryButton();
-        inventoryButton.addListener(new ClickListener() {
-            public void clicked(InputEvent event, float x, float y) {
-                _inventoryUI.setVisible(_inventoryUI.isVisible() ? false : true);
-            }
-        });
-
-        ImageButton questButton = _statusUI.getQuestButton();
-        questButton.addListener(new ClickListener() {
-            public void clicked(InputEvent event, float x, float y) {
-                _questUI.setVisible(_questUI.isVisible() ? false : true);
-            }
-        });
 
         _conversationUI.getCloseButton().addListener(new ClickListener() {
                                                          @Override
@@ -688,7 +682,23 @@ public class PlayerHUD implements Screen, AudioSubject, ProfileObserver,Componen
         }
     }
 
+    public InputProcessor getInputProcessor(){return _inputMultiplexer;}
 
+    public void showInventory(){
+        _UIInputComponent.setUIComponent(_inventoryUI);
+        _inventoryUI.setVisible(true);
+    }
 
+    public void showMenu(){
+        _inventoryUI.setVisible(true);
+    }
 
+    public void showJournal(){
+        _questUI.setVisible(true);
+    }
+
+    public void clearUIs(){
+        _inventoryUI.setVisible(false);
+        _questUI.setVisible(false);
+    }
 }

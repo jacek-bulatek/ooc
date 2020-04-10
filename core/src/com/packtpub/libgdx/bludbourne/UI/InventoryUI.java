@@ -19,8 +19,9 @@ import com.packtpub.libgdx.bludbourne.InventoryItemFactory;
 import com.packtpub.libgdx.bludbourne.InventoryItem.ItemUseType;
 import com.packtpub.libgdx.bludbourne.InventoryItem.ItemTypeID;
 import com.packtpub.libgdx.bludbourne.Utility;
+import com.packtpub.libgdx.bludbourne.screens.MainGameScreen;
 
-public class InventoryUI extends Window implements InventorySubject, InventorySlotObserver{
+public class InventoryUI extends Window implements InventorySubject, InventorySlotObserver, UIInputable{
 
     public final static int _numSlots = 50;
     public static final String PLAYER_INVENTORY = "Player_Inventory";
@@ -470,5 +471,22 @@ public class InventoryUI extends Window implements InventorySubject, InventorySl
         for(InventoryObserver observer: _observers){
             observer.onNotify(value, event);
         }
+    }
+
+    @Override
+    public void selectUIElement(Direction direction) {
+        return;
+    }
+
+    @Override
+    public void activateUIElement() {
+        return;
+    }
+
+    @Override
+    public void back() {
+        // if activated, deactivate
+        // if nothing activated
+        MainGameScreen.setGameState(MainGameScreen.GameState.RUNNING);
     }
 }

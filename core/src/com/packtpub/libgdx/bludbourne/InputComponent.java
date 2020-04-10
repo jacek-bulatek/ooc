@@ -16,7 +16,7 @@ public abstract class InputComponent extends ComponentSubject implements Compone
     protected Timer[] _cooldownTimers = {new Timer(0), new Timer(0), new Timer(0), new Timer(0)};
 
     protected enum Keys {
-        LEFT, RIGHT, UP, DOWN, Q, W, E, R
+        LEFT, RIGHT, UP, DOWN, Q, W, E, R, ESC, TAB, JOURNAL
     }
 
     protected enum Mouse {
@@ -36,6 +36,9 @@ public abstract class InputComponent extends ComponentSubject implements Compone
         keys.put(Keys.W, false);
         keys.put(Keys.E, false);
         keys.put(Keys.R, false);
+        keys.put(Keys.JOURNAL, false);
+        keys.put(Keys.ESC, false);
+        keys.put(Keys.TAB, false);
     };
 
     static {
@@ -43,7 +46,7 @@ public abstract class InputComponent extends ComponentSubject implements Compone
         mouseButtons.put(Mouse.DOACTION, false);
     };
 
-    InputComponent(){
+        InputComponent(){
         _json = new Json();
     }
 
@@ -54,7 +57,6 @@ public abstract class InputComponent extends ComponentSubject implements Compone
     		return false;
     	else if(state == Entity.State.Q) {
     		if(_cooldownTimers[0]._isGoing) {
-    			entity.sendMessage(MESSAGE.CURRENT_STATE, _json.toJson(Entity.State.IDLE));
     			return false;
     		}
     		else {

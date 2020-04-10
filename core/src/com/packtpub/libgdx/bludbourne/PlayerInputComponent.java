@@ -36,7 +36,23 @@ public class PlayerInputComponent extends InputComponent {
 	@Override
 	public void update(Entity entity, float delta){
 		//Keyboard input
-		if(keys.get(Keys.Q)) {
+		if(keys.get(Keys.ESC)){
+            MainGameScreen.setGameState(MainGameScreen.GameState.MENU);
+			clear();
+            // _animationTimer.stop(); need to do something like that
+            return;
+        }
+        else if(keys.get(Keys.TAB)){
+            MainGameScreen.setGameState(MainGameScreen.GameState.INVENTORY);
+            clear();
+            return;
+        }
+        else if(keys.get(Keys.JOURNAL)){
+            MainGameScreen.setGameState(MainGameScreen.GameState.JOURNAL);
+            clear();
+            return;
+        }
+        if(keys.get(Keys.Q)) {
 			sendStateUpdate(Entity.State.Q, entity);
 		}
 		else if(keys.get(Keys.W)) {
@@ -48,7 +64,7 @@ public class PlayerInputComponent extends InputComponent {
 		else if(keys.get(Keys.R)) {
 			sendStateUpdate(Entity.State.Q, entity);
 		}
-		else if(keys.get(Keys.UP)) {
+		if(keys.get(Keys.UP)) {
             if (keys.get(Keys.LEFT)) {
             	if(sendStateUpdate(Entity.State.RUNNING, entity))
             		entity.sendMessage(MESSAGE.CURRENT_DIRECTION, _json.toJson(Entity.Direction.NW));
@@ -107,30 +123,39 @@ public class PlayerInputComponent extends InputComponent {
 
 	@Override
 	public boolean keyDown(int keycode) {
-		if( keycode == Input.Keys.LEFT){
+		if(keycode == Input.Keys.LEFT){
 			this.leftPressed();
 		}
-		if( keycode == Input.Keys.RIGHT){
+		if(keycode == Input.Keys.RIGHT){
 			this.rightPressed();
 		}
-		if( keycode == Input.Keys.UP){
+		if(keycode == Input.Keys.UP){
 			this.upPressed();
 		}
-		if( keycode == Input.Keys.DOWN){
+		if(keycode == Input.Keys.DOWN){
 			this.downPressed();
 		}
-		if( keycode == Input.Keys.Q){
+		if(keycode == Input.Keys.Q){
 			this.qPressed();
 		}
-		if( keycode == Input.Keys.W ){
+		if(keycode == Input.Keys.W ){
 			this.wPressed();
 		}
-		if( keycode == Input.Keys.E ){
-			this.eReleased();
+		if(keycode == Input.Keys.E ){
+			this.ePressed();
 		}
-		if( keycode == Input.Keys.R ){
-			this.rReleased();
+		if(keycode == Input.Keys.R ){
+			this.rPressed();
 		}
+		if(keycode == Input.Keys.ESCAPE){
+            this.escPressed();
+        }
+        if(keycode == Input.Keys.TAB){
+            this.tabPressed();
+        }
+        if(keycode == Input.Keys.J){
+            this.journalPressed();
+        }
 
 		return true;
 	}
@@ -160,6 +185,15 @@ public class PlayerInputComponent extends InputComponent {
 		}
 		if( keycode == Input.Keys.R ){
 			this.rReleased();
+		}
+		if(keycode == Input.Keys.ESCAPE){
+			this.escReleased();
+		}
+		if(keycode == Input.Keys.TAB){
+			this.tabReleased();
+		}
+		if(keycode == Input.Keys.J){
+			this.journalReleased();
 		}
 		return true;
 	}
@@ -241,7 +275,13 @@ public class PlayerInputComponent extends InputComponent {
 
 	public void ePressed() { keys.put(Keys.E, true); }
 
-	public void RPressed() { keys.put(Keys.R, true); }
+	public void rPressed() { keys.put(Keys.R, true); }
+
+	public void tabPressed() {keys.put(Keys.TAB, true); }
+
+	public void escPressed() {keys.put(Keys.ESC, true); }
+
+	public void journalPressed() {keys.put(Keys.JOURNAL, true); }
 
 	public void setClickedMouseCoordinates(int x,int y){
 		_lastMouseCoordinates.set(x, y, 0);
@@ -289,6 +329,18 @@ public class PlayerInputComponent extends InputComponent {
 		keys.put(Keys.R, false);
 	}
 
+	public void escReleased(){
+		keys.put(Keys.ESC, false);
+	}
+
+	public void tabReleased(){
+		keys.put(Keys.TAB, false);
+	}
+
+	public void journalReleased(){
+		keys.put(Keys.JOURNAL, false);
+	}
+
 	public void selectMouseButtonReleased(int x, int y){
 		mouseButtons.put(Mouse.SELECT, false);
 	}
@@ -306,5 +358,8 @@ public class PlayerInputComponent extends InputComponent {
 		keys.put(Keys.W, false);
 		keys.put(Keys.E, false);
 		keys.put(Keys.R, false);
+		keys.put(Keys.TAB, false);
+		keys.put(Keys.ESC, false);
+		keys.put(Keys.JOURNAL, false);
 	}
 }
