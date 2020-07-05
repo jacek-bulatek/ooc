@@ -1,15 +1,15 @@
-package com.packtpub.libgdx.bludbourne;
+package com.packtpub.libgdx.bludbourne.components.inputComponent;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.MathUtils;
+import com.packtpub.libgdx.bludbourne.Entity;
 
 public class NPCInputComponent extends InputComponent {
     private static final String TAG = NPCInputComponent.class.getSimpleName();
 
     private float _frameTime = 0.0f;
 
-    NPCInputComponent(){
+    public NPCInputComponent(){
         _currentDirection = Entity.Direction.getRandomNext();
         _currentState = Entity.State.RUNNING;
     }
@@ -91,7 +91,7 @@ public class NPCInputComponent extends InputComponent {
     @Override
     public boolean keyDown(int keycode) {
         if( keycode == Input.Keys.Q){
-            keys.put(Keys.Q, true);
+            keys.put(Keys.ABILITY_1, true);
         }
         return false;
     }

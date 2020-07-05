@@ -2,8 +2,6 @@ package com.packtpub.libgdx.bludbourne.UI;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.packtpub.libgdx.bludbourne.Entity;
-import com.packtpub.libgdx.bludbourne.InputComponent;
 
 /**
  * Created by Jacek on 2020-04-02.

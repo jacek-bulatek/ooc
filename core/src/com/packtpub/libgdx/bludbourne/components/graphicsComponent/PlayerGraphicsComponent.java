@@ -1,4 +1,4 @@
-package com.packtpub.libgdx.bludbourne;
+package com.packtpub.libgdx.bludbourne.components.graphicsComponent;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -8,7 +8,11 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
+import com.packtpub.libgdx.bludbourne.Entity;
+import com.packtpub.libgdx.bludbourne.EntityConfig;
 import com.packtpub.libgdx.bludbourne.EntityConfig.AnimationConfig;
+import com.packtpub.libgdx.bludbourne.MapManager;
+import com.packtpub.libgdx.bludbourne.components.ComponentObserver;
 
 public class PlayerGraphicsComponent extends GraphicsComponent {
 

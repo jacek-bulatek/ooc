@@ -2,6 +2,13 @@ package com.packtpub.libgdx.bludbourne;
 
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
+import com.packtpub.libgdx.bludbourne.components.Component;
+import com.packtpub.libgdx.bludbourne.components.graphicsComponent.NPCGraphicsComponent;
+import com.packtpub.libgdx.bludbourne.components.graphicsComponent.PlayerGraphicsComponent;
+import com.packtpub.libgdx.bludbourne.components.inputComponent.NPCInputComponent;
+import com.packtpub.libgdx.bludbourne.components.inputComponent.PlayerInputComponent;
+import com.packtpub.libgdx.bludbourne.components.physicsComponent.NPCPhysicsComponent;
+import com.packtpub.libgdx.bludbourne.components.physicsComponent.PlayerPhysicsComponent;
 
 import java.util.Hashtable;
 

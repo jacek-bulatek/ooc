@@ -1,6 +1,7 @@
 package com.packtpub.libgdx.bludbourne;
 
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.utils.Array;
 
 import com.badlogic.gdx.utils.ObjectMap;
@@ -20,10 +21,12 @@ public class EntityConfig {
     private ObjectMap<String, String> entityProperties;
     private int width = 16;
     private int height = 16;
-    private float cooldownQ = 2;
-    private float cooldownW = 2;
-    private float cooldownE = 2;
-    private float cooldownR = 2;
+    private float cdAbility1 = 2;   // Ability 1 cooldown time
+    private float cdAbility2 = 2;
+    private float cdAbility3 = 2;
+    private float cdAbility4 = 2;
+    private Array<Float> ability1HitboxVertices;
+    private Polygon ability1Hitbox;
 
     public static enum EntityProperties{
         ENTITY_HEALTH_POINTS,
@@ -51,10 +54,20 @@ public class EntityConfig {
         itemTypeID = config.getItemTypeID();
         width = config.getWidth();
         height = config.getHeight();
-        cooldownQ = config.getCooldownQ();
-        cooldownW = config.getCooldownW();
-        cooldownE = config.getCooldownE();
-        cooldownR = config.getCooldownR();
+        cdAbility1 = config.getCdAbility1();
+        cdAbility2 = config.getCdAbility2();
+        cdAbility3 = config.getCdAbility3();
+
+        ability1HitboxVertices = new Array<Float>();
+        if(config.getAbility1HitboxVertices() != null) {
+            ability1HitboxVertices.addAll(config.getAbility1HitboxVertices());
+
+            float[] temp = new float[ability1HitboxVertices.size];
+            for (int i = 0; i < ability1HitboxVertices.size; i++) {
+                temp[i] = ability1HitboxVertices.get(i);
+            }
+            ability1Hitbox = new Polygon(temp);
+        }
 
         animationConfig = new Array<AnimationConfig>();
         animationConfig.addAll(config.getAnimationConfig());
@@ -110,13 +123,13 @@ public class EntityConfig {
 
     public int getHeight() {return height;}
     
-    public float getCooldownQ() {return cooldownQ;}
+    public float getCdAbility1() {return cdAbility1;}
     
-    public float getCooldownW() {return cooldownW;}
+    public float getCdAbility2() {return cdAbility2;}
     
-    public float getCooldownE() {return cooldownE;}
+    public float getCdAbility3() {return cdAbility3;}
     
-    public float getCooldownR() {return cooldownR;}
+    public float getCdAbility4() {return cdAbility4;}
 
     public String getConversationConfigPath() {
         return conversationConfigPath;
@@ -165,6 +178,12 @@ public class EntityConfig {
     public void setInventory(Array<ItemTypeID> inventory) {
         this.inventory = inventory;
     }
+
+    public Array<Float> getAbility1HitboxVertices(){return ability1HitboxVertices;}
+
+    public Polygon getAbilty1Hitbox(){return ability1Hitbox;}
+
+    public void setAbility1Hitbox(Polygon ability1Hitbox){this.ability1Hitbox = ability1Hitbox;}
 
     static public class AnimationConfig{
         private float frameDuration = 1.0f;

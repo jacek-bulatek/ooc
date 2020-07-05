@@ -8,6 +8,16 @@ conversationConfigPath : ""
 questConfigPath : ""
 currentQuestID : ""
 itemTypeID: NONE
+ability1HitboxVertices: [
+	0,
+	0,
+	-96,
+	-80,
+	0,
+	-96,
+	96,
+	-80
+]
 inventory : [
 	{
 		value: ARMOR04
@@ -516,7 +526,7 @@ animationConfig: [
 	}
 	{
 		frameDuration: 0.1
-		animationType: Q_NE
+		animationType: ABILITY_1_NE
 		texturePaths: [
 			sprites/characters/hero_Q.png
 		]
@@ -549,7 +559,7 @@ animationConfig: [
 	}
 	{
 		frameDuration: 0.1
-		animationType: Q_SW
+		animationType: ABILITY_1_SW
 		texturePaths: [
 			sprites/characters/hero_Q.png
 		]
@@ -582,7 +592,7 @@ animationConfig: [
 	}
 	{
 		frameDuration: 0.1
-		animationType: Q_N
+		animationType: ABILITY_1_N
 		texturePaths: [
 			sprites/characters/hero_Q.png
 		]
@@ -615,7 +625,7 @@ animationConfig: [
 	}
 	{
 		frameDuration: 0.1
-		animationType: Q_S
+		animationType: ABILITY_1_S
 		texturePaths: [
 			sprites/characters/hero_Q.png
 		]
@@ -648,7 +658,7 @@ animationConfig: [
 	}
 	{
 		frameDuration: 0.1
-		animationType: Q_E
+		animationType: ABILITY_1_E
 		texturePaths: [
 			sprites/characters/hero_Q.png
 		]
@@ -681,7 +691,7 @@ animationConfig: [
 	}
 	{
 		frameDuration: 0.1
-		animationType: Q_W
+		animationType: ABILITY_1_W
 		texturePaths: [
 			sprites/characters/hero_Q.png
 		]
@@ -714,7 +724,7 @@ animationConfig: [
 	}
 	{
 		frameDuration: 0.1
-		animationType: Q_NW
+		animationType: ABILITY_1_NW
 		texturePaths: [
 			sprites/characters/hero_Q.png
 		]
@@ -747,7 +757,7 @@ animationConfig: [
 	}
 	{
 		frameDuration: 0.1
-		animationType: Q_SE
+		animationType: ABILITY_1_SE
 		texturePaths: [
 			sprites/characters/hero_Q.png
 		]

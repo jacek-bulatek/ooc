@@ -1,4 +1,4 @@
-package com.packtpub.libgdx.bludbourne;
+package com.packtpub.libgdx.bludbourne.components;
 
 public interface ComponentObserver {
     public static enum ComponentEvent {

@@ -1,8 +1,10 @@
-package com.packtpub.libgdx.bludbourne;
+package com.packtpub.libgdx.bludbourne.components.inputComponent;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector3;
+import com.packtpub.libgdx.bludbourne.Entity;
+import com.packtpub.libgdx.bludbourne.Timer;
 import com.packtpub.libgdx.bludbourne.screens.MainGameScreen;
 
 public class PlayerInputComponent extends InputComponent {
@@ -52,17 +54,17 @@ public class PlayerInputComponent extends InputComponent {
             clear();
             return;
         }
-        if(keys.get(Keys.Q)) {
-			sendStateUpdate(Entity.State.Q, entity);
+        if(keys.get(Keys.ABILITY_1)) {
+			sendStateUpdate(Entity.State.ABILITY_1, entity);
 		}
-		else if(keys.get(Keys.W)) {
-			sendStateUpdate(Entity.State.Q, entity);
+		else if(keys.get(Keys.ABILITY_2)) {
+			sendStateUpdate(Entity.State.ABILITY_1, entity);
 		}
-		else if(keys.get(Keys.E)) {
-			sendStateUpdate(Entity.State.Q, entity);
+		else if(keys.get(Keys.ABILITY_3)) {
+			sendStateUpdate(Entity.State.ABILITY_1, entity);
 		}
-		else if(keys.get(Keys.R)) {
-			sendStateUpdate(Entity.State.Q, entity);
+		else if(keys.get(Keys.ABILITY_4)) {
+			sendStateUpdate(Entity.State.ABILITY_1, entity);
 		}
 		if(keys.get(Keys.UP)) {
             if (keys.get(Keys.LEFT)) {
@@ -266,16 +268,16 @@ public class PlayerInputComponent extends InputComponent {
 	}
 
 	public void qPressed(){
-		keys.put(Keys.Q, true);
+		keys.put(Keys.ABILITY_1, true);
 	}
 
 	public void wPressed() {
-		keys.put(Keys.W, true);
+		keys.put(Keys.ABILITY_2, true);
 	}
 
-	public void ePressed() { keys.put(Keys.E, true); }
+	public void ePressed() { keys.put(Keys.ABILITY_3, true); }
 
-	public void rPressed() { keys.put(Keys.R, true); }
+	public void rPressed() { keys.put(Keys.ABILITY_4, true); }
 
 	public void tabPressed() {keys.put(Keys.TAB, true); }
 
@@ -314,19 +316,19 @@ public class PlayerInputComponent extends InputComponent {
 	}
 	
 	public void qReleased(){
-		keys.put(Keys.Q, false);
+		keys.put(Keys.ABILITY_1, false);
 	}
 
 	public void wReleased(){
-		keys.put(Keys.W, false);
+		keys.put(Keys.ABILITY_2, false);
 	}
 
 	public void eReleased(){
-		keys.put(Keys.E, false);
+		keys.put(Keys.ABILITY_3, false);
 	}
 
 	public void rReleased(){
-		keys.put(Keys.R, false);
+		keys.put(Keys.ABILITY_4, false);
 	}
 
 	public void escReleased(){
@@ -354,10 +356,10 @@ public class PlayerInputComponent extends InputComponent {
 		keys.put(Keys.RIGHT, false);
 		keys.put(Keys.UP, false);
 		keys.put(Keys.DOWN, false);
-		keys.put(Keys.Q, false);
-		keys.put(Keys.W, false);
-		keys.put(Keys.E, false);
-		keys.put(Keys.R, false);
+		keys.put(Keys.ABILITY_1, false);
+		keys.put(Keys.ABILITY_2, false);
+		keys.put(Keys.ABILITY_3, false);
+		keys.put(Keys.ABILITY_4, false);
 		keys.put(Keys.TAB, false);
 		keys.put(Keys.ESC, false);
 		keys.put(Keys.JOURNAL, false);

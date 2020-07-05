@@ -1,14 +1,20 @@
-package com.packtpub.libgdx.bludbourne;
+package com.packtpub.libgdx.bludbourne.components.physicsComponent;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.*;
+import com.packtpub.libgdx.bludbourne.Entity;
+import com.packtpub.libgdx.bludbourne.Map;
+import com.packtpub.libgdx.bludbourne.MapFactory;
+import com.packtpub.libgdx.bludbourne.MapManager;
+import com.packtpub.libgdx.bludbourne.components.Component;
+import com.packtpub.libgdx.bludbourne.components.ComponentObserver;
 
 public class PlayerPhysicsComponent extends PhysicsComponent {
     private static final String TAG = PlayerPhysicsComponent.class.getSimpleName();
@@ -73,6 +79,40 @@ public class PlayerPhysicsComponent extends PhysicsComponent {
         if( _isMouseSelectEnabled ){
             selectMapEntityCandidate(mapMgr);
             _isMouseSelectEnabled = false;
+        }
+
+        if(_state == Entity.State.ABILITY_1) {
+            Polygon hitbox = entity.getEntityConfig().getAbilty1Hitbox();
+            hitbox.setOrigin(entity.getCurrentPosition().x, entity.getCurrentPosition().y);
+            float degreeStep = 45;
+            switch(_currentDirection){
+                case S:
+                    break;
+                case SW:
+                    hitbox.rotate(1*degreeStep);
+                    break;
+                case W:
+                    hitbox.rotate(2*degreeStep);
+                    break;
+                case NW:
+                    hitbox.rotate(3*degreeStep);
+                    break;
+                case N:
+                    hitbox.rotate(4*degreeStep);
+                    break;
+                case NE:
+                    hitbox.rotate(5*degreeStep);
+                    break;
+                case E:
+                    hitbox.rotate(6*degreeStep);
+                    break;
+                case SE:
+                    hitbox.rotate(7*degreeStep);
+                    break;
+            }
+            if(isCollisionWithHitbox(entity, hitbox, mapMgr)){
+                // TODO: play sound
+            }
         }
 
         if (    !isCollisionWithMapLayer(entity, mapMgr) &&
