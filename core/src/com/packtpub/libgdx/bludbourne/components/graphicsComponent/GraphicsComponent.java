@@ -1,4 +1,4 @@
-package com.packtpub.libgdx.bludbourne;
+package com.packtpub.libgdx.bludbourne.components.graphicsComponent;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -9,6 +9,11 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
+import com.packtpub.libgdx.bludbourne.components.Component;
+import com.packtpub.libgdx.bludbourne.components.ComponentSubject;
+import com.packtpub.libgdx.bludbourne.Entity;
+import com.packtpub.libgdx.bludbourne.MapManager;
+import com.packtpub.libgdx.bludbourne.Utility;
 
 import java.util.Hashtable;
 
@@ -39,8 +44,8 @@ public abstract class GraphicsComponent extends ComponentSubject implements Comp
         //Look into the appropriate variable when changing position
         switch (_currentDirection) {
             case S:
-                if(_currentState == Entity.State.Q) {
-                    Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.Q_S);
+                if(_currentState == Entity.State.ABILITY_1) {
+                    Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.ABILITY_1_S);
                     if( animation == null ) return;
                     _currentFrame = animation.getKeyFrame(_frameTime);
                 }
@@ -62,8 +67,8 @@ public abstract class GraphicsComponent extends ComponentSubject implements Comp
                 }
                 break;
             case W:
-                if(_currentState == Entity.State.Q) {
-                    Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.Q_W);
+                if(_currentState == Entity.State.ABILITY_1) {
+                    Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.ABILITY_1_W);
                     if( animation == null ) return;
                     _currentFrame = animation.getKeyFrame(_frameTime);
                 }
@@ -83,8 +88,8 @@ public abstract class GraphicsComponent extends ComponentSubject implements Comp
                 }
                 break;
             case N:
-                if(_currentState == Entity.State.Q) {
-                    Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.Q_N);
+                if(_currentState == Entity.State.ABILITY_1) {
+                    Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.ABILITY_1_N);
                     if( animation == null ) return;
                     _currentFrame = animation.getKeyFrame(_frameTime);
                 }
@@ -104,8 +109,8 @@ public abstract class GraphicsComponent extends ComponentSubject implements Comp
                 }
                 break;
             case E:
-                if(_currentState == Entity.State.Q) {
-                    Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.Q_E);
+                if(_currentState == Entity.State.ABILITY_1) {
+                    Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.ABILITY_1_E);
                     if( animation == null ) return;
                     _currentFrame = animation.getKeyFrame(_frameTime);
                 }
@@ -125,8 +130,8 @@ public abstract class GraphicsComponent extends ComponentSubject implements Comp
                 }
                 break;
             case NE:
-                if(_currentState == Entity.State.Q) {
-                    Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.Q_NE);
+                if(_currentState == Entity.State.ABILITY_1) {
+                    Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.ABILITY_1_NE);
                     if( animation == null ) return;
                     _currentFrame = animation.getKeyFrame(_frameTime);
                 }
@@ -146,8 +151,8 @@ public abstract class GraphicsComponent extends ComponentSubject implements Comp
                 }
                 break;
             case SE:
-                if(_currentState == Entity.State.Q) {
-                    Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.Q_SE);
+                if(_currentState == Entity.State.ABILITY_1) {
+                    Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.ABILITY_1_SE);
                     if( animation == null ) return;
                     _currentFrame = animation.getKeyFrame(_frameTime);
                 }
@@ -167,8 +172,8 @@ public abstract class GraphicsComponent extends ComponentSubject implements Comp
                 }
                 break;
             case NW:
-                if(_currentState == Entity.State.Q) {
-                    Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.Q_NW);
+                if(_currentState == Entity.State.ABILITY_1) {
+                    Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.ABILITY_1_NW);
                     if( animation == null ) return;
                     _currentFrame = animation.getKeyFrame(_frameTime);
                 }
@@ -188,8 +193,8 @@ public abstract class GraphicsComponent extends ComponentSubject implements Comp
                 }
                 break;
             case SW:
-                if(_currentState == Entity.State.Q) {
-                    Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.Q_SW);
+                if(_currentState == Entity.State.ABILITY_1) {
+                    Animation<TextureRegion> animation = _animations.get(Entity.AnimationType.ABILITY_1_SW);
                     if( animation == null ) return;
                     _currentFrame = animation.getKeyFrame(_frameTime);
                 }
@@ -249,6 +254,8 @@ public abstract class GraphicsComponent extends ComponentSubject implements Comp
 
         return animation;
     }
+
+    public Vector2 getCurrentPosition(){return _currentPosition;}
 
     public Animation<TextureRegion> getAnimation(Entity.AnimationType type){
         return _animations.get(type);

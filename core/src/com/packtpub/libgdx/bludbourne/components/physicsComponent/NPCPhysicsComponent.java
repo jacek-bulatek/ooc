@@ -1,6 +1,9 @@
-package com.packtpub.libgdx.bludbourne;
+package com.packtpub.libgdx.bludbourne.components.physicsComponent;
 
 import com.badlogic.gdx.math.Vector2;
+import com.packtpub.libgdx.bludbourne.Entity;
+import com.packtpub.libgdx.bludbourne.MapManager;
+import com.packtpub.libgdx.bludbourne.components.Component;
 
 public class NPCPhysicsComponent extends PhysicsComponent {
     private static final String TAG = NPCPhysicsComponent.class.getSimpleName();

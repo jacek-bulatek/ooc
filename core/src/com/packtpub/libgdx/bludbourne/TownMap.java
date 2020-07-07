@@ -1,11 +1,11 @@
 package com.packtpub.libgdx.bludbourne;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.packtpub.libgdx.bludbourne.audio.AudioObserver;
+import com.packtpub.libgdx.bludbourne.components.Component;
+import com.packtpub.libgdx.bludbourne.components.physicsComponent.PlayerPhysicsComponent;
 import com.packtpub.libgdx.bludbourne.profile.ProfileManager;
 import com.packtpub.libgdx.bludbourne.sfx.ParticleEffectFactory;
 

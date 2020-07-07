@@ -6,11 +6,17 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonValue;
+import com.packtpub.libgdx.bludbourne.components.Component;
+import com.packtpub.libgdx.bludbourne.components.ComponentObserver;
+import com.packtpub.libgdx.bludbourne.components.graphicsComponent.GraphicsComponent;
+import com.packtpub.libgdx.bludbourne.components.inputComponent.InputComponent;
+import com.packtpub.libgdx.bludbourne.components.physicsComponent.PhysicsComponent;
 import com.packtpub.libgdx.bludbourne.profile.ProfileManager;
 
 import java.util.ArrayList;
@@ -38,7 +44,7 @@ public class Entity {
 	public static enum State {
 		IDLE,
 		RUNNING,
-		Q,
+		ABILITY_1,
 
 		IMMOBILE;//This should always be last
 
@@ -58,14 +64,14 @@ public class Entity {
 		MOVE_SE,
 		MOVE_SW,
 
-		Q_W,
-		Q_E,
-		Q_N,
-		Q_S,
-		Q_NE,
-		Q_NW,
-		Q_SE,
-		Q_SW,
+		ABILITY_1_W,
+		ABILITY_1_E,
+		ABILITY_1_N,
+		ABILITY_1_S,
+		ABILITY_1_NE,
+		ABILITY_1_NW,
+		ABILITY_1_SE,
+		ABILITY_1_SW,
 
 		IDLE_W,
 		IDLE_E,
@@ -180,7 +186,7 @@ public class Entity {
 	}
 
 	public Vector2 getCurrentPosition(){
-		return _graphicsComponent._currentPosition;
+		return _graphicsComponent.getCurrentPosition();
 	}
 
 	public InputProcessor getInputProcessor(){
@@ -197,7 +203,18 @@ public class Entity {
 
 	static public EntityConfig getEntityConfig(String configFilePath){
 		Json json = new Json();
-		return json.fromJson(EntityConfig.class, Gdx.files.internal(configFilePath));
+		EntityConfig config = json.fromJson(EntityConfig.class, Gdx.files.internal(configFilePath));
+		Array<Float> ability1HitboxVertices = new Array<Float>();
+		if(config.getAbility1HitboxVertices() != null) {
+			ability1HitboxVertices.addAll(config.getAbility1HitboxVertices());
+
+			float[] temp = new float[ability1HitboxVertices.size];
+			for (int i = 0; i < ability1HitboxVertices.size; i++) {
+				temp[i] = ability1HitboxVertices.get(i);
+			}
+			config.setAbility1Hitbox(new Polygon(temp));
+		}
+		return config;
 	}
 
 	static public Array<EntityConfig> getEntityConfigs(String configFilePath){

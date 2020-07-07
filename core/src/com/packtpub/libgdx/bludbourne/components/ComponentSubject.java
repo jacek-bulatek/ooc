@@ -1,6 +1,7 @@
-package com.packtpub.libgdx.bludbourne;
+package com.packtpub.libgdx.bludbourne.components;
 
 import com.badlogic.gdx.utils.Array;
+import com.packtpub.libgdx.bludbourne.components.ComponentObserver;
 
 public class ComponentSubject {
     private Array<ComponentObserver> _observers;

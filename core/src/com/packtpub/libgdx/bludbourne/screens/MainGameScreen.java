@@ -1,7 +1,6 @@
 package com.packtpub.libgdx.bludbourne.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -19,7 +18,7 @@ import com.packtpub.libgdx.bludbourne.Map;
 import com.packtpub.libgdx.bludbourne.UI.PlayerHUD;
 import com.packtpub.libgdx.bludbourne.audio.AudioManager;
 import com.packtpub.libgdx.bludbourne.profile.ProfileManager;
-import com.packtpub.libgdx.bludbourne.Component;
+import com.packtpub.libgdx.bludbourne.components.Component;
 
 public class MainGameScreen extends GameScreen {
 	private static final String TAG = MainGameScreen.class.getSimpleName();

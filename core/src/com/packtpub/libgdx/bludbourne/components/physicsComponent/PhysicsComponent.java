@@ -1,17 +1,23 @@
-package com.packtpub.libgdx.bludbourne;
+package com.packtpub.libgdx.bludbourne.components.physicsComponent;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
+import com.packtpub.libgdx.bludbourne.components.Component;
+import com.packtpub.libgdx.bludbourne.components.ComponentSubject;
+import com.packtpub.libgdx.bludbourne.Entity;
+import com.packtpub.libgdx.bludbourne.Map;
+import com.packtpub.libgdx.bludbourne.MapManager;
 
-public abstract class PhysicsComponent extends ComponentSubject implements Component{
+public abstract class PhysicsComponent extends ComponentSubject implements Component {
     private static final String TAG = PhysicsComponent.class.getSimpleName();
 
     public abstract void update(Entity entity, MapManager mapMgr, float delta);
@@ -86,6 +92,55 @@ public abstract class PhysicsComponent extends ComponentSubject implements Compo
         }
 
         return isCollisionWithMapEntities;
+    }
+
+    protected boolean isCollisionWithHitbox(Entity sourceEntity, Polygon hitbox, MapManager mapMgr){
+        boolean isCollisionWithHitbox = false;
+        _tempEntities.clear();
+        // disable friendly fire
+        if(sourceEntity == mapMgr.getPlayer()){
+            _tempEntities.addAll(mapMgr.getCurrentMapEntities());
+            _tempEntities.addAll(mapMgr.getCurrentMapQuestEntities());
+        }
+        else{
+            _tempEntities.add(mapMgr.getPlayer());
+        }
+
+
+        for(Entity mapEntity: _tempEntities) {
+            //Check for testing against self
+            if (mapEntity.equals(sourceEntity)) {
+                continue;
+            }
+
+            Rectangle targetRect = mapEntity.getCurrentBoundingBox();
+            if (hitbox.getBoundingRectangle().overlaps(targetRect)) {
+                // in range (spares complicated calculations for all entities)
+                float[] hitboxVertices = hitbox.getTransformedVertices();
+
+                Array<Vector2> targetRectVertices = new Array<>();
+                targetRectVertices.add(new Vector2(targetRect.getX(), targetRect.getY()));
+                targetRectVertices.add(new Vector2(targetRect.getX() + targetRect.getWidth(), targetRect.getY() + targetRect.getHeight()));
+                targetRectVertices.add(new Vector2(targetRect.getX() + targetRect.getWidth(), targetRect.getY()));
+                targetRectVertices.add(new Vector2(targetRect.getX(), targetRect.getY() + targetRect.getHeight()));
+
+                for(int i = 0; i < hitboxVertices.length; i+=2){
+                    if(targetRect.contains(hitboxVertices[i], hitboxVertices[i+1])){
+                        isCollisionWithHitbox = true;
+                        mapEntity.sendMessage(MESSAGE.COLLISION_WITH_HITBOX);
+                        break;
+                    }
+                }
+                for(Vector2 vertex : targetRectVertices){
+                    if(hitbox.contains(vertex)){
+                        isCollisionWithHitbox = true;
+                        mapEntity.sendMessage(MESSAGE.COLLISION_WITH_HITBOX);
+                        break;
+                    }
+                }
+            }
+        }
+        return isCollisionWithHitbox;
     }
 
     protected boolean isCollisionWithMapLayer(Entity entity, MapManager mapMgr){
