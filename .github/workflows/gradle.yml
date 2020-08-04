@@ -4,8 +4,6 @@
 name: Java CI with Gradle
 
 on:
-  push:
-    branches: [ POC ]
   pull_request:
     branches: [ POC ]
 
@@ -21,10 +19,19 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    - name: Dummy run wrapper, so next will be updated xD
-      run: gradle wrapper --gradle-version=4.6 --distribution-type=all --gradle-distribution-url=https\://services.gradle.org/distributions/gradle-4.6-all.zip
-      continue-on-error: true
+        java-package: jdk
     - name: Set execute rights to gradlew
       run: chmod +x ./gradlew
-    - name: Build with updated wrapper
+    - name: Use wrapper
       run: ./gradlew wrapper
+    - name: Build
+      run: ./gradlew build
+    - name: Publish desktop
+      run: ./gradlew desktop:dist
+    - name: Pack with packr.jar
+      run: java -jar packr.jar packr-config.json
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: ooc_win64
+        path: ./bin/win64
