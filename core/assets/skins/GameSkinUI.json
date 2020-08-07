@@ -1,7 +1,7 @@
 {
 	com.badlogic.gdx.graphics.g2d.BitmapFont: {
 		GameFont: {
-			file: ../fonts/GameFont.fnt
+			file: fonts/GameFont.fnt
 		}
 	}
 	com.badlogic.gdx.graphics.Color: {
