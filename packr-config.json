@@ -1,11 +1,11 @@
 {
     "platform": "windows64",
-    "jdk": "https://bitbucket.org/alexkasko/openjdk-unofficial-builds/downloads/openjdk-1.7.0-u80-unofficial-linux-i586-image.zip",
+    "jdk": "https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u265-b01/OpenJDK8U-jdk_x64_windows_hotspot_8u265b01.zip",
     "executable": "ooc",
     "classpath": [
         "desktop/build/libs/desktop-1.0.jar"
     ],
-    "mainclass": "com.packtpub.libgdx.bludbourne.desktop.DesktopLauncher",
+    "mainclass": "com.packtpub.libgdx.orderofchaos.desktop.DesktopLauncher",
     "vmargs": [
        "Xmx1G"
     ],
