@@ -1,6 +1,7 @@
 package com.packtpub.libgdx.orderofchaos.components.physicsComponent;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Polygon;
 import com.packtpub.libgdx.orderofchaos.Entity;
 
@@ -14,8 +15,19 @@ public class AbilityHitbox extends Polygon implements Drawable{
         super(vertices);
     }
     @Override
-    public void draw(Batch batch) {
+    public void draw(Camera camera, ShapeRenderer shapeRenderer) {
+        shapeRenderer.setProjectionMatrix(camera.combined);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shapeRenderer.setColor(1, 1, 0, 1);
 
+        float[] vertices = getTransformedVertices();
+        if(vertices.length > 2) {
+            for (int i = 0; i < vertices.length - 2; i += 2) {
+                shapeRenderer.line(vertices[i], vertices[i + 1], vertices[i + 2], vertices[i + 3]);
+            }
+            shapeRenderer.line(vertices[vertices.length - 2], vertices[vertices.length - 1], vertices[0], vertices[1]);
+        }
+        shapeRenderer.end();
     }
 
     public void setDirection(Entity.Direction _currentDirection){

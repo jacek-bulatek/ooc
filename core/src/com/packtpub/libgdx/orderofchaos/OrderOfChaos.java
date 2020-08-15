@@ -29,7 +29,7 @@ public class OrderOfChaos extends Game {
 
 		if(arg.length > 0){
 			for(int i = 0; i < arg.length; i++){
-				if(arg[i].toLowerCase() == "draw"){
+				if(arg[i].toLowerCase().equals("draw")){
 					DEBUG_DRAW = true;
 				}
 			}

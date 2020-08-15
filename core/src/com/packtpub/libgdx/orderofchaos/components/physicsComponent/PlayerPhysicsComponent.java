@@ -83,8 +83,11 @@ public class PlayerPhysicsComponent extends PhysicsComponent {
 
         if(_state == Entity.State.ABILITY_1) {
             AbilityHitbox hitbox = entity.getEntityConfig().getAbilty1Hitbox();
-            hitbox.setOrigin(entity.getCurrentPosition().x, entity.getCurrentPosition().y);
+
+            hitbox.setOrigin(0, 0);
             hitbox.setDirection(_currentDirection);
+            hitbox.translate(_currentEntityPosition.x, _currentEntityPosition.y);
+
             _ability1Hitbox = hitbox;
             if(isCollisionWithHitbox(entity, hitbox, mapMgr)){
                 // TODO: play sound
