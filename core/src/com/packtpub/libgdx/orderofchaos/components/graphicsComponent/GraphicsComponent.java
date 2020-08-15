@@ -1,5 +1,6 @@
 package com.packtpub.libgdx.orderofchaos.components.graphicsComponent;
 
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -259,10 +260,10 @@ public abstract class GraphicsComponent extends ComponentSubject implements Comp
 
     public Vector2 getCurrentPosition(){return _currentPosition;}
 
-    protected void drawDebug(Entity entity, Batch batch) {
+    protected void drawDebug(Entity entity, Camera camera) {
         Array<Drawable> drawables = entity.getPhysicsComponent().getDebugDrawables();
         for(Drawable drawable : drawables){
-            drawable.draw(batch);
+            drawable.draw(camera, _shapeRenderer);
         }
     }
 
