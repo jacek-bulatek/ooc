@@ -5,7 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.packtpub.libgdx.orderofchaos.OrderOfChaos;
-
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 
